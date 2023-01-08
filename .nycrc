@@ -1,0 +1,11 @@
+{
+    "all": true,
+    "exclude": ["test", "gulpfile.js", "coverage", "build", "manual-testing", "setup", ".sfdx"],
+    "output": "reports",
+    "reporter" : [
+        "html",
+        "text",
+        "json",
+        "cobertura"
+    ]
+}
