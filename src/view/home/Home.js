@@ -1,18 +1,32 @@
 import React, { Component } from "react";
 import * as controller from "./home-controller";
 
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import timegridPlugin from '@fullcalendar/timegrid' // a plugin!
+import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
+
 class Home extends Component {
     constructor() {
       super();
       this.clickAddStudent = this.clickAddStudent.bind(this);
+      this.clickAddStudent = this.dateClick.bind(this);
       this.state = {
         data: null,
-        students: [1]
+        students: [1],
+        selected: null
       };
     }
   
     async componentDidMount() {
       const data = await controller.getSettings();
+      data.events = [
+        {
+          title: 'Closed',
+          start: '2023-01-09T12:30:00Z',
+          end: '2023-01-09T16:30:00Z'
+        }
+      ];
+
       console.log(data);
       this.setState({
         data: data
@@ -26,6 +40,10 @@ class Home extends Component {
       this.setState({
         students: list
       });
+    }
+
+    dateClick(event) {
+      console.log(event);
     }
   
     render() {
@@ -149,7 +167,12 @@ class Home extends Component {
                   <button onClick={this.clickAddStudent}>Add Another Student</button>
                 </div>
               ))}
-
+            <FullCalendar
+              plugins={[ timegridPlugin, interactionPlugin ]}
+              initialView="timeGridWeek"
+              dateClick={this.dateClick}
+              events={this.state.data.events}
+            />
           </form>
         </div>
       );
