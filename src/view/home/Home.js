@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as controller from "./home-controller";
+import { Navigate } from 'react-router-dom';
 
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import timegridPlugin from '@fullcalendar/timegrid' // a plugin!
@@ -7,7 +8,7 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 class Home extends Component {
 
-   calendarRef = React.createRef()
+   calendarRef = React.createRef();
 
     constructor() {
       super();
@@ -17,7 +18,8 @@ class Home extends Component {
       this.state = {
         data: null,
         students: [1],
-        event: null
+        event: null,
+        body: null
       };
     }
   
@@ -35,6 +37,7 @@ class Home extends Component {
       this.setState({
         data: data
       });
+
     }
 
     clickAddStudent(event) {
@@ -110,11 +113,29 @@ class Home extends Component {
 
       const result = await controller.makeAppointment(body);
       console.log(result);
+
+      if (result.success) {
+        this.setState({
+          body: body
+        });
+      } else {
+
+      }
+      
+      //navigate('/thankyou');
+      //this.context.router.transitionTo('/thankyou');
+      //browserHistory.push('/thankyou');
+      //this.context.router.push('/thankyou');
     }
   
     render() {
+
+      if (this.state.body != null) {
+        return <Navigate to="/thankyou" push={true} />
+      }
+
       if (this.state.data == null) {
-        return <p>Loading...</p>;
+        return <p>Loading</p>;
       }
 
       return (
