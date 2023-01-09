@@ -13,9 +13,11 @@ class Home extends Component {
       super();
       this.clickAddStudent = this.clickAddStudent.bind(this);
       this.dateClick = this.dateClick.bind(this);
+      this.submit = this.submit.bind(this);
       this.state = {
         data: null,
-        students: [1]
+        students: [1],
+        event: null
       };
     }
   
@@ -59,21 +61,6 @@ class Home extends Component {
           color: '#378006'
       };
 
-      /*
-      const newEvent = {
-        title: 'New',
-        start: '2023-01-11T08:00:00.000+0000',
-        end: '2023-01-11T16:30:00Z'
-      }
-      this.state.data.events.push(newEvent)
-
-      this.setState({
-        data: this.state.data
-      });
-
-      console.log( this.state.data.events);
-      */
-
       let calendarApi = this.calendarRef.current.getApi()
       
       if (calendarApi.getEventById('new-appointment')) {
@@ -81,10 +68,43 @@ class Home extends Component {
       }
       
       calendarApi.addEvent(newEvent)
+
+      this.setState({
+        event: newEvent
+      });
     }
 
     datesSet(event) {
       console.log(event);
+    }
+
+    submit(event) {
+      event.preventDefault();
+      const elements = event.target.elements;
+
+      const body = {
+        datetime: this.state.event.start,
+        guardian: {
+          email: elements.email.value,
+          firstName: elements.firstName.value,
+          lastName: elements.lastName.value,
+          phoneNumber: elements.phoneNumber.value,
+          phoneTypeLabel: elements.phoneTypeLabel.value
+        },
+        students: []
+      };
+
+      for (let i = 1; i <= this.state.students.length; i++) {
+        const student = {
+          id: elements[`student-id-${i}`].value,
+          school: elements[`student-school-${i}`].value,
+          gender: elements[`student-gender-${i}`].value,
+          grade: elements[`student-grade-${i}`].value
+        };
+        body.students.push(student);
+      }
+
+      console.log(body);
     }
   
     render() {
@@ -94,7 +114,7 @@ class Home extends Component {
 
       return (
         <div>
-          <form>
+          <form onSubmit={this.submit}>
             <h3>Parent/Guardian Information</h3>
              <table>
               <tbody>
@@ -104,7 +124,7 @@ class Home extends Component {
                     First Name:
                   </td>
                   <td>
-                   <input type="text" />
+                   <input name="firstName" type="text" />
                   </td>
                   <td>
                     &nbsp;
@@ -113,7 +133,7 @@ class Home extends Component {
                     Last Name:
                   </td>
                   <td>
-                   <input type="text" />
+                   <input name="lastName" type="text" />
                   </td>
                   <td>
                     &nbsp;
@@ -122,7 +142,7 @@ class Home extends Component {
                     Email Address:
                   </td>
                   <td>
-                   <input type="text" style={{width: "300px"}} />
+                   <input name="email" type="text" style={{width: "300px"}} />
                   </td>
                 </tr>
 
@@ -131,7 +151,7 @@ class Home extends Component {
                     Phone Number:
                   </td>
                   <td>
-                   <input type="text" />
+                   <input name="phoneNumber" type="text" />
                   </td>
                   <td>
                     &nbsp;
@@ -140,7 +160,7 @@ class Home extends Component {
                     Phone Type:
                   </td>
                   <td>
-                    <select>
+                    <select name="phoneTypeLabel">
                     {this.state.data.phoneTypes.map((phoneType) => (
                      <option value={phoneType.label} key={phoneType.label}>{phoneType.label}</option>
                     ))}
@@ -161,7 +181,7 @@ class Home extends Component {
                         Student ID:
                       </td>
                       <td>
-                       <input type="text" />
+                       <input name={`student-id-${student}`} type="text" />
                       </td>
                       <td>
                        &nbsp;
@@ -170,7 +190,7 @@ class Home extends Component {
                         Gender:
                       </td>
                       <td>
-                        <select>
+                        <select name={`student-gender-${student}`}>
                           {this.state.data.genders.map((gender) => (
                           <option value={gender.label} key={gender.label}>{gender.label}</option>
                           ))}
@@ -183,7 +203,7 @@ class Home extends Component {
                         Grade:
                       </td>
                       <td>
-                        <select>
+                        <select name={`student-grade-${student}`}>
                           {this.state.data.grades.map((grade) => (
                           <option value={grade.label} key={grade.label}>{grade.label}</option>
                           ))}
@@ -196,7 +216,7 @@ class Home extends Component {
                         School:
                       </td>
                       <td>
-                        <select>
+                        <select name={`student-school-${student}`}>
                           {this.state.data.schools.map((school) => (
                           <option value={school.label} key={school.label}>{school.label}</option>
                           ))}
@@ -216,6 +236,8 @@ class Home extends Component {
               events={this.state.data.events}
               datesSet={this.datesSet}
             />
+            <br />
+            <button type="submit">Submit</button>
           </form>
         </div>
       );
