@@ -47,7 +47,7 @@ class Home extends Component {
     }
 
     dateClick(event) {
-      // the good news is that you only get this event when you click on an empty space
+      // TODO: Don't allow booking on top of appointments
       console.log(event);
       
       const startDate = new Date(event.dateStr);
@@ -78,12 +78,12 @@ class Home extends Component {
       console.log(event);
     }
 
-    submit(event) {
+    async submit(event) {
       event.preventDefault();
       const elements = event.target.elements;
 
       const body = {
-        datetime: this.state.event.start,
+        datetime: this.state.event?.start?.replace('Z', '+0000'),
         guardian: {
           email: elements.email.value,
           firstName: elements.firstName.value,
@@ -104,7 +104,12 @@ class Home extends Component {
         body.students.push(student);
       }
 
+      // TODO: form validation
+
       console.log(body);
+
+      const result = await controller.makeAppointment(body);
+      console.log(result);
     }
   
     render() {
