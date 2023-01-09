@@ -6,26 +6,28 @@ import timegridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 class Home extends Component {
+
+   calendarRef = React.createRef()
+
     constructor() {
       super();
       this.clickAddStudent = this.clickAddStudent.bind(this);
-      this.clickAddStudent = this.dateClick.bind(this);
+      this.dateClick = this.dateClick.bind(this);
       this.state = {
         data: null,
-        students: [1],
-        selected: null
+        students: [1]
       };
     }
   
     async componentDidMount() {
       const data = await controller.getSettings();
-      data.events = [
+      /*data.events = [
         {
           title: 'Closed',
-          start: '2023-01-09T12:30:00Z',
+          start: '2023-01-09T08:00:00.000+0000',
           end: '2023-01-09T16:30:00Z'
         }
-      ];
+      ];*/
 
       console.log(data);
       this.setState({
@@ -43,6 +45,45 @@ class Home extends Component {
     }
 
     dateClick(event) {
+      // the good news is that you only get this event when you click on an empty space
+      console.log(event);
+      
+      const startDate = new Date(event.dateStr);
+      const endDate = new Date(startDate.getTime() + 30 * 60000);
+
+      const newEvent = {
+          id: 'new-appointment',
+          title: 'New',
+          start: startDate.toISOString(),
+          end: endDate.toISOString(),
+          color: '#378006'
+      };
+
+      /*
+      const newEvent = {
+        title: 'New',
+        start: '2023-01-11T08:00:00.000+0000',
+        end: '2023-01-11T16:30:00Z'
+      }
+      this.state.data.events.push(newEvent)
+
+      this.setState({
+        data: this.state.data
+      });
+
+      console.log( this.state.data.events);
+      */
+
+      let calendarApi = this.calendarRef.current.getApi()
+      
+      if (calendarApi.getEventById('new-appointment')) {
+        calendarApi.getEventById('new-appointment').remove()
+      }
+      
+      calendarApi.addEvent(newEvent)
+    }
+
+    datesSet(event) {
       console.log(event);
     }
   
@@ -168,10 +209,12 @@ class Home extends Component {
                 </div>
               ))}
             <FullCalendar
+              ref={this.calendarRef}
               plugins={[ timegridPlugin, interactionPlugin ]}
               initialView="timeGridWeek"
               dateClick={this.dateClick}
               events={this.state.data.events}
+              datesSet={this.datesSet}
             />
           </form>
         </div>
