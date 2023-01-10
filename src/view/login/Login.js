@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from '@react-oauth/google';
+import * as controller from "./login-controller";
 
 class Login extends Component {
     constructor() {
@@ -11,8 +12,8 @@ class Login extends Component {
       
     }
 
-    onSuccess(credentialResponse) {
-      console.log(credentialResponse);
+    async onSuccess(credentialResponse) {
+      await controller.login(credentialResponse);
     }
 
     onError() {
