@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { GoogleLogin } from '@react-oauth/google';
 
 class Login extends Component {
     constructor() {
@@ -9,10 +10,22 @@ class Login extends Component {
     async componentDidMount() {
       
     }
+
+    onSuccess(credentialResponse) {
+      console.log(credentialResponse);
+    }
+
+    onError() {
+      console.log('Login Failed');
+    }
   
     render() {
       return (
-        <p>Login</p>
+        <GoogleLogin
+            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+            onSuccess={this.onSuccess}
+            onError={this.onError}
+          />
       );
     }
   }
