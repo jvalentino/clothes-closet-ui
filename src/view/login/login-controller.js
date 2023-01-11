@@ -1,4 +1,4 @@
-import * as AppState from "../../app-state";
+import AppState from "../../AppState";
 
 async function login(credentialResponse) {
     console.log(credentialResponse);
