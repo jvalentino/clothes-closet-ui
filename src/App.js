@@ -10,6 +10,7 @@ import {
 import Home from "./view/home/Home";
 import Login from "./view/login/Login";
 import Thankyou from "./view/thankyou/Thankyou";
+import Appointment from "./view/appointment/Appointment";
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/thankyou" element={<Thankyou />} />
+            <Route path="/appointment" element={<Appointment />} />
           </Routes>
         </div>
       </Router>
