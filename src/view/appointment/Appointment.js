@@ -6,6 +6,9 @@ import AppState from "../../AppState";
 
 import DataTable from 'react-data-table-component';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 class Appointment extends Component {
   
   columns = [
@@ -41,6 +44,7 @@ class Appointment extends Component {
       this.appointmentSelected = this.appointmentSelected.bind(this);
       this.onAddPerson = this.onAddPerson.bind(this);
       this.updateVisit = this.updateVisit.bind(this);
+      this.cancelAppointment = this.cancelAppointment.bind(this);
 
       this.state = {
         date: null,
@@ -146,6 +150,38 @@ class Appointment extends Component {
         appointment: null
       });
 
+    }
+
+    async cancelAppointment(event) {
+      event.preventDefault();
+
+      confirmAlert({
+        title: 'Are you sure?',
+        message: 'Are you sure you want to cancel this appointment?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.confirmCancelAppointment()
+          },
+          {
+            label: 'No',
+            onClick: () => console.log('closed')
+          }
+        ]
+      });
+    }
+
+    async confirmCancelAppointment() {
+      console.log('Doing cancel');
+      const result = await controller.cancel(
+        this.state.appointment.id, AppState.getSessionId(), AppState.getUrl());
+      console.log(result);
+
+      this.setState({
+        date: null,
+        searchResults: null,
+        appointment: null
+      });
     }
 
     renderNumberRows(visit) {
@@ -305,6 +341,16 @@ class Appointment extends Component {
           </table>
       );
     }
+
+    renderCancel() {
+      if (this.state.appointment == null) {
+        return (<div />);
+      }
+
+      return (
+        <button type="submit">Cancel Appointment</button>
+      );
+    }
   
     render() {
       return (
@@ -339,6 +385,10 @@ class Appointment extends Component {
           </form>
           <form onSubmit={this.updateVisit}>
            {this.renderDetails()}
+          </form>
+          <br />
+          <form onSubmit={this.cancelAppointment}>
+            {this.renderCancel()}
           </form>
         </div>
       );

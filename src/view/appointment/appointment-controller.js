@@ -73,9 +73,22 @@ async function updateAppointment(appointmentId, visits, sessionId, url) {
     return JSON.parse(text);
 }
 
+async function cancel(appointmentId, sessionId, url) {
+    const endpoint = `${url}/appointment/cancel?id=${appointmentId}&x-auth-token=${sessionId}`;
+
+    const requestOptions = {
+        method: 'DELETE'
+    };
+    const response = await fetch(endpoint, requestOptions);
+    const text = await response.text();
+    const result = JSON.parse(text);
+    return result;
+}
+
 export {
     search,
     getDetails,
     addPerson,
-    updateAppointment
+    updateAppointment,
+    cancel
 }
