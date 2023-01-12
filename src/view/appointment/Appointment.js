@@ -39,6 +39,7 @@ class Appointment extends Component {
 
       this.onSearch = this.onSearch.bind(this);
       this.appointmentSelected = this.appointmentSelected.bind(this);
+      this.onAddPerson = this.onAddPerson.bind(this);
 
       this.state = {
         date: null,
@@ -95,6 +96,23 @@ class Appointment extends Component {
         </div>
         
       );
+    }
+
+    async onAddPerson(event) {
+      event.preventDefault();
+      const visit = await controller.addPerson(
+        this.state.appointment.id,
+        event.target.elements['new-relation'].value,
+        AppState.getSessionId(), 
+        AppState.getUrl()
+      );
+      this.state.appointment.visits.push(visit);
+
+      event.target.elements['new-relation'].value = null;
+
+      this.setState({
+        appointment: this.state.appointment
+      });
     }
 
     renderNumberRows(visit) {
@@ -184,6 +202,21 @@ class Appointment extends Component {
       );
     }
 
+    renderAppointmentHeader() {
+      if (this.state.appointment == null) {
+        return (<div />);
+      }
+
+      const appointment = this.state.appointment;
+
+      return (
+        <h3>
+            Appointment: {new Date(appointment.datetimeIso).toLocaleDateString()}
+            {" @ " + new Date(appointment.datetimeIso).toLocaleTimeString()}
+          </h3>
+      );
+    }
+
     renderDetails() {
       if (this.state.appointment == null) {
         return (<div />);
@@ -192,11 +225,7 @@ class Appointment extends Component {
       const appointment = this.state.appointment;
 
       return (
-        <div>
-          <h3>
-            Appointment: {new Date(appointment.datetimeIso).toLocaleDateString()}
-            {" @ " + new Date(appointment.datetimeIso).toLocaleTimeString()}
-          </h3>
+        <div>          
           <table>
             <tbody>
               <tr>
@@ -209,17 +238,38 @@ class Appointment extends Component {
               </tr>
             </tbody>
           </table>
-          <form>
+          <div>
             {appointment.visits.map((visit) => (
               <div key={visit.id}>
-                
                   {this.renderVisit(visit)}
                   {this.renderNumberRows(visit)}
-                
               </div>
             ))}
-          </form>
+          </div>
+          <button type="submit">Submit</button>
         </div>
+      );
+    }
+
+    renderAddPerson() {
+      if (this.state.appointment == null) {
+        return (<div />);
+      }
+
+      return (
+        <table>
+            <tbody>
+              <tr>
+                <td><b>Relation:</b></td>
+                <td>
+                <input type="text" name="new-relation" />
+                </td>
+                <td>
+                  <button type="submit">Add New Person</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
       );
     }
   
@@ -250,7 +300,13 @@ class Appointment extends Component {
             </table>
           </form>
           {this.renderSearchResults()}
-          {this.renderDetails()}
+          {this.renderAppointmentHeader()}
+          <form onSubmit={this.onAddPerson}>
+           {this.renderAddPerson()}
+          </form>
+          <form>
+           {this.renderDetails()}
+          </form>
         </div>
       );
     }
