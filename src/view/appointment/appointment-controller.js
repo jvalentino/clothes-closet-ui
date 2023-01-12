@@ -3,7 +3,6 @@ async function search(date, name, sessionId, url) {
     let endpoint = `${url}/appointment/search?`;
 
     console.log(`session id is ${sessionId}`);
-    console.log(date);
 
     if (date != null && date != undefined && date != '') {
         const split = date.split('/');
@@ -20,7 +19,6 @@ async function search(date, name, sessionId, url) {
     const requestOptions = {
         method: 'GET'
     };
-    console.log(endpoint);
     const response = await fetch(endpoint, requestOptions);
     const text = await response.text();
     const result = JSON.parse(text);
@@ -29,6 +27,19 @@ async function search(date, name, sessionId, url) {
     return result;
 }
 
+async function getDetails(id, sessionId, url) {
+    const endpoint = `${url}/appointment/details?id=${id}&x-auth-token=${sessionId}`;
+
+    const requestOptions = {
+        method: 'GET'
+    };
+    const response = await fetch(endpoint, requestOptions);
+    const text = await response.text();
+    const result = JSON.parse(text);
+    return result;
+}
+
 export {
-    search
+    search,
+    getDetails
 }
