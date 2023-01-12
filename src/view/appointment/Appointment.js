@@ -4,6 +4,31 @@ import "react-datepicker/dist/react-datepicker.css";
 import * as controller from "./appointment-controller";
 import AppState from "../../AppState";
 
+import DataTable from 'react-data-table-component';
+
+const columns = [
+  {
+    name: 'Date',
+    selector: row => new Date(row.datetimeIso).toLocaleDateString(),
+    sortable: true,
+  },
+  {
+      name: 'Time',
+      selector: row => new Date(row.datetimeIso).toLocaleTimeString(),
+      sortable: true,
+  },
+  {
+    name: 'Happened?',
+    selector: row => row.happened == true ? "Yes": "No",
+    sortable: true,
+  },
+  {
+    name: 'Guardian',
+    selector: row => row.guardian.firstName + " " + row.guardian.lastName,
+    sortable: true,
+  },
+];
+
 class Appointment extends Component {
   
     constructor() {
@@ -12,7 +37,8 @@ class Appointment extends Component {
       this.onSearch = this.onSearch.bind(this);
 
       this.state = {
-        date: null
+        date: null,
+        searchResults: null
       };
     }
   
@@ -25,11 +51,32 @@ class Appointment extends Component {
       
       const elements = event.target.elements;
 
-      await controller.search(
+      const searchResults = await controller.search(
         elements['date-field'].value, 
         elements['name-field'].value,
         AppState.getSessionId(),
-        AppState.getUrl())
+        AppState.getUrl());
+
+      this.setState({
+        searchResults: searchResults
+      });
+    }
+
+    renderSearchResults() {
+      if (this.state.searchResults == null) {
+        return (<div />);
+      }
+
+      return (
+        <div>
+          <h3>Search Results</h3>
+          <DataTable
+            columns={columns}
+            data={this.state.searchResults.appointments}
+          />
+        </div>
+        
+      );
     }
   
     render() {
@@ -58,6 +105,7 @@ class Appointment extends Component {
               </tbody>
             </table>
           </form>
+          {this.renderSearchResults()}
         </div>
       );
     }
