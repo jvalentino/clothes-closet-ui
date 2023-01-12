@@ -28,6 +28,14 @@ class AppState {
     getInstance() {
         return this;
     }
+
+    setCurrentAppointmentId(id) {
+        this.cookies.set('clothes-closet-appointment-id', id);
+    }
+
+    getCurrentAppointmentId() {
+        return this.cookies.get('clothes-closet-appointment-id');
+    }
 }
 
 

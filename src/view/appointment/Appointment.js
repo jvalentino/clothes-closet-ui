@@ -16,6 +16,9 @@ class Appointment extends Component {
       cell:(row)=><button onClick={this.appointmentSelected} id={row.id}>Select</button>,
     },
     {
+      cell:(row)=><button onClick={this.printSelected} id={row.id}>Print</button>,
+    },
+    {
       name: 'Date',
       selector: row => new Date(row.datetimeIso).toLocaleDateString(),
       sortable: true,
@@ -45,6 +48,7 @@ class Appointment extends Component {
       this.onAddPerson = this.onAddPerson.bind(this);
       this.updateVisit = this.updateVisit.bind(this);
       this.cancelAppointment = this.cancelAppointment.bind(this);
+      this.printSelected = this.printSelected.bind(this);
 
       this.state = {
         date: null,
@@ -83,6 +87,12 @@ class Appointment extends Component {
         searchResults: null,
         appointment: appointment
       });
+    }
+
+    printSelected(event) {
+      const appointmentId = event.target.id;
+      AppState.setCurrentAppointmentId(appointmentId);
+      window.open("/print");
     }
 
     renderSearchResults() {
