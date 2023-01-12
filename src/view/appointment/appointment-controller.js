@@ -57,8 +57,25 @@ async function addPerson(appointmentId, relation, sessionId, url) {
     return JSON.parse(text);
 }
 
+async function updateAppointment(appointmentId, visits, sessionId, url) {
+    const endpoint = `${url}/appointment/update?x-auth-token=${sessionId}`;
+    const body = {
+        appointmentId: appointmentId,
+        visits: visits
+    };
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    };
+    const response = await fetch(endpoint,requestOptions);
+    const text = await response.text();
+    return JSON.parse(text);
+}
+
 export {
     search,
     getDetails,
-    addPerson
+    addPerson,
+    updateAppointment
 }

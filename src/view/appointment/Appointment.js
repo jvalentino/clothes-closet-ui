@@ -40,6 +40,7 @@ class Appointment extends Component {
       this.onSearch = this.onSearch.bind(this);
       this.appointmentSelected = this.appointmentSelected.bind(this);
       this.onAddPerson = this.onAddPerson.bind(this);
+      this.updateVisit = this.updateVisit.bind(this);
 
       this.state = {
         date: null,
@@ -113,6 +114,38 @@ class Appointment extends Component {
       this.setState({
         appointment: this.state.appointment
       });
+    }
+
+    async updateVisit(event) {
+      event.preventDefault();
+      const elements = event.target.elements;
+
+      const visits = this.state.appointment.visits;
+      visits.forEach(visit => {
+        visit.socks = +elements[`socks-visit-${visit.id}`].value;
+        visit.underwear = +elements[`underwear-visit-${visit.id}`].value;
+        visit.shoes = +elements[`shoes-visit-${visit.id}`].value;
+        visit.coats = +elements[`coats-visit-${visit.id}`].value;
+        visit.backpacks = +elements[`backpacks-visit-${visit.id}`].value;
+        visit.misc = +elements[`misc-visit-${visit.id}`].value;
+        visit.happened = true;
+      });
+
+      console.log(visits);
+      const result = await controller.updateAppointment(
+        this.state.appointment.id,
+        visits,
+        AppState.getSessionId(),
+        AppState.getUrl()
+      );
+      console.log(result);
+
+      this.setState({
+        date: null,
+        searchResults: null,
+        appointment: null
+      });
+
     }
 
     renderNumberRows(visit) {
@@ -304,7 +337,7 @@ class Appointment extends Component {
           <form onSubmit={this.onAddPerson}>
            {this.renderAddPerson()}
           </form>
-          <form>
+          <form onSubmit={this.updateVisit}>
            {this.renderDetails()}
           </form>
         </div>
