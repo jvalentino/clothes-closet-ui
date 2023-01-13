@@ -6,6 +6,8 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import timegridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
+import Banner from "../banner/Banner";
+
 class Home extends Component {
 
    calendarRef = React.createRef();
@@ -140,131 +142,127 @@ class Home extends Component {
 
       return (
         <div>
-          <form onSubmit={this.submit}>
-            <h3>Parent/Guardian Information</h3>
-             <table>
-              <tbody>
+          <Banner />
+          <div className="standard-view">
+            <form onSubmit={this.submit}>
+              <h3>Parent/Guardian Information</h3>
+              <table className="standard-form">
+                <tbody>
 
-                <tr>
-                  <td>
-                    First Name:
-                  </td>
-                  <td>
-                   <input name="firstName" type="text" />
-                  </td>
-                  <td>
-                    &nbsp;
-                  </td>
-                  <td>
-                    Last Name:
-                  </td>
-                  <td>
-                   <input name="lastName" type="text" />
-                  </td>
-                  <td>
-                    &nbsp;
-                  </td>
-                  <td>
-                    Email Address:
-                  </td>
-                  <td>
-                   <input name="email" type="text" style={{width: "300px"}} />
-                  </td>
-                </tr>
+                  <tr>
+                    <td>
+                      First Name:
+                    </td>
+                    <td>
+                    <input name="firstName" type="text" />
+                    </td>
+                   
+                    <td>
+                      Last Name:
+                    </td>
+                    <td>
+                    <input name="lastName" type="text" />
+                    </td>
+                    
+                    <td>
+                      Email Address:
+                    </td>
+                    <td>
+                    <input name="email" type="text" style={{width: "300px"}} />
+                    </td>
+                  </tr>
 
-                <tr>
-                  <td>
-                    Phone Number:
-                  </td>
-                  <td>
-                   <input name="phoneNumber" type="text" />
-                  </td>
-                  <td>
-                    &nbsp;
-                  </td>
-                  <td>
-                    Phone Type:
-                  </td>
-                  <td>
-                    <select name="phoneTypeLabel">
-                    {this.state.data.phoneTypes.map((phoneType) => (
-                     <option value={phoneType.label} key={phoneType.label}>{phoneType.label}</option>
-                    ))}
-                    </select>
-                  </td>
-                </tr>
+                  <tr>
+                    <td>
+                      Phone Number:
+                    </td>
+                    <td>
+                    <input name="phoneNumber" type="text" />
+                    </td>
+                    
+                    <td>
+                      Phone Type:
+                    </td>
+                    <td>
+                      <select name="phoneTypeLabel">
+                      {this.state.data.phoneTypes.map((phoneType) => (
+                      <option value={phoneType.label} key={phoneType.label}>{phoneType.label}</option>
+                      ))}
+                      </select>
+                    </td>
+                    
+                  </tr>
 
-              </tbody>
-             </table>
+                </tbody>
+              </table>
+              <h3>Students</h3>
+              <p>TBD</p>
+              {this.state.students.map((student) => (
+                  <div key={"student" + student}>
+                    <h4>Student {student}</h4>
+                    <table className="standard-form">
+                      <tbody>
+                      <tr>
+                        <td>
+                          Student ID:
+                        </td>
+                        <td>
+                        <input name={`student-id-${student}`} type="text" />
+                        </td>
+                       
+                        <td>
+                          Gender:
+                        </td>
+                        <td>
+                          <select name={`student-gender-${student}`}>
+                            {this.state.data.genders.map((gender) => (
+                            <option value={gender.label} key={gender.label}>{gender.label}</option>
+                            ))}
+                          </select>
+                        </td>
+                       
+                        <td>
+                          Grade:
+                        </td>
+                        <td>
+                          <select name={`student-grade-${student}`}>
+                            {this.state.data.grades.map((grade) => (
+                            <option value={grade.label} key={grade.label}>{grade.label}</option>
+                            ))}
+                          </select>
+                        </td>
+                       
+                        <td>
+                          School:
+                        </td>
+                        <td>
+                          <select name={`student-school-${student}`}>
+                            {this.state.data.schools.map((school) => (
+                            <option value={school.label} key={school.label}>{school.label}</option>
+                            ))}
+                          </select>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <br />
+                  </div>
+                ))}
+              <button className="default" onClick={this.clickAddStudent}>Add Another Student</button>
 
-             {this.state.students.map((student) => (
-                <div key={"student" + student}>
-                  <h3>Student {student}</h3>
-                  <table>
-                    <tbody>
-                     <tr>
-                      <td>
-                        Student ID:
-                      </td>
-                      <td>
-                       <input name={`student-id-${student}`} type="text" />
-                      </td>
-                      <td>
-                       &nbsp;
-                      </td>
-                      <td>
-                        Gender:
-                      </td>
-                      <td>
-                        <select name={`student-gender-${student}`}>
-                          {this.state.data.genders.map((gender) => (
-                          <option value={gender.label} key={gender.label}>{gender.label}</option>
-                          ))}
-                        </select>
-                      </td>
-                      <td>
-                       &nbsp;
-                      </td>
-                      <td>
-                        Grade:
-                      </td>
-                      <td>
-                        <select name={`student-grade-${student}`}>
-                          {this.state.data.grades.map((grade) => (
-                          <option value={grade.label} key={grade.label}>{grade.label}</option>
-                          ))}
-                        </select>
-                      </td>
-                      <td>
-                      &nbsp;
-                      </td>
-                      <td>
-                        School:
-                      </td>
-                      <td>
-                        <select name={`student-school-${student}`}>
-                          {this.state.data.schools.map((school) => (
-                          <option value={school.label} key={school.label}>{school.label}</option>
-                          ))}
-                        </select>
-                      </td>
-                     </tr>
-                    </tbody>
-                  </table>
-                  <button onClick={this.clickAddStudent}>Add Another Student</button>
-                </div>
-              ))}
-            <FullCalendar
-              ref={this.calendarRef}
-              plugins={[ timegridPlugin, interactionPlugin ]}
-              initialView="timeGridWeek"
-              dateClick={this.dateClick}
-              events={this.state.data.events}
-              datesSet={this.datesSet}
-            />
-            <br />
-            <button type="submit">Submit</button>
-          </form>
+              <br />
+              <FullCalendar
+                ref={this.calendarRef}
+                plugins={[ timegridPlugin, interactionPlugin ]}
+                initialView="timeGridWeek"
+                dateClick={this.dateClick}
+                events={this.state.data.events}
+                datesSet={this.datesSet}
+              />
+              <br />
+              <button className="default" type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       );
     }
