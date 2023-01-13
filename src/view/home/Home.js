@@ -8,6 +8,8 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 import Banner from "../banner/Banner";
 
+import strings from "../../locale";
+
 class Home extends Component {
 
    calendarRef = React.createRef();
@@ -17,6 +19,7 @@ class Home extends Component {
       this.clickAddStudent = this.clickAddStudent.bind(this);
       this.dateClick = this.dateClick.bind(this);
       this.submit = this.submit.bind(this);
+      this.onLanguageChange = this.onLanguageChange.bind(this);
       this.state = {
         data: null,
         students: [1],
@@ -129,6 +132,12 @@ class Home extends Component {
       //browserHistory.push('/thankyou');
       //this.context.router.push('/thankyou');
     }
+
+    onLanguageChange(event) {
+      console.log(event.target.value);
+      strings.setLanguage(event.target.value);
+      this.setState({});
+    }
   
     render() {
 
@@ -145,11 +154,13 @@ class Home extends Component {
           <Banner />
           
           <div className="standard-view">
-            <h1>Appointment Scheduling</h1>
-            <p>The purpose of this form is for a parent or guardian to schedule an appointment
-              at the Clothes Closet for one or more HEB ISD students. To be eligible students must
-              be on an HEB ISD discount meal plan as verified by their Student ID.
-            </p>
+            Language:  &nbsp;
+              <select onChange={this.onLanguageChange}>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+              </select>
+            <h1>{strings.appointmentScheduling}</h1>
+            <p>{strings.appointmentPurpose}</p>
             <form onSubmit={this.submit}>
               <h3>Parent/Guardian Information</h3>
               <table className="standard-form">
@@ -203,10 +214,9 @@ class Home extends Component {
               </table>
               <br />
               <h3>Students</h3>
-              <p>TBD</p>
               {this.state.students.map((student) => (
                   <div key={"student" + student}>
-                    <h4>Student {student}</h4>
+                    
                     <table className="standard-form">
                       <tbody>
                       <tr>

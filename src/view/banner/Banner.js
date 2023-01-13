@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './banner.css';
+import strings from "../../locale";
 
 class Banner extends Component {
     constructor() {
@@ -10,11 +11,13 @@ class Banner extends Component {
     async componentDidMount() {
       
     }
+
+    
   
     render() {
       return (
         <div>
-          <table>
+          <table className="header">
             <tbody>
               <tr>
                 <td><img src={require('./logo.jpeg')} height="80" /></td>
@@ -42,8 +45,13 @@ class Banner extends Component {
                   <img src={require('./facebook.png')} />
                   &nbsp;
                   <a href="https://www.facebook.com/HEBISDPTACC/" rel="noreferrer" target="_blank">
-                    Follow Us On Facebook
+                    {strings.bannerFollowUs}
                   </a>
+                </td>
+                <td className="header-right">
+                  <br />
+                  <br />
+                  
                 </td>
               </tr>
             </tbody>

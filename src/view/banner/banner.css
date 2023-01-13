@@ -1,2 +1,14 @@
 
+table.header {
+    width: 100%;
+}
+
+table.header td {
+    white-space: nowrap;
+}
+
+td.header-right {
+    width: 100%;
+    text-align: right;
+}
 
