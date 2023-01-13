@@ -76,3 +76,10 @@ table.standard-form {
   width:100%;
   overflow-wrap: break-word;
 }
+
+/* Headings */
+
+h1, h2, h3, h4 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

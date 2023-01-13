@@ -143,7 +143,13 @@ class Home extends Component {
       return (
         <div>
           <Banner />
+          
           <div className="standard-view">
+            <h1>Appointment Scheduling</h1>
+            <p>The purpose of this form is for a parent or guardian to schedule an appointment
+              at the Clothes Closet for one or more HEB ISD students. To be eligible students must
+              be on an HEB ISD discount meal plan as verified by their Student ID.
+            </p>
             <form onSubmit={this.submit}>
               <h3>Parent/Guardian Information</h3>
               <table className="standard-form">
@@ -195,6 +201,7 @@ class Home extends Component {
 
                 </tbody>
               </table>
+              <br />
               <h3>Students</h3>
               <p>TBD</p>
               {this.state.students.map((student) => (
