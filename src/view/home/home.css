@@ -1,0 +1,10 @@
+
+button.language {
+    width: 100px;
+}
+
+button.language-selected {
+    width: 100px;
+    background-color:dimgrey;
+    color: white;
+}

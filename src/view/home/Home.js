@@ -9,6 +9,7 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import Banner from "../banner/Banner";
 
 import strings from "../../locale";
+import './home.css';
 
 class Home extends Component {
 
@@ -25,7 +26,8 @@ class Home extends Component {
         students: [1],
         event: null,
         body: null,
-        textAlign: 'left'
+        textAlign: 'left',
+        language: 'en'
       };
     }
   
@@ -128,18 +130,22 @@ class Home extends Component {
 
       }
       
-      //navigate('/thankyou');
-      //this.context.router.transitionTo('/thankyou');
-      //browserHistory.push('/thankyou');
-      //this.context.router.push('/thankyou');
     }
 
     onLanguageChange(event) {
-      console.log(event.target.value);
-      strings.setLanguage(event.target.value);
+      event.preventDefault();
+      strings.setLanguage(event.target.id);
       this.setState({
-        textAlign: event.target.value == 'ar' ? 'right' : 'left'
+        textAlign: event.target.id == 'ar' ? 'right' : 'left',
+        language: event.target.id
       });
+    }
+
+    getLanguageStyle(locale) {
+      if (locale == this.state.language) {
+        return 'language-selected';
+      }
+      return 'language';
     }
   
     render() {
@@ -157,13 +163,39 @@ class Home extends Component {
           <Banner />
           
           <div className="standard-view" style={{'textAlign':this.state.textAlign}}>
-            Language:  &nbsp;
-              <select onChange={this.onLanguageChange}>
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="ar">عربى</option>
-                <option value="fr">Français</option>
-              </select>
+            <form>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <button 
+                        id="en" 
+                        className={this.getLanguageStyle('en')} 
+                        onClick={this.onLanguageChange}>English</button>
+                    </td>
+                    <td>
+                      <button 
+                        id="es" 
+                        className={this.getLanguageStyle('es')} 
+                        onClick={this.onLanguageChange}>Español</button>
+                    </td>
+                    <td>
+                      <button 
+                        id="ar" 
+                        className={this.getLanguageStyle('ar')} 
+                        onClick={this.onLanguageChange}>عربى</button>
+                    </td>
+                    <td>
+                      <button 
+                        id="fr" 
+                        className={this.getLanguageStyle('fr')} 
+                        onClick={this.onLanguageChange}>Français</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            
             <h1>{strings.appointmentScheduling}</h1>
             <p>{strings.appointmentPurpose}</p>
             <form onSubmit={this.submit}>
