@@ -19,7 +19,9 @@ let strings = new LocalizedStrings({
       grade: 'Grade',
       school: 'School',
       addAnotherStudent: 'Add Another Student',
-      submit: 'Submit',
+      scheduleAppointment: 'Schedule Appointment',
+      pickAvailable: 'Pick an available date and time for your appointment',
+      showCalendar: 'Show Calendar?'
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",
@@ -39,7 +41,9 @@ let strings = new LocalizedStrings({
       grade: 'Calificación',
       school: 'Escuela',
       addAnotherStudent: 'Agregar otro estudiante',
-      submit: 'Entregar',
+      scheduleAppointment: 'Programar una cita',
+      pickAvailable: 'Elija una fecha y hora disponible para su cita',
+      showCalendar: '¿Mostrar calendario?'
     },
     ar:{
       bannerFollowUs: "تابعنا على الفيسبوك",
@@ -59,7 +63,9 @@ let strings = new LocalizedStrings({
       grade: 'رتبة',
       school: 'مدرسة',
       addAnotherStudent: 'أضف طالبًا آخر',
-      submit: 'إرسال',
+      scheduleAppointment: 'جدولة موعد',
+      pickAvailable: 'اختر التاريخ والوقت المتاح لموعدك',
+      showCalendar: 'إظهار التقويم؟'
     },
     fr:{
       bannerFollowUs: "Suis nous sur Facebook",
@@ -79,7 +85,9 @@ let strings = new LocalizedStrings({
       grade: 'Classe',
       school: 'L\'école',
       addAnotherStudent: 'Ajouter un autre étudiant',
-      submit: 'Nous faire parvenir',
+      scheduleAppointment: 'Rendez-vous',
+      pickAvailable: 'Choisissez une date et une heure disponibles pour votre rendez-vous',
+      showCalendar: 'Afficher le calendrier ?'
     },
    });
 

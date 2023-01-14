@@ -392,11 +392,11 @@ class Home extends Component {
 
               <br />
               <br />
-              <h3>Schedule Appointment</h3>
+              <h3>{strings.scheduleAppointment}</h3>
               <table className="header">
                 <tbody>
                   <tr>
-                    <td>Pick an available date and time for your appointment&nbsp;&nbsp;</td>
+                    <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
                     <td style={{width: '100%'}}>
                       <Select 
                         options={this.state.timeslots} 
@@ -406,7 +406,7 @@ class Home extends Component {
                       &nbsp;&nbsp; &nbsp;&nbsp;
                     </td>
                     <td>
-                    &nbsp;&nbsp;Show Calendar?&nbsp;&nbsp;
+                    &nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;
                     </td>
                     <td>
                         <Switch 
@@ -417,7 +417,7 @@ class Home extends Component {
                     </td>
                     <td>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <button className="default" type="submit">Submit</button>
+                      <button className="default" type="submit">{strings.scheduleAppointment}</button>
                     </td>
                   </tr>
                 </tbody>
