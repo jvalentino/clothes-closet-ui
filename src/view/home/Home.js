@@ -10,6 +10,9 @@ import Banner from "../banner/Banner";
 
 import strings from "../../locale";
 import './home.css';
+import Select from 'react-select';
+
+import Switch from "react-switch";
 
 class Home extends Component {
 
@@ -21,13 +24,17 @@ class Home extends Component {
       this.dateClick = this.dateClick.bind(this);
       this.submit = this.submit.bind(this);
       this.onLanguageChange = this.onLanguageChange.bind(this);
+      this.slotChange = this.slotChange.bind(this);
+
       this.state = {
         data: null,
         students: [1],
         event: null,
         body: null,
         textAlign: 'left',
-        language: 'en'
+        language: 'en',
+        showCalender: false,
+        timeslots: null,
       };
     }
   
@@ -41,9 +48,21 @@ class Home extends Component {
         }
       ];*/
 
-      console.log(data);
+      
+      const timeslots = [];
+      data.availability.availabilities.forEach(available => {
+        timeslots.push({
+          label: this.formatDateTime(available),
+          value: new Date(available).getTime()
+        });
+      });
+
+      console.log(timeslots);
+
+
       this.setState({
-        data: data
+        data: data,
+        timeslots: timeslots
       });
 
     }
@@ -59,7 +78,7 @@ class Home extends Component {
 
     dateClick(event) {
       // TODO: Don't allow booking on top of appointments
-      console.log(event);
+      
       
       const startDate = new Date(event.dateStr);
       const endDate = new Date(startDate.getTime() + 30 * 60000);
@@ -67,10 +86,28 @@ class Home extends Component {
       const newEvent = {
           id: 'new-appointment',
           title: 'New',
-          start: startDate.toISOString(),
-          end: endDate.toISOString(),
-          color: '#378006'
+          start: startDate.toISOString()?.replace('Z', '+0000'),
+          end: endDate.toISOString()?.replace('Z', '+0000'),
+          color: '#378006',
+          label: this.formatDateTime(startDate.toISOString()?.replace('Z', '+0000')),
+          datetimeValue: new Date(startDate.toISOString()?.replace('Z', '+0000')).getTime()
       };
+
+      console.log(newEvent);
+
+      let found = false;
+      for (let i = 0; i < this.state.timeslots.length; i++) {
+        const timeslot = this.state.timeslots[i];
+        
+        if (timeslot.value == newEvent.datetimeValue) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        return;
+      }
 
       let calendarApi = this.calendarRef.current.getApi()
       
@@ -94,7 +131,7 @@ class Home extends Component {
       const elements = event.target.elements;
 
       const body = {
-        datetime: this.state.event?.start?.replace('Z', '+0000'),
+        datetime: this.state.event?.start,
         guardian: {
           email: elements.email.value,
           firstName: elements.firstName.value,
@@ -146,6 +183,55 @@ class Home extends Component {
         return 'language-selected';
       }
       return 'language';
+    }
+
+    formatDateTime(iso) {
+      const date = new Date(iso);
+      const dayMonthYear = date.toLocaleDateString()
+      const time = date.toLocaleTimeString()
+
+      return `${dayMonthYear} ${time}`;
+    }
+
+    slotChange(event) {
+      const startDate = new Date(event.value);
+      const endDate = new Date(startDate.getTime() + 30 * 60000);
+
+      const newEvent = {
+          id: 'new-appointment',
+          title: 'New',
+          start: startDate.toISOString()?.replace('Z', '+0000'),
+          end: endDate.toISOString()?.replace('Z', '+0000'),
+          color: '#378006',
+          label: this.formatDateTime(startDate.toISOString()?.replace('Z', '+0000')),
+          datetimeValue: new Date(startDate.toISOString()?.replace('Z', '+0000')).getTime()
+      };
+
+      this.setState({
+        event: newEvent
+      });
+
+      console.log(newEvent);
+    }
+
+    renderCalendar() {
+      if (!this.state.showCalender) {
+        return (
+          <br />
+        );
+      }
+
+      return (
+        <FullCalendar
+                ref={this.calendarRef}
+                plugins={[ timegridPlugin, interactionPlugin ]}
+                initialView="timeGridWeek"
+                dateClick={this.dateClick}
+                events={this.state.data.events}
+                datesSet={this.datesSet}
+                height={600}
+              />
+      );
     }
   
     render() {
@@ -305,16 +391,40 @@ class Home extends Component {
               <button className="default" onClick={this.clickAddStudent}>{strings.addAnotherStudent}</button>
 
               <br />
-              <FullCalendar
-                ref={this.calendarRef}
-                plugins={[ timegridPlugin, interactionPlugin ]}
-                initialView="timeGridWeek"
-                dateClick={this.dateClick}
-                events={this.state.data.events}
-                datesSet={this.datesSet}
-              />
               <br />
-              <button className="default" type="submit">Submit</button>
+              <h3>Schedule Appointment</h3>
+              <table className="header">
+                <tbody>
+                  <tr>
+                    <td>Pick an available date and time for your appointment&nbsp;&nbsp;</td>
+                    <td style={{width: '100%'}}>
+                      <Select 
+                        options={this.state.timeslots} 
+                        onChange={this.slotChange}
+                        value={{label:this.state.event?.label, value:this.state.event?.datetimeValue}}
+                        />
+                      &nbsp;&nbsp; &nbsp;&nbsp;
+                    </td>
+                    <td>
+                    &nbsp;&nbsp;Show Calendar?&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <Switch 
+                          className="react-switch"
+                          checked={this.state.showCalender}
+                          onChange={() => this.setState({showCalender: !this.state.showCalender})}
+                           />
+                    </td>
+                    <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button className="default" type="submit">Submit</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br />
+              {this.renderCalendar()}
+              
             </form>
           </div>
         </div>

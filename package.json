@@ -19,6 +19,8 @@
     "react-localization": "^1.0.19",
     "react-router-dom": "6.6.1",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
+    "react-switch": "7.0.0",
     "styled-components": "5.3.6",
     "universal-cookie": "4.0.4",
     "web-vitals": "2.1.4"
