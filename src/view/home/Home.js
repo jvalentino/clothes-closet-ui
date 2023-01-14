@@ -24,7 +24,8 @@ class Home extends Component {
         data: null,
         students: [1],
         event: null,
-        body: null
+        body: null,
+        textAlign: 'left'
       };
     }
   
@@ -136,7 +137,9 @@ class Home extends Component {
     onLanguageChange(event) {
       console.log(event.target.value);
       strings.setLanguage(event.target.value);
-      this.setState({});
+      this.setState({
+        textAlign: event.target.value == 'ar' ? 'right' : 'left'
+      });
     }
   
     render() {
@@ -153,36 +156,38 @@ class Home extends Component {
         <div>
           <Banner />
           
-          <div className="standard-view">
+          <div className="standard-view" style={{'textAlign':this.state.textAlign}}>
             Language:  &nbsp;
               <select onChange={this.onLanguageChange}>
                 <option value="en">English</option>
                 <option value="es">Español</option>
+                <option value="ar">عربى</option>
+                <option value="fr">Français</option>
               </select>
             <h1>{strings.appointmentScheduling}</h1>
             <p>{strings.appointmentPurpose}</p>
             <form onSubmit={this.submit}>
-              <h3>Parent/Guardian Information</h3>
+              <h3>{strings.appointmentParentInfo}</h3>
               <table className="standard-form">
                 <tbody>
 
                   <tr>
                     <td>
-                      First Name:
+                      {strings.firstName}
                     </td>
                     <td>
                     <input name="firstName" type="text" />
                     </td>
                    
                     <td>
-                      Last Name:
+                      {strings.lastName}
                     </td>
                     <td>
                     <input name="lastName" type="text" />
                     </td>
                     
                     <td>
-                      Email Address:
+                      {strings.emailAddress}
                     </td>
                     <td>
                     <input name="email" type="text" style={{width: "300px"}} />
@@ -191,14 +196,14 @@ class Home extends Component {
 
                   <tr>
                     <td>
-                      Phone Number:
+                      {strings.phoneNumber}
                     </td>
                     <td>
                     <input name="phoneNumber" type="text" />
                     </td>
                     
                     <td>
-                      Phone Type:
+                      {strings.phoneType}
                     </td>
                     <td>
                       <select name="phoneTypeLabel">
@@ -213,7 +218,7 @@ class Home extends Component {
                 </tbody>
               </table>
               <br />
-              <h3>Students</h3>
+              <h3>{strings.students}</h3>
               {this.state.students.map((student) => (
                   <div key={"student" + student}>
                     
@@ -221,14 +226,14 @@ class Home extends Component {
                       <tbody>
                       <tr>
                         <td>
-                          Student ID:
+                          {strings.studentId}
                         </td>
                         <td>
                         <input name={`student-id-${student}`} type="text" />
                         </td>
                        
                         <td>
-                          Gender:
+                          {strings.gender}
                         </td>
                         <td>
                           <select name={`student-gender-${student}`}>
@@ -239,7 +244,7 @@ class Home extends Component {
                         </td>
                        
                         <td>
-                          Grade:
+                          {strings.grade}
                         </td>
                         <td>
                           <select name={`student-grade-${student}`}>
@@ -250,7 +255,7 @@ class Home extends Component {
                         </td>
                        
                         <td>
-                          School:
+                          {strings.school}
                         </td>
                         <td>
                           <select name={`student-school-${student}`}>
@@ -265,7 +270,7 @@ class Home extends Component {
                     <br />
                   </div>
                 ))}
-              <button className="default" onClick={this.clickAddStudent}>Add Another Student</button>
+              <button className="default" onClick={this.clickAddStudent}>{strings.addAnotherStudent}</button>
 
               <br />
               <FullCalendar
