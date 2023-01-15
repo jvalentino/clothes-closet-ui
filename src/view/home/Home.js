@@ -7,12 +7,14 @@ import timegridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 import Banner from "../banner/Banner";
+import ProgressView from "../progressView/ProgressView";
 
 import strings from "../../locale";
 import './home.css';
 import Select from 'react-select';
 
 import Switch from "react-switch";
+
 
 class Home extends Component {
 
@@ -241,9 +243,11 @@ class Home extends Component {
       }
 
       if (this.state.data == null) {
-        return <p>Loading</p>;
+        return (
+          <ProgressView />
+        );
       }
-
+      
       return (
         <div>
           <Banner />

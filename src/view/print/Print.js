@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AppState from "../../AppState";
 import * as controller from "./print-controller";
+import ProgressView from "../progressView/ProgressView";
 
 class Print extends Component {
     constructor() {
@@ -50,7 +51,9 @@ class Print extends Component {
   
     render() {
       if (this.state.data == null) {
-        return (<p>Loading...</p>);
+        return (
+          <ProgressView />
+        );
       }
 
       const data = this.state.data;

@@ -13,6 +13,7 @@ async function makeAppointment(body) {
     };
     const response = await fetch(`${process.env.REACT_APP_HTTP_API}/appointment/schedule`,requestOptions);
     const text = await response.text();
+
     return JSON.parse(text);
 }
 
