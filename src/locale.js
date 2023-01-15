@@ -25,6 +25,12 @@ let strings = new LocalizedStrings({
       error: "Error",
       errorsToBeCorrected: "There were problems that need to be corrected",
       errorsOkay: "Okay",
+      errorApptTime: "You must select an appointment date and time",
+      errorEmail: "You must enter a valid email address",
+      errorFirstName: "You must enter a valid first name",
+      errorLastName: "You must enter a valid last name",
+      errorPhoneNumber: "You must enter a valid phone number",
+      errorStudentId: "Student {number} must have an ID number provided",
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",

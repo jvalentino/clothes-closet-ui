@@ -1,3 +1,6 @@
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
+import * as inputUtil from '../../util/input-util';
+import strings from "../../locale";
 
 async function getSettings() {
     const response = await fetch(`${process.env.REACT_APP_HTTP_API}/appointment/settings`);
@@ -17,4 +20,39 @@ async function makeAppointment(body) {
     return JSON.parse(text);
 }
 
-export { getSettings, makeAppointment };
+function validate(body) {
+    const messages = [];
+
+    if (inputUtil.isBlank(body.datetime)) {
+        messages.push(strings.errorApptTime);
+    }
+
+    if (inputUtil.isBlank(body.guardian.email)) {
+        messages.push(strings.errorEmail);
+    }
+
+    if (inputUtil.isBlank(body.guardian.firstName)) {
+        messages.push(strings.errorFirstName);
+    }
+
+    if (inputUtil.isBlank(body.guardian.lastName)) {
+        messages.push(strings.errorLastName);
+    }
+
+    if (!isPossiblePhoneNumber(`${body.guardian.phoneNumber}`)) {
+        messages.push(strings.errorPhoneNumber);
+    }
+
+    for (let i = 0; i < body.students.length; i++) {
+        const student = body.students[i];
+        const number = i + 1;
+
+        if (inputUtil.isBlank(student.id)) {
+            messages.push(strings.formatString(strings.errorStudentId, {number: number}));
+        }
+    }
+
+    return messages;
+}
+
+export { getSettings, makeAppointment, validate};

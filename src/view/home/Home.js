@@ -16,6 +16,9 @@ import Select from 'react-select';
 import Switch from "react-switch";
 import * as error from '../errorModal/error-modal';
 
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+
 
 class Home extends Component {
 
@@ -28,6 +31,7 @@ class Home extends Component {
       this.submit = this.submit.bind(this);
       this.onLanguageChange = this.onLanguageChange.bind(this);
       this.slotChange = this.slotChange.bind(this);
+      this.onPhoneChange = this.onPhoneChange.bind(this);
 
       this.state = {
         data: null,
@@ -38,6 +42,7 @@ class Home extends Component {
         language: 'en',
         showCalender: false,
         timeslots: null,
+        currentPhoneNumber: null,
       };
     }
   
@@ -139,7 +144,7 @@ class Home extends Component {
           email: elements.email.value,
           firstName: elements.firstName.value,
           lastName: elements.lastName.value,
-          phoneNumber: elements.phoneNumber.value,
+          phoneNumber: this.state.currentPhoneNumber,
           phoneTypeLabel: elements.phoneTypeLabel.value
         },
         students: []
@@ -155,9 +160,13 @@ class Home extends Component {
         body.students.push(student);
       }
 
-      // TODO: form validation
-
       console.log(body);
+      const errors = controller.validate(body);
+
+      if (errors.length != 0) {
+        error.display(errors);
+        return;
+      }
 
       const result = await controller.makeAppointment(body);
       console.log(result);
@@ -194,6 +203,12 @@ class Home extends Component {
       const time = date.toLocaleTimeString()
 
       return `${dayMonthYear} ${time}`;
+    }
+
+    onPhoneChange(event) {
+      this.setState({
+        currentPhoneNumber: event
+      });
     }
 
     slotChange(event) {
@@ -299,7 +314,9 @@ class Home extends Component {
                       {strings.firstName}
                     </td>
                     <td>
-                    <input name="firstName" type="text" />
+                    <input 
+                      style={{"width":192}}
+                      name="firstName" type="text" />
                     </td>
                    
                     <td>
@@ -322,7 +339,14 @@ class Home extends Component {
                       {strings.phoneNumber}
                     </td>
                     <td>
-                    <input name="phoneNumber" type="text" />
+                    
+                    <PhoneInput 
+                      style={{"width":200}}
+                      name="phoneNumber" 
+                      value={this.state.currentPhoneNumber}
+                      onChange={this.onPhoneChange}
+                      defaultCountry="US"
+                      />
                     </td>
                     
                     <td>
