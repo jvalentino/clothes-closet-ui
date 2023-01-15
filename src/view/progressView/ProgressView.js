@@ -18,7 +18,7 @@ class ProgressView extends Component {
           <div style={{"height":"40%"}}></div>
           <CircularProgress 
             variant="bubble-dotted" 
-            color="#298e46" 
+            color="#2a3953" 
             size="large" 
             text="" 
             textColor="" />

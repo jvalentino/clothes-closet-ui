@@ -21,7 +21,10 @@ let strings = new LocalizedStrings({
       addAnotherStudent: 'Add Another Student',
       scheduleAppointment: 'Schedule Appointment',
       pickAvailable: 'Pick an available date and time for your appointment',
-      showCalendar: 'Show Calendar?'
+      showCalendar: 'Show Calendar?',
+      error: "Error",
+      errorsToBeCorrected: "There were problems that need to be corrected",
+      errorsOkay: "Okay",
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",
@@ -43,7 +46,10 @@ let strings = new LocalizedStrings({
       addAnotherStudent: 'Agregar otro estudiante',
       scheduleAppointment: 'Programar una cita',
       pickAvailable: 'Elija una fecha y hora disponible para su cita',
-      showCalendar: '¿Mostrar calendario?'
+      showCalendar: '¿Mostrar calendario?',
+      error: "Error",
+      errorsToBeCorrected: "There were problems that need to be corrected",
+      errorsOkay: "Okay",
     },
     ar:{
       bannerFollowUs: "تابعنا على الفيسبوك",
@@ -65,7 +71,10 @@ let strings = new LocalizedStrings({
       addAnotherStudent: 'أضف طالبًا آخر',
       scheduleAppointment: 'جدولة موعد',
       pickAvailable: 'اختر التاريخ والوقت المتاح لموعدك',
-      showCalendar: 'إظهار التقويم؟'
+      showCalendar: 'إظهار التقويم؟',
+      error: "Error",
+      errorsToBeCorrected: "There were problems that need to be corrected",
+      errorsOkay: "Okay",
     },
     fr:{
       bannerFollowUs: "Suis nous sur Facebook",
@@ -87,7 +96,10 @@ let strings = new LocalizedStrings({
       addAnotherStudent: 'Ajouter un autre étudiant',
       scheduleAppointment: 'Rendez-vous',
       pickAvailable: 'Choisissez une date et une heure disponibles pour votre rendez-vous',
-      showCalendar: 'Afficher le calendrier ?'
+      showCalendar: 'Afficher le calendrier ?',
+      error: "Error",
+      errorsToBeCorrected: "There were problems that need to be corrected",
+      errorsOkay: "Okay",
     },
    });
 

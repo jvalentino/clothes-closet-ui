@@ -14,6 +14,7 @@ import './home.css';
 import Select from 'react-select';
 
 import Switch from "react-switch";
+import * as error from '../errorModal/error-modal';
 
 
 class Home extends Component {
@@ -166,7 +167,7 @@ class Home extends Component {
           body: body
         });
       } else {
-
+        error.display(result.messages);
       }
       
     }
@@ -247,7 +248,7 @@ class Home extends Component {
           <ProgressView />
         );
       }
-      
+
       return (
         <div>
           <Banner />
