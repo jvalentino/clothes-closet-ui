@@ -2,6 +2,8 @@ import { isPossiblePhoneNumber } from 'react-phone-number-input'
 import * as inputUtil from '../../util/input-util';
 import strings from "../../locale";
 
+import validator from 'validator'
+
 async function getSettings() {
     const response = await fetch(`${process.env.REACT_APP_HTTP_API}/appointment/settings`);
     const text = await response.text();
@@ -27,7 +29,7 @@ function validate(body) {
         messages.push(strings.errorApptTime);
     }
 
-    if (inputUtil.isBlank(body.guardian.email)) {
+    if (!validator.isEmail(body.guardian.email)) {
         messages.push(strings.errorEmail);
     }
 
