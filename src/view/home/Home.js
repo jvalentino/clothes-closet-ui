@@ -19,6 +19,9 @@ import * as error from '../errorModal/error-modal';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
+import AppState from "../../AppState";
+import * as inputUtil from '../../util/input-util';
+
 
 class Home extends Component {
 
@@ -60,7 +63,7 @@ class Home extends Component {
       const timeslots = [];
       data.availability.availabilities.forEach(available => {
         timeslots.push({
-          label: this.formatDateTime(available),
+          label: inputUtil.prettyDateTimeFromIso(available),
           value: new Date(available).getTime()
         });
       });
@@ -84,9 +87,7 @@ class Home extends Component {
       });
     }
 
-    dateClick(event) {
-      // TODO: Don't allow booking on top of appointments
-      
+    dateClick(event) {      
       
       const startDate = new Date(event.dateStr);
       const endDate = new Date(startDate.getTime() + 30 * 60000);
@@ -97,7 +98,7 @@ class Home extends Component {
           start: startDate.toISOString()?.replace('Z', '+0000'),
           end: endDate.toISOString()?.replace('Z', '+0000'),
           color: '#378006',
-          label: this.formatDateTime(startDate.toISOString()?.replace('Z', '+0000')),
+          label: inputUtil.prettyDateTimeFromIso(startDate.toISOString()?.replace('Z', '+0000')),
           datetimeValue: new Date(startDate.toISOString()?.replace('Z', '+0000')).getTime()
       };
 
@@ -175,6 +176,10 @@ class Home extends Component {
         this.setState({
           body: body
         });
+
+        AppState.setLanguage(this.state.language);
+        AppState.setAppointment(body);
+        AppState.setTextAlign(this.state.textAlign);
       } else {
         error.display(result.messages);
       }
@@ -197,14 +202,6 @@ class Home extends Component {
       return 'language';
     }
 
-    formatDateTime(iso) {
-      const date = new Date(iso);
-      const dayMonthYear = date.toLocaleDateString()
-      const time = date.toLocaleTimeString()
-
-      return `${dayMonthYear} ${time}`;
-    }
-
     onPhoneChange(event) {
       this.setState({
         currentPhoneNumber: event
@@ -221,7 +218,7 @@ class Home extends Component {
           start: startDate.toISOString()?.replace('Z', '+0000'),
           end: endDate.toISOString()?.replace('Z', '+0000'),
           color: '#378006',
-          label: this.formatDateTime(startDate.toISOString()?.replace('Z', '+0000')),
+          label: inputUtil.prettyDateTimeFromIso(startDate.toISOString()?.replace('Z', '+0000')),
           datetimeValue: new Date(startDate.toISOString()?.replace('Z', '+0000')).getTime()
       };
 
