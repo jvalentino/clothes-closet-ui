@@ -39,13 +39,44 @@ class Print extends Component {
         <table>
           <tbody>
             {settings.map((setting) => (
-              <tr key={setting.id}>
+              <tr key={setting.settingsId}>
                 <td><b>{setting.quantity + " " + setting.label}</b></td>
                 <td>_______</td>
               </tr>
             ))}
           </tbody>
         </table>
+      );
+      
+    }
+
+    renderVisit(visit) {
+      if (visit.student != null) {
+        return (
+          <tr key={visit.visitId}>
+              <td><b>Student ID:</b></td>
+              <td>{visit.student?.studentId}</td>
+              <td><b>Gender:</b></td>
+              <td>{visit.student?.gender}</td>
+              <td><b>Grade:</b></td>
+              <td>{visit.student?.grade}</td>
+              <td><b>School:</b></td>
+              <td>{visit.student?.school}</td>
+            </tr>
+        );
+      }
+
+      return (
+        <tr key={visit.visitId}>
+          <td><b>Additional Person</b></td>
+          <td></td>
+          <td><b>Relation</b></td>
+          <td>{visit.person?.relation}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
       );
     }
   
@@ -60,8 +91,8 @@ class Print extends Component {
       const appointment = data.appointment;
 
       return (
-        <div>
-          <table>
+        <div className="standard-view">
+          <table className="standard-form">
             <tbody>
               <tr>
                 <td><b>Name:</b></td>
@@ -76,24 +107,15 @@ class Print extends Component {
             </tbody>
           </table>
           <br />
-          <table>
+          <table className="standard-form">
             <tbody>
               {appointment.visits.map((visit) => (
-                  <tr key={visit.id}>
-                    <td><b>Student ID:</b></td>
-                    <td>{visit.student?.id}</td>
-                    <td><b>Gender:</b></td>
-                    <td>{visit.student?.gender}</td>
-                    <td><b>Grade:</b></td>
-                    <td>{visit.student?.grade}</td>
-                    <td><b>School:</b></td>
-                    <td>{visit.student?.school}</td>
-                  </tr>
+                 this.renderVisit(visit)
               ))}
             </tbody>
           </table>
           <br />
-          <table>
+          <table className="standard-form">
             <tbody>
               <tr>
                 <td><b>Appointment Date:</b></td>
@@ -110,14 +132,14 @@ class Print extends Component {
             </tbody>
           </table>
           <br />
-          <table>
+          <table className="standard-form">
             <tbody>
               <tr>
-                <td>
+                <td style={{'verticalAlign':'top'}}>
                   <p>Girl Student</p>
                   {this.renderSettings(data.girlSettings)}
                 </td>
-                <td>
+                <td style={{'verticalAlign':'top'}}>
                   <p>Boy Student</p>
                   {this.renderSettings(data.boySettings)}
                 </td>
@@ -125,7 +147,11 @@ class Print extends Component {
             </tbody>
           </table>
           <br />
-          <table>
+          <br />
+          <br />
+          <br />
+          <br />
+          <table className="standard-form">
             <tbody>
               <tr>
                 <td><b>Order Filled By:</b></td>
