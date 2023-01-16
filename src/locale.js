@@ -32,7 +32,8 @@ let strings = new LocalizedStrings({
       errorPhoneNumber: "You must enter a valid phone number",
       errorStudentId: "Student {number} must have an ID number provided",
       thankYou: "Thank you, your appointment is scheduled for {datetime}",
-      thankYouText: "You will receive an email 24-hours prior to your appointment, and if you provided a mobile phone number you will also receive a text message."
+      thankYouText: "You will receive an email 24-hours prior to your appointment, and if you provided a mobile phone number you will also receive a text message.",
+      errorStudentNotEligible: "The Student ID of {id} is not eligible",
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",

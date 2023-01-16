@@ -153,7 +153,7 @@ class Home extends Component {
 
       for (let i = 1; i <= this.state.students.length; i++) {
         const student = {
-          id: elements[`student-id-${i}`].value,
+          studentId: elements[`student-id-${i}`].value,
           school: elements[`student-school-${i}`].value,
           gender: elements[`student-gender-${i}`].value,
           grade: elements[`student-grade-${i}`].value

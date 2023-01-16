@@ -84,7 +84,7 @@ class Thankyou extends Component {
                           {strings.studentId}
                         </td>
                         <td>
-                          {student.id}
+                          {student.studentId}
                         </td>
                        
                         <td>

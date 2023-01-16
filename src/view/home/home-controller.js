@@ -19,7 +19,18 @@ async function makeAppointment(body) {
     const response = await fetch(`${process.env.REACT_APP_HTTP_API}/appointment/schedule`,requestOptions);
     const text = await response.text();
 
-    return JSON.parse(text);
+    const result =  JSON.parse(text);
+
+    // this is what happens when one or more student ids are not eligible
+    if (result.success == false && result.codes.length != 0 && result.codes[0] == 'STUDENT_IDS') {
+        const newMessages = [];
+        result.messages.forEach(element => {
+            newMessages.push(strings.formatString(strings.errorStudentNotEligible, {id: element}))
+        });
+        result.messages = newMessages;
+    }
+
+    return result;
 }
 
 function validate(body) {
@@ -49,7 +60,7 @@ function validate(body) {
         const student = body.students[i];
         const number = i + 1;
 
-        if (inputUtil.isBlank(student.id)) {
+        if (inputUtil.isBlank(student.studentId)) {
             messages.push(strings.formatString(strings.errorStudentId, {number: number}));
         }
     }

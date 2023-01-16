@@ -13,10 +13,10 @@ class Appointment extends Component {
   
   columns = [
     {
-      cell:(row)=><button onClick={this.appointmentSelected} id={row.id}>Select</button>,
+      cell:(row)=><button onClick={this.appointmentSelected} id={row.appointmentId}>Select</button>,
     },
     {
-      cell:(row)=><button onClick={this.printSelected} id={row.id}>Print</button>,
+      cell:(row)=><button onClick={this.printSelected} id={row.appointmentId}>Print</button>,
     },
     {
       name: 'Date',
@@ -116,7 +116,7 @@ class Appointment extends Component {
     async onAddPerson(event) {
       event.preventDefault();
       const visit = await controller.addPerson(
-        this.state.appointment.id,
+        this.state.appointment.appointmentId,
         event.target.elements['new-relation'].value,
         AppState.getSessionId(), 
         AppState.getUrl()
@@ -136,18 +136,18 @@ class Appointment extends Component {
 
       const visits = this.state.appointment.visits;
       visits.forEach(visit => {
-        visit.socks = +elements[`socks-visit-${visit.id}`].value;
-        visit.underwear = +elements[`underwear-visit-${visit.id}`].value;
-        visit.shoes = +elements[`shoes-visit-${visit.id}`].value;
-        visit.coats = +elements[`coats-visit-${visit.id}`].value;
-        visit.backpacks = +elements[`backpacks-visit-${visit.id}`].value;
-        visit.misc = +elements[`misc-visit-${visit.id}`].value;
+        visit.socks = +elements[`socks-visit-${visit.visitId}`].value;
+        visit.underwear = +elements[`underwear-visit-${visit.visitId}`].value;
+        visit.shoes = +elements[`shoes-visit-${visit.visitId}`].value;
+        visit.coats = +elements[`coats-visit-${visit.visitId}`].value;
+        visit.backpacks = +elements[`backpacks-visit-${visit.visitId}`].value;
+        visit.misc = +elements[`misc-visit-${visit.visitId}`].value;
         visit.happened = true;
       });
 
       console.log(visits);
       const result = await controller.updateAppointment(
-        this.state.appointment.id,
+        this.state.appointment.appointmentId,
         visits,
         AppState.getSessionId(),
         AppState.getUrl()
@@ -184,7 +184,7 @@ class Appointment extends Component {
     async confirmCancelAppointment() {
       console.log('Doing cancel');
       const result = await controller.cancel(
-        this.state.appointment.id, AppState.getSessionId(), AppState.getUrl());
+        this.state.appointment.appointmentId, AppState.getSessionId(), AppState.getUrl());
       console.log(result);
 
       this.setState({
@@ -203,7 +203,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Socks:</b></td>
               <td>
-                <input name={`socks-visit-${visit.id}`} type="text" defaultValue={visit.socks} />
+                <input name={`socks-visit-${visit.visitId}`} type="text" defaultValue={visit.socks} />
               </td>
             </tr>
             <tr>
@@ -211,7 +211,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Underwear:</b></td>
               <td>
-                <input name={`underwear-visit-${visit.id}`} type="text" defaultValue={visit.underwear} />
+                <input name={`underwear-visit-${visit.visitId}`} type="text" defaultValue={visit.underwear} />
               </td>
             </tr>
             <tr>
@@ -219,7 +219,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Shoes:</b></td>
               <td>
-                <input name={`shoes-visit-${visit.id}`} type="text" defaultValue={visit.shoes} />
+                <input name={`shoes-visit-${visit.visitId}`} type="text" defaultValue={visit.shoes} />
               </td>
             </tr>
             <tr>
@@ -227,7 +227,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Coats:</b></td>
               <td>
-                <input name={`coats-visit-${visit.id}`} type="text" defaultValue={visit.coats} />
+                <input name={`coats-visit-${visit.visitId}`} type="text" defaultValue={visit.coats} />
               </td>
             </tr>
             <tr>
@@ -235,7 +235,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Backpacks:</b></td>
               <td>
-                <input name={`backpacks-visit-${visit.id}`} type="text" defaultValue={visit.backpacks} />
+                <input name={`backpacks-visit-${visit.visitId}`} type="text" defaultValue={visit.backpacks} />
               </td>
             </tr>
             <tr>
@@ -243,7 +243,7 @@ class Appointment extends Component {
               <td></td>
               <td><b>Misc:</b></td>
               <td>
-                <input name={`misc-visit-${visit.id}`} type="text" defaultValue={visit.misc} />
+                <input name={`misc-visit-${visit.visitId}`} type="text" defaultValue={visit.misc} />
               </td>
             </tr>
           </tbody>
@@ -258,7 +258,7 @@ class Appointment extends Component {
             <tbody>
               <tr>
                 <td><b>Student:</b></td>
-                <td>{visit.student.id}</td>
+                <td>{visit.student.studentId}</td>
                 <td></td>
                 <td></td>
               </tr>
@@ -319,7 +319,7 @@ class Appointment extends Component {
           </table>
           <div>
             {appointment.visits.map((visit) => (
-              <div key={visit.id}>
+              <div key={visit.visitId}>
                   {this.renderVisit(visit)}
                   {this.renderNumberRows(visit)}
               </div>
