@@ -30,6 +30,10 @@ async function makeAppointment(body) {
         result.messages = newMessages;
     }
 
+    if (result.success == false && result.codes.length != 0 && result.codes[0] == 'BOOKED') {
+        result.messages = [strings.alreadyBooked];
+    }
+
     return result;
 }
 

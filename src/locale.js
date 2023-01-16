@@ -34,6 +34,7 @@ let strings = new LocalizedStrings({
       thankYou: "Thank you, your appointment is scheduled for {datetime}",
       thankYouText: "You will receive an email 24-hours prior to your appointment, and if you provided a mobile phone number you will also receive a text message.",
       errorStudentNotEligible: "The Student ID of {id} is not eligible",
+      alreadyBooked: "The selected date and time is no longer available, please pick another",
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",
