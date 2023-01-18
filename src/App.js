@@ -12,6 +12,7 @@ import Login from "./view/login/Login";
 import Thankyou from "./view/thankyou/Thankyou";
 import Appointment from "./view/appointment/Appointment";
 import Print from "./view/print/Print";
+import Logout from "./view/logout/Logout";
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
             <Route path="/thankyou" element={<Thankyou />} />
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/print" element={<Print />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </div>
       </Router>

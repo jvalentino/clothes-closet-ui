@@ -17,9 +17,8 @@ async function login(credentialResponse) {
     if (!result.success) {
         return false;
     }
-    
 
-    AppState.setSessionId(result.sessionId);
+    AppState.markLoggedIn(result.sessionId, result.name, result.pictureUrl);
     
     return true;
 }

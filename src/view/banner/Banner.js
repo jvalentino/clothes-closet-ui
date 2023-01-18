@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './banner.css';
 import strings from "../../locale";
+import AppState from "../../AppState";
 
 class Banner extends Component {
     constructor() {
@@ -12,7 +13,21 @@ class Banner extends Component {
       
     }
 
-    
+    renderLoggedIn() {
+      if (AppState.getLoggedInName() == null) {
+        return (
+          <br />
+        );
+      }
+
+      return (
+        <div>
+          <img height="40" referrerPolicy="no-referrer" src={AppState.getLoggedInPicture()} />
+          <br />
+          Logged In as <b>{AppState.getLoggedInName()}</b>, <a href="./logout">Logout?</a> 
+        </div>
+      );
+    }
   
     render() {
       return (
@@ -49,9 +64,7 @@ class Banner extends Component {
                   </a>
                 </td>
                 <td className="header-right">
-                  <br />
-                  <br />
-                  
+                  {this.renderLoggedIn()}
                 </td>
               </tr>
             </tbody>

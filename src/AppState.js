@@ -60,6 +60,35 @@ class AppState {
     getTextAlign() {
         return this.cookies.get('clothes-closet-text-align');
     }
+
+    setLoggedInName(name) {
+        this.cookies.set('clothes-closet-logged-in-name', name);
+    }
+
+    getLoggedInName() {
+        return this.cookies.get('clothes-closet-logged-in-name');
+    }
+
+    setLoggedInPicture(url) {
+        this.cookies.set('clothes-closet-logged-in-picture', url);
+    }
+    
+    getLoggedInPicture() {
+        return this.cookies.get('clothes-closet-logged-in-picture');
+    }
+
+    markLoggedIn(sessionId, name, pictureUrl) {
+        if (sessionId != null) {
+            this.setSessionId(sessionId);
+            this.setLoggedInName(name);
+            this.setLoggedInPicture(pictureUrl);
+        } else {
+            this.cookies.remove("clothes-closet-logged-in-name");
+            this.cookies.remove("clothes-closet-logged-in-picture");
+            this.cookies.remove("clothes-closet-logged-session-id");
+        }
+        
+    }
 }
 
 

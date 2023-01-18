@@ -8,6 +8,7 @@ import DataTable from 'react-data-table-component';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import Banner from "../banner/Banner";
 
 class Appointment extends Component {
   
@@ -365,41 +366,44 @@ class Appointment extends Component {
     render() {
       return (
         <div>
-          <h3>Appointment Selection</h3>
-          <form onSubmit={this.onSearch}>
-            <table>
-              <tbody>
-                <tr>
-                  <td>Date</td>
-                  <td>
-                    <DatePicker 
-                      name="date-field"
-                      selected={this.state.date} onChange={(date) => this.setState({date: date})}  />
-                  </td>
-                  <td>and/or</td>
-                  <td>First or Last Name</td>
-                  <td>
-                    <input name="name-field" type="text" />
-                  </td>
-                  <td>
-                    <button type="submit">Search</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </form>
-          {this.renderSearchResults()}
-          {this.renderAppointmentHeader()}
-          <form onSubmit={this.onAddPerson}>
-           {this.renderAddPerson()}
-          </form>
-          <form onSubmit={this.updateVisit}>
-           {this.renderDetails()}
-          </form>
-          <br />
-          <form onSubmit={this.cancelAppointment}>
-            {this.renderCancel()}
-          </form>
+          <Banner />
+          <div className="standard-view" >
+            <h3>Appointment Selection</h3>
+            <form onSubmit={this.onSearch}>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Date</td>
+                    <td>
+                      <DatePicker 
+                        name="date-field"
+                        selected={this.state.date} onChange={(date) => this.setState({date: date})}  />
+                    </td>
+                    <td>and/or</td>
+                    <td>First or Last Name</td>
+                    <td>
+                      <input name="name-field" type="text" />
+                    </td>
+                    <td>
+                      <button type="submit">Search</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+            {this.renderSearchResults()}
+            {this.renderAppointmentHeader()}
+            <form onSubmit={this.onAddPerson}>
+            {this.renderAddPerson()}
+            </form>
+            <form onSubmit={this.updateVisit}>
+            {this.renderDetails()}
+            </form>
+            <br />
+            <form onSubmit={this.cancelAppointment}>
+              {this.renderCancel()}
+            </form>
+          </div>
         </div>
       );
     }

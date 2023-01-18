@@ -47,6 +47,8 @@ class Home extends Component {
         timeslots: null,
         currentPhoneNumber: null,
       };
+
+      //AppState.markLoggedIn(null, null, null);
     }
   
     async componentDidMount() {
