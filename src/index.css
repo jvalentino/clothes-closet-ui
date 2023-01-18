@@ -84,3 +84,26 @@ h1, h2, h3, h4 {
   margin-bottom: 2px;
 }
 
+/* Links */
+
+
+/* unvisited link */
+a:link {
+  color: #2a3953;
+}
+
+/* visited link */
+a:visited {
+  color: #2a3953;
+}
+
+/* mouse over link */
+a:hover {
+  color: #2a3953;
+}
+
+/* selected link */
+a:active {
+  color: #2a3953;
+}
+

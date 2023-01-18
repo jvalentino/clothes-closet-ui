@@ -24,8 +24,26 @@ class Banner extends Component {
         <div>
           <img height="40" referrerPolicy="no-referrer" src={AppState.getLoggedInPicture()} />
           <br />
-          Logged In as <b>{AppState.getLoggedInName()}</b>, <a href="./logout">Logout?</a> 
+          Logged In as <b>{AppState.getLoggedInName()}</b> 
         </div>
+      );
+    }
+
+    renderMenu() {
+      if (AppState.getLoggedInName() == null) {
+        return (
+          <tr></tr>
+        );
+      }
+
+      return (
+        <tr>
+          <td colSpan="5" style={{"textAlign":"center"}}>
+            <a href="./">Schedule Appointment</a> | &nbsp;
+            <a href="./appointment">Search Appointments</a> | &nbsp;
+            <a href="./logout">Logout</a>
+          </td>
+        </tr>
       );
     }
   
@@ -67,6 +85,7 @@ class Banner extends Component {
                   {this.renderLoggedIn()}
                 </td>
               </tr>
+              {this.renderMenu()}
             </tbody>
           </table>
           <hr />
