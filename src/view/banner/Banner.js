@@ -22,7 +22,7 @@ class Banner extends Component {
 
       return (
         <div>
-          <img height="40" referrerPolicy="no-referrer" src={AppState.getLoggedInPicture()} />
+          <img height="40" style={{"borderRadius":"50%"}}referrerPolicy="no-referrer" src={AppState.getLoggedInPicture()} />
           <br />
           Logged In as <b>{AppState.getLoggedInName()}</b> 
         </div>
@@ -41,6 +41,7 @@ class Banner extends Component {
           <td colSpan="5" style={{"textAlign":"center"}}>
             <a href="./">Schedule Appointment</a> | &nbsp;
             <a href="./appointment">Search Appointments</a> | &nbsp;
+            <a href="./reporting">Reporting</a> | &nbsp;
             <a href="./logout">Logout</a>
           </td>
         </tr>

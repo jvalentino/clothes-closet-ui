@@ -13,6 +13,7 @@ import Thankyou from "./view/thankyou/Thankyou";
 import Appointment from "./view/appointment/Appointment";
 import Print from "./view/print/Print";
 import Logout from "./view/logout/Logout";
+import Reporting from "./view/reporting/Reporting";
 
 function App() {
   
@@ -29,6 +30,7 @@ function App() {
             <Route path="/appointment" element={<Appointment />} />
             <Route path="/print" element={<Print />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/reporting" element={<Reporting />} />
           </Routes>
         </div>
       </Router>

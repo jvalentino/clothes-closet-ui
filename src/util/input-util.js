@@ -21,9 +21,16 @@ function prettyDateTimeFromIso(iso) {
     const time = date.toLocaleTimeString()
 
     return `${dayMonthYear} ${time}`;
-  }
+}
+
+function monthDayYearToYearMonthDate(date) {
+    const split = date.split('/');
+    const isoDate = `${split[2]}-${split[0]}-${split[1]}`;
+    return isoDate;
+}
 
 export {
     isBlank,
-    prettyDateTimeFromIso
+    prettyDateTimeFromIso,
+    monthDayYearToYearMonthDate
 }
