@@ -34,6 +34,18 @@ async function makeAppointment(body) {
         result.messages = [strings.alreadyBooked];
     }
 
+    if (result.success == false && result.codes.length != 0 && result.codes[0] == 'ALREADY_BEEN') {
+        const newMessages = [];
+        result.messages.forEach(element => {
+            const split = element.split(" ");
+            const studentId = split[0];
+            const iso = split[1];
+            const date = inputUtil.prettyDateTimeFromIso(iso);
+            newMessages.push(strings.formatString(strings.alreadyBeen, {id: studentId, datetime:date}));
+        });
+        result.messages = newMessages;
+    }
+
     return result;
 }
 

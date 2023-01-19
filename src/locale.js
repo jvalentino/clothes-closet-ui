@@ -35,6 +35,7 @@ let strings = new LocalizedStrings({
       thankYouText: "You will receive an email 24-hours prior to your appointment, and if you provided a mobile phone number you will also receive a text message.",
       errorStudentNotEligible: "The Student ID of {id} is not eligible",
       alreadyBooked: "The selected date and time is no longer available, please pick another",
+      alreadyBeen: "Student {id} is not longer eligible because they have already been this semester on {datetime}",
     },
     es: {
       bannerFollowUs: "Síguenos en Facebook",
@@ -70,6 +71,7 @@ let strings = new LocalizedStrings({
       thankYouText: "Recibirá un correo electrónico 24 horas antes de su cita y, si proporcionó un número de teléfono móvil, también recibirá un mensaje de texto.",
       errorStudentNotEligible: "La identificación de estudiante de {id} no es elegible",
       alreadyBooked: "La fecha y hora seleccionadas ya no están disponibles, elija otra",
+      alreadyBeen: "Student {id} is not longer eligible because they have already been this semester on {datetime}",
     },
     ar:{
       bannerFollowUs: "تابعنا على الفيسبوك",
@@ -105,6 +107,7 @@ let strings = new LocalizedStrings({
       thankYouText: "ستتلقى بريدًا إلكترونيًا قبل 24 ساعة من موعدك ، وإذا قدمت رقم هاتف محمول ، فستتلقى أيضًا رسالة نصية.",
       errorStudentNotEligible: "معرف الطالب لـ {id} غير مؤهل",
       alreadyBooked: "التاريخ والوقت المحدد لم يعد متاحًا ، يرجى اختيار آخر",
+      alreadyBeen: "Student {id} is not longer eligible because they have already been this semester on {datetime}",
     },
     fr:{
       bannerFollowUs: "Suis nous sur Facebook",
@@ -140,6 +143,7 @@ let strings = new LocalizedStrings({
       thankYouText: "Vous recevrez un e-mail 24 heures avant votre rendez-vous, et si vous avez fourni un numéro de téléphone portable, vous recevrez également un SMS.",
       errorStudentNotEligible: "La carte d'étudiant de {id} n'est pas éligible",
       alreadyBooked: "La date et l'heure sélectionnées ne sont plus disponibles, veuillez en choisir une autre",
+      alreadyBeen: "Student {id} is not longer eligible because they have already been this semester on {datetime}",
     },
    });
 

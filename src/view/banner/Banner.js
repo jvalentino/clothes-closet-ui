@@ -42,6 +42,9 @@ class Banner extends Component {
             <a href="./">Schedule Appointment</a> | &nbsp;
             <a href="./appointment">Search Appointments</a> | &nbsp;
             <a href="./reporting">Reporting</a> | &nbsp;
+            <a href="./settings">Settings</a> | &nbsp;
+            <a href="./locales">Locales</a> | &nbsp;
+            <a href="./upload">Student ID Upload</a> | &nbsp;
             <a href="./logout">Logout</a>
           </td>
         </tr>

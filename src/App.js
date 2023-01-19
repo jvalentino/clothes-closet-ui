@@ -14,6 +14,9 @@ import Appointment from "./view/appointment/Appointment";
 import Print from "./view/print/Print";
 import Logout from "./view/logout/Logout";
 import Reporting from "./view/reporting/Reporting";
+import Settings from "./view/settings/Settings";
+import Locale from "./view/locale/Locale";
+import StudentUpload from "./view/upload/StudentUpload";
 
 function App() {
   
@@ -31,6 +34,9 @@ function App() {
             <Route path="/print" element={<Print />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/reporting" element={<Reporting />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/locales" element={<Locale />} />
+            <Route path="/upload" element={<StudentUpload />} />
           </Routes>
         </div>
       </Router>
