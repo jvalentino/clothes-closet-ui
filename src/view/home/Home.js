@@ -143,6 +143,7 @@ class Home extends Component {
 
       const body = {
         datetime: this.state.event?.start,
+        locale: this.state.language,
         guardian: {
           email: elements.email.value,
           firstName: elements.firstName.value,

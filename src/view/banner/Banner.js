@@ -76,7 +76,7 @@ class Banner extends Component {
                   <br />
                   <img src={require('./google-map.png')} />
                   &nbsp;&nbsp;
-                  <a href="https://goo.gl/maps/ozvTgjHYwGSKezdw6" rel="noreferrer" target="_blank">
+                  <a href="https://www.google.com/maps/dir//32.8199886,-97.1358205/@32.8202211,-97.1357283,122m/data=!3m1!1e3" rel="noreferrer" target="_blank">
                     1100 Raider Dr, Euless, TX, United States, Texas
                   </a> <br />
                   <img src={require('./facebook.png')} />
