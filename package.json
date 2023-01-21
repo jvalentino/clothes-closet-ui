@@ -38,7 +38,7 @@
     "test": "npx react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "prettier": "npx prettier-eslint \"src/**/*.js\" --write -l info",
-    "eslint": "npx eslint --fix src --format html -o build-reports/eslint.html"
+    "eslint": "npx eslint --fix src --format html -o build-reports/eslint.html --ignore-pattern \"**.test.js\""
   },
   "eslintConfig": {
     "extends": [
