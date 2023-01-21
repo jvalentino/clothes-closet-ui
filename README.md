@@ -44,7 +44,7 @@ Husky is setup to run `npm run build:dev` prior to any change in source control,
 
 ... all prior to the actual build.
 
-The production pipeline does the same, except using `nom run build`
+The production pipeline does the same, except using `npm run build`
 
 # One Time Setup
 
