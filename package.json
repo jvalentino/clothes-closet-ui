@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "npx env-cmd -f .env.production react-scripts start",
-    "build": "npm run prettier && npm run eslint && npm run test && npx env-cmd -f .env.production react-scripts build",
+    "build": "npm run test && npx env-cmd -f .env.production react-scripts build",
     "start:dev": "npx env-cmd -f .env.development react-scripts start",
     "build:dev": "npm run prettier && npm run eslint && npm run test && npx env-cmd -f .env.development react-scripts build",
     "test:watch": "react-scripts test",
