@@ -1,6 +1,6 @@
 {
     "all": true,
-    "exclude": ["test", "gulpfile.js", "coverage", "build", "manual-testing", "setup", ".sfdx"],
+    "exclude": ["test", "gulpfile.js", "coverage", "build", "manual-testing", "setup", ".sfdx","node_modules"],
     "output": "reports",
     "reporter" : [
         "html",

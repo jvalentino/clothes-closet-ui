@@ -20,7 +20,31 @@ The only difference between dev and prod is the URL used for backend services.
 
 # Testing It
 
-TBD
+Running all tests with coverage:
+
+```bash
+npm run test
+```
+
+Running out of the IDE:
+
+- You must first have installed the Jest Plugin via Orta
+
+The result is that you get magic green bubbles to run tests:
+
+![01](wiki/01.png)
+
+# Build Automation
+
+Husky is setup to run `npm run build:dev` prior to any change in source control, which handles running:
+
+- prettier
+- eslint
+- test
+
+... all prior to the actual build.
+
+The production pipeline does the same, except using `nom run build`
 
 # One Time Setup
 
@@ -55,10 +79,12 @@ Summary
 
 ## Husky
 
-```
+It was setup using the following:
+
+```bash
 npx husky install
 npx husky add .husky/pre-commit "npm run build:dev"
 ```
 
-
+This makes it to where it runs `npm build:dev` and having it pass prior to being able to do any sort of commit.
 

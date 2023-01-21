@@ -31,12 +31,14 @@
   },
   "scripts": {
     "start": "npx env-cmd -f .env.production react-scripts start",
-    "build": "npx env-cmd -f .env.production react-scripts build",
+    "build": "npm run prettier && npm run eslint && npm run test && npx env-cmd -f .env.production react-scripts build",
     "start:dev": "npx env-cmd -f .env.development react-scripts start",
-    "build:dev": "npm run prettier && npx env-cmd -f .env.development react-scripts build",
-    "test": "react-scripts test",
+    "build:dev": "npm run prettier && npm run eslint && npm run test && npx env-cmd -f .env.development react-scripts build",
+    "test:watch": "react-scripts test",
+    "test":"npx react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
-    "prettier": "npx prettier-eslint \"src/**/*.js\" --write -l info"
+    "prettier": "npx prettier-eslint \"src/**/*.js\" --write -l info",
+    "eslint": "npx eslint --fix src --format html -o build-reports/eslint.html"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +60,18 @@
   },
   "devDependencies": {
     "env-cmd": "10.1.0",
-    "husky": "^8.0.3",
+    "eslint": "8.32.0",
+    "husky": "8.0.3",
     "prettier-eslint-cli": "7.1.0"
+  },
+  "jest": {
+    "transformIgnorePatterns":[ "node_modules/@fullcalendal"],
+    
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ]
   }
 }
