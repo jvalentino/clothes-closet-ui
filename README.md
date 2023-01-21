@@ -46,6 +46,8 @@ Husky is setup to run `npm run build:dev` prior to any change in source control,
 
 The production pipeline does the same, except using `npm run build`
 
+Thius means you can't commit busted code, and even if you did the production build would fail on Heroku.
+
 # One Time Setup
 
 ## Custom Domain Name Setup

@@ -50,7 +50,7 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const data = await controller.getSettings();
+    const data = await controller.getSettings(AppState.getUrl());
     /*data.events = [
         {
           title: 'Closed',
@@ -170,7 +170,7 @@ class Home extends Component {
       return;
     }
 
-    const result = await controller.makeAppointment(body);
+    const result = await controller.makeAppointment(body, AppState.getUrl());
     console.log(result);
 
     if (result.success) {

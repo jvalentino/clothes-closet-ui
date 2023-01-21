@@ -4,24 +4,19 @@ import strings from "../../locale";
 
 import validator from "validator";
 
-async function getSettings() {
-  const response = await fetch(
-    `${process.env.REACT_APP_HTTP_API}/appointment/settings`
-  );
+async function getSettings(url) {
+  const response = await fetch(`${url}/appointment/settings`);
   const text = await response.text();
   return JSON.parse(text);
 }
 
-async function makeAppointment(body) {
+async function makeAppointment(body, url) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body)
   };
-  const response = await fetch(
-    `${process.env.REACT_APP_HTTP_API}/appointment/schedule`,
-    requestOptions
-  );
+  const response = await fetch(`${url}/appointment/schedule`, requestOptions);
   const text = await response.text();
 
   const result = JSON.parse(text);
@@ -80,7 +75,10 @@ function validate(body) {
     messages.push(strings.errorApptTime);
   }
 
-  if (!validator.isEmail(body.guardian.email)) {
+  if (
+    inputUtil.isBlank(body.guardian.email) ||
+    !validator.isEmail(body.guardian.email)
+  ) {
     messages.push(strings.errorEmail);
   }
 

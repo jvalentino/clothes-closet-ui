@@ -452,7 +452,9 @@ class Appointment extends Component {
                     <input name="name-field" type="text" />
                   </td>
                   <td>
-                    <button type="submit">Search</button>
+                    <button id="search-button" type="submit">
+                      Search
+                    </button>
                   </td>
                 </tr>
               </tbody>

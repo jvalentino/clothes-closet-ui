@@ -35,7 +35,7 @@
     "start:dev": "npx env-cmd -f .env.development react-scripts start",
     "build:dev": "npm run prettier && npm run eslint && npm run test && npx env-cmd -f .env.development react-scripts build",
     "test:watch": "react-scripts test",
-    "test":"npx react-scripts test --watchAll=false --coverage",
+    "test": "npx react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "prettier": "npx prettier-eslint \"src/**/*.js\" --write -l info",
     "eslint": "npx eslint --fix src --format html -o build-reports/eslint.html"
@@ -62,11 +62,13 @@
     "env-cmd": "10.1.0",
     "eslint": "8.32.0",
     "husky": "8.0.3",
+    "jest-fetch-mock": "3.0.3",
     "prettier-eslint-cli": "7.1.0"
   },
   "jest": {
-    "transformIgnorePatterns":[ "node_modules/@fullcalendal"],
-    
+    "transformIgnorePatterns": [
+      "node_modules/@fullcalendal"
+    ],
     "coverageReporters": [
       "json",
       "lcov",
