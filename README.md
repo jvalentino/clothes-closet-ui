@@ -22,7 +22,9 @@ The only difference between dev and prod is the URL used for backend services.
 
 TBD
 
-# Custom Domain Name Setup
+# One Time Setup
+
+## Custom Domain Name Setup
 
 GoDaddy does not play nice, so I had to follow different instructions from https://successengineer.medium.com/how-to-setup-heroku-with-godaddy-d8e936d10849.
 
@@ -50,6 +52,13 @@ Summary
 ```
 
 
+
+## Husky
+
+```
+npx husky install
+npx husky add .husky/pre-commit "npm run build:dev"
+```
 
 
 

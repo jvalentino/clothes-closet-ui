@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 
 import {
   BrowserRouter as Router,
@@ -19,7 +19,6 @@ import Locale from "./view/locale/Locale";
 import StudentUpload from "./view/upload/StudentUpload";
 
 function App() {
-  
   return (
     <div>
       <Router>

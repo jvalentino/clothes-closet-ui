@@ -1,10 +1,8 @@
-
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import strings from "../../locale";
 
 function display(messages) {
- 
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
@@ -14,19 +12,17 @@ function display(messages) {
             <p className="alert__body">{strings.errorsToBeCorrected}</p>
             <ul>
               {messages.map((message) => (
-                  <li key={message}>{message}</li>
+                <li key={message}>{message}</li>
               ))}
             </ul>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>{strings.errorsOkay}</button>
-              </div>
+            </div>
           </div>
         </div>
       );
     }
   });
-  
 }
-  
+
 export { display };
-  

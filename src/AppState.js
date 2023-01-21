@@ -1,96 +1,93 @@
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 let instance = null;
 
 class AppState {
+  cookies = new Cookies();
 
-    cookies = new Cookies();
+  constructor() {
+    if (instance) {
+      throw new Error("You can only create one instance!");
+    }
+    instance = this;
+  }
 
-    constructor() {
-        if (instance) {
-          throw new Error("You can only create one instance!");
-        }
-        instance = this;
-      }
+  getSessionId() {
+    return this.cookies.get("clothes-closet-session-id");
+  }
 
-    getSessionId() {
-        return this.cookies.get('clothes-closet-session-id');
-    }
-    
-    setSessionId(sessionId) {
-        this.cookies.set('clothes-closet-session-id', sessionId);
-    }
-    
-    getUrl() {
-        return process.env.REACT_APP_HTTP_API
-    }
+  setSessionId(sessionId) {
+    this.cookies.set("clothes-closet-session-id", sessionId);
+  }
 
-    getInstance() {
-        return this;
-    }
+  getUrl() {
+    return process.env.REACT_APP_HTTP_API;
+  }
 
-    setCurrentAppointmentId(id) {
-        this.cookies.set('clothes-closet-appointment-id', id);
-    }
+  getInstance() {
+    return this;
+  }
 
-    getCurrentAppointmentId() {
-        return this.cookies.get('clothes-closet-appointment-id');
-    }
+  setCurrentAppointmentId(id) {
+    this.cookies.set("clothes-closet-appointment-id", id);
+  }
 
-    setLanguage(language) {
-        this.cookies.set('clothes-closet-language', language);
-    }
+  getCurrentAppointmentId() {
+    return this.cookies.get("clothes-closet-appointment-id");
+  }
 
-    getLanguage() {
-        return this.cookies.get('clothes-closet-language');
-    }
+  setLanguage(language) {
+    this.cookies.set("clothes-closet-language", language);
+  }
 
-    setAppointment(appointment) {
-        this.cookies.set('clothes-closet-appointment', appointment);
-    }
+  getLanguage() {
+    return this.cookies.get("clothes-closet-language");
+  }
 
-    getAppointment() {
-        return this.cookies.get('clothes-closet-appointment');
-    }
+  setAppointment(appointment) {
+    this.cookies.set("clothes-closet-appointment", appointment);
+  }
 
-    setTextAlign(textAlign) {
-        this.cookies.set('clothes-closet-text-align', textAlign);
-    }
+  getAppointment() {
+    return this.cookies.get("clothes-closet-appointment");
+  }
 
-    getTextAlign() {
-        return this.cookies.get('clothes-closet-text-align');
-    }
+  setTextAlign(textAlign) {
+    this.cookies.set("clothes-closet-text-align", textAlign);
+  }
 
-    setLoggedInName(name) {
-        this.cookies.set('clothes-closet-logged-in-name', name);
-    }
+  getTextAlign() {
+    return this.cookies.get("clothes-closet-text-align");
+  }
 
-    getLoggedInName() {
-        return this.cookies.get('clothes-closet-logged-in-name');
-    }
+  setLoggedInName(name) {
+    this.cookies.set("clothes-closet-logged-in-name", name);
+  }
 
-    setLoggedInPicture(url) {
-        this.cookies.set('clothes-closet-logged-in-picture', url);
-    }
-    
-    getLoggedInPicture() {
-        return this.cookies.get('clothes-closet-logged-in-picture');
-    }
+  getLoggedInName() {
+    return this.cookies.get("clothes-closet-logged-in-name");
+  }
 
-    markLoggedIn(sessionId, name, pictureUrl) {
-        if (sessionId != null) {
-            this.setSessionId(sessionId);
-            this.setLoggedInName(name);
-            this.setLoggedInPicture(pictureUrl);
-        } else {
-            this.cookies.remove("clothes-closet-logged-in-name");
-            this.cookies.remove("clothes-closet-logged-in-picture");
-            this.cookies.remove("clothes-closet-logged-session-id");
-        }
-        
+  setLoggedInPicture(url) {
+    this.cookies.set("clothes-closet-logged-in-picture", url);
+  }
+
+  getLoggedInPicture() {
+    return this.cookies.get("clothes-closet-logged-in-picture");
+  }
+
+  markLoggedIn(sessionId, name, pictureUrl) {
+    if (sessionId != null) {
+      this.setSessionId(sessionId);
+      this.setLoggedInName(name);
+      this.setLoggedInPicture(pictureUrl);
+    } else {
+      this.cookies.remove("clothes-closet-logged-in-name");
+      this.cookies.remove("clothes-closet-logged-in-picture");
+      this.cookies.remove("clothes-closet-logged-session-id");
     }
+  }
 }
-
 
 const singletonCounter = Object.freeze(new AppState());
 export default singletonCounter;
