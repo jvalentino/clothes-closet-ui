@@ -1,6 +1,4 @@
-import AppState from "../../AppState";
-
-async function login(credentialResponse) {
+async function login(credentialResponse, url) {
   console.log(credentialResponse);
 
   const requestOptions = {
@@ -8,21 +6,13 @@ async function login(credentialResponse) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentialResponse)
   };
-  const response = await fetch(
-    `${process.env.REACT_APP_HTTP_API}/oauth`,
-    requestOptions
-  );
+  const response = await fetch(`${url}/oauth`, requestOptions);
+
   const text = await response.text();
   const result = JSON.parse(text);
   console.log(result);
 
-  if (!result.success) {
-    return false;
-  }
-
-  AppState.markLoggedIn(result.sessionId, result.name, result.pictureUrl);
-
-  return true;
+  return result;
 }
 
 export { login };

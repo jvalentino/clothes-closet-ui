@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import * as controller from "./login-controller";
 import { Navigate } from "react-router-dom";
+import AppState from "../../AppState";
 
 class Login extends Component {
   constructor() {
@@ -15,11 +16,15 @@ class Login extends Component {
   async componentDidMount() {}
 
   async onSuccess(credentialResponse) {
-    const success = await controller.login(credentialResponse);
+    const result = await controller.login(
+      credentialResponse,
+      AppState.getUrl()
+    );
 
-    if (success) {
+    if (result.success) {
+      AppState.markLoggedIn(result.sessionId, result.name, result.pictureUrl);
       this.setState({
-        success: success
+        success: result.success
       });
     } else {
       // FIXME: Display error

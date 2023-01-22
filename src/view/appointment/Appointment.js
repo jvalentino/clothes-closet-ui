@@ -14,14 +14,22 @@ class Appointment extends Component {
   columns = [
     {
       cell: (row) => (
-        <button onClick={this.appointmentSelected} id={row.appointmentId}>
+        <button
+          onClick={this.appointmentSelected}
+          id={row.appointmentId}
+          className="default"
+        >
           Select
         </button>
       )
     },
     {
       cell: (row) => (
-        <button onClick={this.printSelected} id={row.appointmentId}>
+        <button
+          onClick={this.printSelected}
+          id={row.appointmentId}
+          className="default"
+        >
           Print
         </button>
       )
@@ -112,7 +120,7 @@ class Appointment extends Component {
 
     return (
       <div>
-        <h3>Search Results</h3>
+        <h3>{this.state.searchResults.appointments.length} Search Results</h3>
         <DataTable
           columns={this.columns}
           data={this.state.searchResults.appointments}
@@ -383,6 +391,7 @@ class Appointment extends Component {
             </tr>
           </tbody>
         </table>
+        <br />
         <div>
           {appointment.visits.map((visit) => (
             <div key={visit.visitId}>
@@ -391,7 +400,10 @@ class Appointment extends Component {
             </div>
           ))}
         </div>
-        <button type="submit">Submit</button>
+        <br />
+        <button type="submit" className="default">
+          Submit
+        </button>
       </div>
     );
   }
@@ -412,7 +424,9 @@ class Appointment extends Component {
               <input type="text" name="new-relation" />
             </td>
             <td>
-              <button type="submit">Add New Person</button>
+              <button className="default" type="submit">
+                Add New Person
+              </button>
             </td>
           </tr>
         </tbody>
@@ -425,7 +439,11 @@ class Appointment extends Component {
       return <div />;
     }
 
-    return <button type="submit">Cancel Appointment</button>;
+    return (
+      <button className="default" type="submit">
+        Cancel Appointment
+      </button>
+    );
   }
 
   render() {
@@ -452,7 +470,11 @@ class Appointment extends Component {
                     <input name="name-field" type="text" />
                   </td>
                   <td>
-                    <button id="search-button" type="submit">
+                    <button
+                      id="search-button"
+                      type="submit"
+                      className="default"
+                    >
                       Search
                     </button>
                   </td>
@@ -460,9 +482,13 @@ class Appointment extends Component {
               </tbody>
             </table>
           </form>
+          <br />
           {this.renderSearchResults()}
+          <br />
           {this.renderAppointmentHeader()}
+          <br />
           <form onSubmit={this.onAddPerson}>{this.renderAddPerson()}</form>
+          <br />
           <form onSubmit={this.updateVisit}>{this.renderDetails()}</form>
           <br />
           <form onSubmit={this.cancelAppointment}>{this.renderCancel()}</form>
