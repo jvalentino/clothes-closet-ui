@@ -53,6 +53,11 @@ class Appointment extends Component {
       name: "Guardian",
       selector: (row) => row.guardian.firstName + " " + row.guardian.lastName,
       sortable: true
+    },
+    {
+      name: "Locale",
+      selector: (row) => row.locale,
+      sortable: true
     }
   ];
 
