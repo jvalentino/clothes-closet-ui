@@ -43,21 +43,13 @@ class Home extends Component {
       language: "en",
       showCalender: false,
       timeslots: null,
-      currentPhoneNumber: null
+      currentPhoneNumber: null,
+      noOptions: false
     };
-
-    //AppState.markLoggedIn(null, null, null);
   }
 
   async componentDidMount() {
     const data = await controller.getSettings(AppState.getUrl());
-    /*data.events = [
-        {
-          title: 'Closed',
-          start: '2023-01-09T08:00:00.000+0000',
-          end: '2023-01-09T16:30:00Z'
-        }
-      ];*/
 
     const timeslots = [];
     data.availability.availabilities.forEach((available) => {
@@ -67,11 +59,23 @@ class Home extends Component {
       });
     });
 
+    let newEvent = null;
+    let noOptions = false;
+    if (timeslots.length != 0) {
+      const startDate = new Date(timeslots[0].value);
+      const endDate = new Date(startDate.getTime() + 30 * 60000);
+      newEvent = controller.makeNewEvent(startDate, endDate);
+    } else {
+      noOptions = true;
+    }
+
     console.log(timeslots);
 
     this.setState({
       data: data,
-      timeslots: timeslots
+      timeslots: timeslots,
+      event: newEvent,
+      noOptions: noOptions
     });
   }
 
@@ -88,19 +92,7 @@ class Home extends Component {
     const startDate = new Date(event.dateStr);
     const endDate = new Date(startDate.getTime() + 30 * 60000);
 
-    const newEvent = {
-      id: "new-appointment",
-      title: "New",
-      start: startDate.toISOString()?.replace("Z", "+0000"),
-      end: endDate.toISOString()?.replace("Z", "+0000"),
-      color: "#378006",
-      label: inputUtil.prettyDateTimeFromIso(
-        startDate.toISOString()?.replace("Z", "+0000")
-      ),
-      datetimeValue: new Date(
-        startDate.toISOString()?.replace("Z", "+0000")
-      ).getTime()
-    };
+    const newEvent = controller.makeNewEvent(startDate, endDate);
 
     console.log(newEvent);
 
@@ -212,19 +204,7 @@ class Home extends Component {
     const startDate = new Date(event.value);
     const endDate = new Date(startDate.getTime() + 30 * 60000);
 
-    const newEvent = {
-      id: "new-appointment",
-      title: "New",
-      start: startDate.toISOString()?.replace("Z", "+0000"),
-      end: endDate.toISOString()?.replace("Z", "+0000"),
-      color: "#378006",
-      label: inputUtil.prettyDateTimeFromIso(
-        startDate.toISOString()?.replace("Z", "+0000")
-      ),
-      datetimeValue: new Date(
-        startDate.toISOString()?.replace("Z", "+0000")
-      ).getTime()
-    };
+    const newEvent = controller.makeNewEvent(startDate, endDate);
 
     this.setState({
       event: newEvent
@@ -248,6 +228,162 @@ class Home extends Component {
         datesSet={this.datesSet}
         height={600}
       />
+    );
+  }
+
+  renderForm() {
+    if (this.state.noOptions == true) {
+      return (
+        <div>
+          <h1>{strings.noAvailability}</h1>
+          <p>{strings.noAvailabilityText}</p>
+        </div>
+      );
+    }
+
+    return (
+      <form onSubmit={this.submit}>
+        <h3>{strings.appointmentParentInfo}</h3>
+        <table className="standard-form">
+          <tbody>
+            <tr>
+              <td>{strings.firstName}</td>
+              <td>
+                <input style={{ width: 192 }} name="firstName" type="text" />
+              </td>
+
+              <td>{strings.lastName}</td>
+              <td>
+                <input name="lastName" type="text" />
+              </td>
+
+              <td>{strings.emailAddress}</td>
+              <td>
+                <input name="email" type="text" style={{ width: "300px" }} />
+              </td>
+            </tr>
+
+            <tr>
+              <td>{strings.phoneNumber}</td>
+              <td>
+                <PhoneInput
+                  style={{ width: 200 }}
+                  name="phoneNumber"
+                  value={this.state.currentPhoneNumber}
+                  onChange={this.onPhoneChange}
+                  defaultCountry="US"
+                />
+              </td>
+
+              <td>{strings.phoneType}</td>
+              <td>
+                <select name="phoneTypeLabel">
+                  {this.state.data.phoneTypes.map((phoneType) => (
+                    <option value={phoneType.label} key={phoneType.label}>
+                      {phoneType.label}
+                    </option>
+                  ))}
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <h3>{strings.students}</h3>
+        {this.state.students.map((student) => (
+          <div key={"student" + student}>
+            <table className="standard-form">
+              <tbody>
+                <tr>
+                  <td>{strings.studentId}</td>
+                  <td>
+                    <input name={`student-id-${student}`} type="text" />
+                  </td>
+
+                  <td>{strings.gender}</td>
+                  <td>
+                    <select name={`student-gender-${student}`}>
+                      {this.state.data.genders.map((gender) => (
+                        <option value={gender.label} key={gender.label}>
+                          {gender.label}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+
+                  <td>{strings.grade}</td>
+                  <td>
+                    <select name={`student-grade-${student}`}>
+                      {this.state.data.grades.map((grade) => (
+                        <option value={grade.label} key={grade.label}>
+                          {grade.label}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+
+                  <td>{strings.school}</td>
+                  <td>
+                    <select name={`student-school-${student}`}>
+                      {this.state.data.schools.map((school) => (
+                        <option value={school.label} key={school.label}>
+                          {school.label}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+          </div>
+        ))}
+        <button className="default" onClick={this.clickAddStudent}>
+          {strings.addAnotherStudent}
+        </button>
+
+        <br />
+        <br />
+        <h3>{strings.scheduleAppointment}</h3>
+        <table className="header">
+          <tbody>
+            <tr>
+              <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
+              <td style={{ width: "100%" }}>
+                <Select
+                  options={this.state.timeslots}
+                  onChange={this.slotChange}
+                  value={{
+                    label: this.state.event?.label,
+                    value: this.state.event?.datetimeValue
+                  }}
+                />
+                &nbsp;&nbsp; &nbsp;&nbsp;
+              </td>
+              <td>&nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;</td>
+              <td>
+                <Switch
+                  className="react-switch"
+                  checked={this.state.showCalender}
+                  onChange={() =>
+                    this.setState({
+                      showCalender: !this.state.showCalender
+                    })
+                  }
+                />
+              </td>
+              <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button className="default" type="submit">
+                  {strings.scheduleAppointment}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        {this.renderCalendar()}
+      </form>
     );
   }
 
@@ -315,156 +451,8 @@ class Home extends Component {
 
           <h1>{strings.appointmentScheduling}</h1>
           <p>{strings.appointmentPurpose}</p>
-          <form onSubmit={this.submit}>
-            <h3>{strings.appointmentParentInfo}</h3>
-            <table className="standard-form">
-              <tbody>
-                <tr>
-                  <td>{strings.firstName}</td>
-                  <td>
-                    <input
-                      style={{ width: 192 }}
-                      name="firstName"
-                      type="text"
-                    />
-                  </td>
 
-                  <td>{strings.lastName}</td>
-                  <td>
-                    <input name="lastName" type="text" />
-                  </td>
-
-                  <td>{strings.emailAddress}</td>
-                  <td>
-                    <input
-                      name="email"
-                      type="text"
-                      style={{ width: "300px" }}
-                    />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>{strings.phoneNumber}</td>
-                  <td>
-                    <PhoneInput
-                      style={{ width: 200 }}
-                      name="phoneNumber"
-                      value={this.state.currentPhoneNumber}
-                      onChange={this.onPhoneChange}
-                      defaultCountry="US"
-                    />
-                  </td>
-
-                  <td>{strings.phoneType}</td>
-                  <td>
-                    <select name="phoneTypeLabel">
-                      {this.state.data.phoneTypes.map((phoneType) => (
-                        <option value={phoneType.label} key={phoneType.label}>
-                          {phoneType.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-            <h3>{strings.students}</h3>
-            {this.state.students.map((student) => (
-              <div key={"student" + student}>
-                <table className="standard-form">
-                  <tbody>
-                    <tr>
-                      <td>{strings.studentId}</td>
-                      <td>
-                        <input name={`student-id-${student}`} type="text" />
-                      </td>
-
-                      <td>{strings.gender}</td>
-                      <td>
-                        <select name={`student-gender-${student}`}>
-                          {this.state.data.genders.map((gender) => (
-                            <option value={gender.label} key={gender.label}>
-                              {gender.label}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-
-                      <td>{strings.grade}</td>
-                      <td>
-                        <select name={`student-grade-${student}`}>
-                          {this.state.data.grades.map((grade) => (
-                            <option value={grade.label} key={grade.label}>
-                              {grade.label}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-
-                      <td>{strings.school}</td>
-                      <td>
-                        <select name={`student-school-${student}`}>
-                          {this.state.data.schools.map((school) => (
-                            <option value={school.label} key={school.label}>
-                              {school.label}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br />
-              </div>
-            ))}
-            <button className="default" onClick={this.clickAddStudent}>
-              {strings.addAnotherStudent}
-            </button>
-
-            <br />
-            <br />
-            <h3>{strings.scheduleAppointment}</h3>
-            <table className="header">
-              <tbody>
-                <tr>
-                  <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
-                  <td style={{ width: "100%" }}>
-                    <Select
-                      options={this.state.timeslots}
-                      onChange={this.slotChange}
-                      value={{
-                        label: this.state.event?.label,
-                        value: this.state.event?.datetimeValue
-                      }}
-                    />
-                    &nbsp;&nbsp; &nbsp;&nbsp;
-                  </td>
-                  <td>&nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;</td>
-                  <td>
-                    <Switch
-                      className="react-switch"
-                      checked={this.state.showCalender}
-                      onChange={() =>
-                        this.setState({
-                          showCalender: !this.state.showCalender
-                        })
-                      }
-                    />
-                  </td>
-                  <td>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button className="default" type="submit">
-                      {strings.scheduleAppointment}
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-            {this.renderCalendar()}
-          </form>
+          {this.renderForm()}
         </div>
       </div>
     );

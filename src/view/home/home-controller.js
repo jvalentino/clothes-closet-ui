@@ -108,4 +108,18 @@ function validate(body) {
   return messages;
 }
 
-export { getSettings, makeAppointment, validate };
+function makeNewEvent(startDate, endDate) {
+  const newEvent = {
+    id: "new-appointment",
+    title: "New",
+    start: inputUtil.dateToIso8601(startDate),
+    end: inputUtil.dateToIso8601(endDate),
+    color: "#378006",
+    label: inputUtil.prettyDateTimeFromIso(inputUtil.dateToIso8601(startDate)),
+    datetimeValue: new Date(inputUtil.dateToIso8601(startDate)).getTime()
+  };
+
+  return newEvent;
+}
+
+export { getSettings, makeAppointment, validate, makeNewEvent };

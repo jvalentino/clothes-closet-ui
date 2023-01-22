@@ -38,7 +38,10 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "The selected date and time is no longer available, please pick another",
     alreadyBeen:
-      "Student {id} is not longer eligible because they have already been this semester on {datetime}"
+      "Student {id} is not longer eligible because they have already been this semester on {datetime}",
+    noAvailability: "No Availability",
+    noAvailabilityText: `All of the avaiable appointment times for the next 3 months have already been taken.
+    Please check back again to see if anytmore times become available.`
   },
   es: {
     bannerFollowUs: "Síguenos en Facebook",
@@ -79,7 +82,10 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "La fecha y hora seleccionadas ya no están disponibles, elija otra",
     alreadyBeen:
-      "Student {id} is not longer eligible because they have already been this semester on {datetime}"
+      "El estudiante {id} ya no es elegible porque ya ha estado este semestre el {datetime}",
+    noAvailability: "No disponible",
+    noAvailabilityText: `Ya se han tomado todos los horarios de citas disponibles para los próximos 3 meses.
+    Vuelva a consultar para ver si hay más horarios disponibles.`
   },
   ar: {
     bannerFollowUs: "تابعنا على الفيسبوك",
@@ -117,7 +123,10 @@ let strings = new LocalizedStrings({
     errorStudentNotEligible: "معرف الطالب لـ {id} غير مؤهل",
     alreadyBooked: "التاريخ والوقت المحدد لم يعد متاحًا ، يرجى اختيار آخر",
     alreadyBeen:
-      "Student {id} is not longer eligible because they have already been this semester on {datetime}"
+      "لم يعد الطالب {id} مؤهلاً لأنه سبق له أن حضر هذا الفصل الدراسي في {datetime}",
+    noAvailability: "غير متوفر",
+    noAvailabilityText: `لقد تم بالفعل حجز جميع المواعيد المتاحة للأشهر الثلاثة القادمة.
+    يرجى التحقق مرة أخرى لمعرفة ما إذا كانت هناك المزيد من الأوقات المتاحة.`
   },
   fr: {
     bannerFollowUs: "Suis nous sur Facebook",
@@ -159,7 +168,10 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "La date et l'heure sélectionnées ne sont plus disponibles, veuillez en choisir une autre",
     alreadyBeen:
-      "Student {id} is not longer eligible because they have already been this semester on {datetime}"
+      "L'étudiant {id} n'est plus éligible car il a déjà été ce semestre le {datetime}",
+    noAvailability: "Pas de disponibilité",
+    noAvailabilityText: `Toutes les heures de rendez-vous disponibles pour les 3 prochains mois ont déjà été prises.
+    Veuillez vérifier à nouveau pour voir si d'autres fois deviennent disponibles.`
   }
 });
 

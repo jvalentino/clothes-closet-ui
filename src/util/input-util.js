@@ -28,4 +28,13 @@ function monthDayYearToYearMonthDate(date) {
   return isoDate;
 }
 
-export { isBlank, prettyDateTimeFromIso, monthDayYearToYearMonthDate };
+function dateToIso8601(date) {
+  return date.toISOString()?.replace("Z", "+0000");
+}
+
+export {
+  isBlank,
+  prettyDateTimeFromIso,
+  monthDayYearToYearMonthDate,
+  dateToIso8601
+};
