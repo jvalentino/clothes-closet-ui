@@ -151,7 +151,7 @@ class Print extends Component {
               <td>
                 <b>First Time?</b>
               </td>
-              <td>{data.firstName ? "Yes" : "No"}</td>
+              <td>{data.firstTime ? "Yes" : "No"}</td>
               <td>
                 <b>Last Appointment:</b>
               </td>

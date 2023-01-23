@@ -11,56 +11,6 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Banner from "../banner/Banner";
 
 class Appointment extends Component {
-  columns = [
-    {
-      cell: (row) => (
-        <button
-          onClick={this.appointmentSelected}
-          id={row.appointmentId}
-          className="default"
-        >
-          Select
-        </button>
-      )
-    },
-    {
-      cell: (row) => (
-        <button
-          onClick={this.printSelected}
-          id={row.appointmentId}
-          className="default"
-        >
-          Print
-        </button>
-      )
-    },
-    {
-      name: "Date",
-      selector: (row) => new Date(row.datetimeIso).toLocaleDateString(),
-      sortable: true
-    },
-    {
-      name: "Time",
-      selector: (row) => new Date(row.datetimeIso).toLocaleTimeString(),
-      sortable: true
-    },
-    {
-      name: "Happened?",
-      selector: (row) => (row.happened == true ? "Yes" : "No"),
-      sortable: true
-    },
-    {
-      name: "Guardian",
-      selector: (row) => row.guardian.firstName + " " + row.guardian.lastName,
-      sortable: true
-    },
-    {
-      name: "Locale",
-      selector: (row) => row.locale,
-      sortable: true
-    }
-  ];
-
   constructor() {
     super();
 
@@ -70,12 +20,80 @@ class Appointment extends Component {
     this.updateVisit = this.updateVisit.bind(this);
     this.cancelAppointment = this.cancelAppointment.bind(this);
     this.printSelected = this.printSelected.bind(this);
+    this.printAllSelected = this.printAllSelected.bind(this);
+    this.selectAll = this.selectAll.bind(this);
+    this.selectNone = this.selectNone.bind(this);
 
     this.state = {
       date: null,
       searchResults: null,
-      appointment: null
+      appointment: null,
+      columns: null
     };
+  }
+
+  generateColumns() {
+    const columns = [
+      {
+        cell: (row) => (
+          <input
+            type="checkbox"
+            key={Math.random()}
+            onClick={() => (row.selected = !row.selected)}
+            id={row.appointmentId}
+            defaultChecked={row.selected}
+          ></input>
+        )
+      },
+      {
+        cell: (row) => (
+          <button
+            onClick={this.appointmentSelected}
+            id={row.appointmentId}
+            className="default"
+          >
+            View/Edit
+          </button>
+        )
+      },
+      {
+        cell: (row) => (
+          <button
+            onClick={this.printSelected}
+            id={row.appointmentId}
+            className="default"
+          >
+            Print
+          </button>
+        )
+      },
+      {
+        name: "Date",
+        selector: (row) => new Date(row.datetimeIso).toLocaleDateString(),
+        sortable: true
+      },
+      {
+        name: "Time",
+        selector: (row) => new Date(row.datetimeIso).toLocaleTimeString(),
+        sortable: true
+      },
+      {
+        name: "Happened?",
+        selector: (row) => (row.happened == true ? "Yes" : "No"),
+        sortable: true
+      },
+      {
+        name: "Guardian",
+        selector: (row) => row.guardian.firstName + " " + row.guardian.lastName,
+        sortable: true
+      },
+      {
+        name: "Locale",
+        selector: (row) => row.locale,
+        sortable: true
+      }
+    ];
+    return columns;
   }
 
   async componentDidMount() {}
@@ -94,7 +112,8 @@ class Appointment extends Component {
 
     this.setState({
       searchResults: searchResults,
-      appointment: null
+      appointment: null,
+      columns: this.generateColumns()
     });
   }
 
@@ -118,6 +137,54 @@ class Appointment extends Component {
     window.open("/print");
   }
 
+  async printAllSelected(event) {
+    event.preventDefault();
+
+    const blob = await controller.printPdf(
+      this.state.searchResults.appointments,
+      AppState.getSessionId(),
+      AppState.getUrl()
+    );
+
+    const fileURL = window.URL.createObjectURL(blob);
+    // Setting various property values
+    let alink = document.createElement("a");
+    alink.href = fileURL;
+    alink.download = "appointments.pdf";
+    alink.click();
+  }
+
+  selectAll(event) {
+    event.preventDefault();
+
+    this.state.searchResults.appointments.forEach((apt) => {
+      apt.selected = true;
+    });
+
+    this.setState({
+      searchResults: this.state.searchResults,
+      appointment: null,
+      columns: this.generateColumns()
+    });
+  }
+
+  selectNone(event) {
+    event.preventDefault();
+
+    this.state.searchResults.appointments.forEach((apt) => {
+      apt.selected = false;
+    });
+
+    this.setState({
+      searchResults: this.state.searchResults,
+      columns: this.generateColumns()
+    });
+  }
+
+  checkboxChanged(event) {
+    console.log(event);
+  }
+
   renderSearchResults() {
     if (this.state.searchResults == null) {
       return <div />;
@@ -126,10 +193,14 @@ class Appointment extends Component {
     return (
       <div>
         <h3>{this.state.searchResults.appointments.length} Search Results</h3>
+        <button onClick={this.selectAll}>Select All</button>&nbsp;
+        <button onClick={this.selectNone}>Unselect All</button>&nbsp;
+        <button onClick={this.printAllSelected}>Print Selected</button>&nbsp;
         <DataTable
-          columns={this.columns}
+          columns={this.state.columns}
           data={this.state.searchResults.appointments}
           button={true}
+          filterable
         />
       </div>
     );

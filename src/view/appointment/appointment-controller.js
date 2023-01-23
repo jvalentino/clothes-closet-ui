@@ -21,6 +21,7 @@ async function search(date, name, sessionId, url) {
   const response = await fetch(endpoint, requestOptions);
   const text = await response.text();
   const result = JSON.parse(text);
+
   console.log(result);
 
   return result;
@@ -84,4 +85,28 @@ async function cancel(appointmentId, sessionId, url) {
   return result;
 }
 
-export { search, getDetails, addPerson, updateAppointment, cancel };
+async function printPdf(appointments, sessionId, url) {
+  const ids = [];
+  appointments.forEach((appointment) => {
+    if (appointment.selected === true) {
+      ids.push(appointment.appointmentId);
+    }
+  });
+
+  const body = {
+    ids: ids
+  };
+
+  const endpoint = `${url}/appointment/pdf?x-auth-token=${sessionId}`;
+
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  };
+  const response = await fetch(endpoint, requestOptions);
+  const blob = await response.blob();
+  return blob;
+}
+
+export { search, getDetails, addPerson, updateAppointment, cancel, printPdf };
