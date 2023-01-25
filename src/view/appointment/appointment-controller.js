@@ -1,26 +1,22 @@
-async function search(date, name, sessionId, url) {
-  let endpoint = `${url}/appointment/search?`;
+import * as inputUtil from "../../util/input-util";
+import * as httpUtil from "../../util/http-util";
 
-  console.log(`session id is ${sessionId}`);
+async function search(date, name, sessionId, url) {
+  const parameters = {
+    "x-auth-token": sessionId
+  };
+  const endpoint = `${url}/appointment/search`;
 
   if (date != null && date != undefined && date != "") {
-    const split = date.split("/");
-    const isoDate = `${split[2]}-${split[0]}-${split[1]}`;
-    endpoint += `date=${isoDate}&`;
+    const isoDate = inputUtil.monthDayYearToYearMonthDate(date);
+    parameters["date"] = isoDate;
   }
 
   if (name != null && name != "" && name != undefined) {
-    endpoint += `name=${name}&`;
+    parameters["name"] = name;
   }
 
-  endpoint += `x-auth-token=${sessionId}`;
-
-  const requestOptions = {
-    method: "GET"
-  };
-  const response = await fetch(endpoint, requestOptions);
-  const text = await response.text();
-  const result = JSON.parse(text);
+  const result = await httpUtil.request(endpoint, "GET", parameters, null);
 
   console.log(result);
 

@@ -87,6 +87,11 @@ class AppState {
       this.cookies.remove("clothes-closet-logged-session-id");
     }
   }
+
+  getTimeZone() {
+    const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+    return timeZone;
+  }
 }
 
 const singletonCounter = Object.freeze(new AppState());

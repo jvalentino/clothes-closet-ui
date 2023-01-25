@@ -34,6 +34,7 @@ class Banner extends Component {
       return <tr></tr>;
     }
 
+    // <a href="./waitlist">Wait List</a> | &nbsp;
     return (
       <tr>
         <td colSpan="5" style={{ textAlign: "center" }}>

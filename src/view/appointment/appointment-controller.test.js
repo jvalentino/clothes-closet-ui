@@ -1,9 +1,11 @@
 import * as subject from "./appointment-controller";
 import { expect, test } from "@jest/globals";
 import fetch from "jest-fetch-mock";
+import * as httpUtil from "../../util/http-util";
 
 beforeEach(() => {
   fetch.resetMocks();
+  httpUtil.request = jest.fn();
 });
 
 describe("test appointment-controller", function () {
@@ -16,18 +18,21 @@ describe("test appointment-controller", function () {
       const url = "https://bravo";
 
       // and
-      fetch.mockResponseOnce(JSON.stringify({ success: true }));
+      httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
       const result = await subject.search(date, name, sessionId, url);
 
       // then
       expect(result.success).toEqual(true);
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(
-        "https://bravo/appointment/search?x-auth-token=alpha",
-        { method: "GET" }
+      expect(httpUtil.request.mock.calls[0][0]).toBe(
+        "https://bravo/appointment/search"
       );
+      expect(httpUtil.request.mock.calls[0][1]).toBe("GET");
+      expect(httpUtil.request.mock.calls[0][2]).toStrictEqual({
+        "x-auth-token": "alpha"
+      });
+      expect(httpUtil.request.mock.calls[0][3]).toBe(null);
     });
 
     test("when no date but name", async function () {
@@ -38,18 +43,22 @@ describe("test appointment-controller", function () {
       const url = "https://bravo";
 
       // and
-      fetch.mockResponseOnce(JSON.stringify({ success: true }));
+      httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
       const result = await subject.search(date, name, sessionId, url);
 
       // then
       expect(result.success).toEqual(true);
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(
-        "https://bravo/appointment/search?name=charlie&x-auth-token=alpha",
-        { method: "GET" }
+      expect(httpUtil.request.mock.calls[0][0]).toBe(
+        "https://bravo/appointment/search"
       );
+      expect(httpUtil.request.mock.calls[0][1]).toBe("GET");
+      expect(httpUtil.request.mock.calls[0][2]).toStrictEqual({
+        name: "charlie",
+        "x-auth-token": "alpha"
+      });
+      expect(httpUtil.request.mock.calls[0][3]).toBe(null);
     });
 
     test("when date and name", async function () {
@@ -60,18 +69,23 @@ describe("test appointment-controller", function () {
       const url = "https://bravo";
 
       // and
-      fetch.mockResponseOnce(JSON.stringify({ success: true }));
+      httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
       const result = await subject.search(date, name, sessionId, url);
 
       // then
       expect(result.success).toEqual(true);
-      expect(fetch).toHaveBeenCalledTimes(1);
-      expect(fetch).toHaveBeenCalledWith(
-        "https://bravo/appointment/search?date=2023-01-02&name=charlie&x-auth-token=alpha",
-        { method: "GET" }
+      expect(httpUtil.request.mock.calls[0][0]).toBe(
+        "https://bravo/appointment/search"
       );
+      expect(httpUtil.request.mock.calls[0][1]).toBe("GET");
+      expect(httpUtil.request.mock.calls[0][2]).toStrictEqual({
+        date: "2023-01-02",
+        name: "charlie",
+        "x-auth-token": "alpha"
+      });
+      expect(httpUtil.request.mock.calls[0][3]).toBe(null);
     });
   });
 

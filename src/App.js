@@ -17,6 +17,7 @@ import Reporting from "./view/reporting/Reporting";
 import Settings from "./view/settings/Settings";
 import Locale from "./view/locale/Locale";
 import StudentUpload from "./view/upload/StudentUpload";
+import Waitlist from "./view/waitlist/Waitlist";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/locales" element={<Locale />} />
             <Route path="/upload" element={<StudentUpload />} />
+            <Route path="/waitlist" element={<Waitlist />} />
           </Routes>
         </div>
       </Router>
