@@ -190,11 +190,8 @@ describe("test home-controller", function () {
       const results = subject.validate(body);
 
       // then
-      expect(results.length).toEqual(6);
+      expect(results.length).toEqual(5);
       let i = 0;
-      expect(results[i++]).toEqual(
-        "You must select an appointment date and time"
-      );
       expect(results[i++]).toEqual("You must enter a valid email address");
       expect(results[i++]).toEqual("You must enter a valid first name");
       expect(results[i++]).toEqual("You must enter a valid last name");
@@ -229,6 +226,138 @@ describe("test home-controller", function () {
 
       // then
       expect(results.length).toEqual(0);
+    });
+  });
+
+  describe("test assemblePayload", function () {
+    test("when not on wait list", function () {
+      // given
+      const datetime = "2023-01-02T10:00:00.000+0000";
+      const language = "en";
+      const phoneNumber = "+1222333444";
+      const students = [{}];
+      const elements = {
+        email: {
+          value: "alpha@bravo.com"
+        },
+        firstName: {
+          value: "Charlie"
+        },
+        lastName: {
+          value: "Delta"
+        },
+        phoneTypeLabel: {
+          value: "mobile"
+        },
+        "student-id-1": {
+          value: "echo"
+        },
+        "student-school-1": {
+          value: "foxtrot"
+        },
+        "student-gender-1": {
+          value: "Male"
+        },
+        "student-grade-1": {
+          value: "1"
+        }
+      };
+
+      // when
+      const result = subject.assemblePayload(
+        datetime,
+        language,
+        phoneNumber,
+        students,
+        elements
+      );
+
+      // then
+      expect(result).toStrictEqual({
+        datetime: "2023-01-02T10:00:00.000+0000",
+        guardian: {
+          email: "alpha@bravo.com",
+          firstName: "Charlie",
+          lastName: "Delta",
+          phoneNumber: "+1222333444",
+          phoneTypeLabel: "mobile"
+        },
+        locale: "en",
+        students: [
+          {
+            gender: "Male",
+            grade: "1",
+            school: "foxtrot",
+            studentId: "echo"
+          }
+        ],
+        waitlist: false
+      });
+    });
+
+    test("when on wait list", function () {
+      // given
+      const datetime = null;
+      const language = "en";
+      const phoneNumber = "+1222333444";
+      const students = [{}];
+      const elements = {
+        email: {
+          value: "alpha@bravo.com"
+        },
+        firstName: {
+          value: "Charlie"
+        },
+        lastName: {
+          value: "Delta"
+        },
+        phoneTypeLabel: {
+          value: "mobile"
+        },
+        "student-id-1": {
+          value: "echo"
+        },
+        "student-school-1": {
+          value: "foxtrot"
+        },
+        "student-gender-1": {
+          value: "Male"
+        },
+        "student-grade-1": {
+          value: "1"
+        }
+      };
+
+      // when
+      const result = subject.assemblePayload(
+        datetime,
+        language,
+        phoneNumber,
+        students,
+        elements
+      );
+
+      // then
+      expect(result).toStrictEqual({
+        datetime: null,
+        guardian: {
+          email: "alpha@bravo.com",
+          firstName: "Charlie",
+          lastName: "Delta",
+          phoneNumber: "+1222333444",
+          phoneTypeLabel: "mobile"
+        },
+        locale: "en",
+        students: [
+          {
+            gender: "Male",
+            grade: "1",
+            school: "foxtrot",
+            studentId: "echo"
+          }
+        ],
+        waitlist: true
+      });
     });
   });
 });

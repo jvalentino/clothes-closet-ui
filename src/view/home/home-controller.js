@@ -71,10 +71,6 @@ async function makeAppointment(body, url) {
 function validate(body) {
   const messages = [];
 
-  if (inputUtil.isBlank(body.datetime)) {
-    messages.push(strings.errorApptTime);
-  }
-
   if (
     inputUtil.isBlank(body.guardian.email) ||
     !validator.isEmail(body.guardian.email)
@@ -122,4 +118,42 @@ function makeNewEvent(startDate, endDate) {
   return newEvent;
 }
 
-export { getSettings, makeAppointment, validate, makeNewEvent };
+function assemblePayload(datetime, language, phoneNumber, students, elements) {
+  const body = {
+    datetime: datetime,
+    locale: language,
+    waitlist: false,
+    guardian: {
+      email: elements.email.value,
+      firstName: elements.firstName.value,
+      lastName: elements.lastName.value,
+      phoneNumber: phoneNumber,
+      phoneTypeLabel: elements.phoneTypeLabel.value
+    },
+    students: []
+  };
+
+  if (inputUtil.isBlank(body.datetime)) {
+    body.waitlist = true;
+  }
+
+  for (let i = 1; i <= students.length; i++) {
+    const student = {
+      studentId: elements[`student-id-${i}`].value,
+      school: elements[`student-school-${i}`].value,
+      gender: elements[`student-gender-${i}`].value,
+      grade: elements[`student-grade-${i}`].value
+    };
+    body.students.push(student);
+  }
+
+  return body;
+}
+
+export {
+  getSettings,
+  makeAppointment,
+  validate,
+  makeNewEvent,
+  assemblePayload
+};

@@ -131,28 +131,13 @@ class Home extends Component {
     event.preventDefault();
     const elements = event.target.elements;
 
-    const body = {
-      datetime: this.state.event?.start,
-      locale: this.state.language,
-      guardian: {
-        email: elements.email.value,
-        firstName: elements.firstName.value,
-        lastName: elements.lastName.value,
-        phoneNumber: this.state.currentPhoneNumber,
-        phoneTypeLabel: elements.phoneTypeLabel.value
-      },
-      students: []
-    };
-
-    for (let i = 1; i <= this.state.students.length; i++) {
-      const student = {
-        studentId: elements[`student-id-${i}`].value,
-        school: elements[`student-school-${i}`].value,
-        gender: elements[`student-gender-${i}`].value,
-        grade: elements[`student-grade-${i}`].value
-      };
-      body.students.push(student);
-    }
+    const body = controller.assemblePayload(
+      this.state.event?.start,
+      this.state.language,
+      this.state.currentPhoneNumber,
+      this.state.students,
+      elements
+    );
 
     console.log(body);
     const errors = controller.validate(body);
@@ -231,16 +216,63 @@ class Home extends Component {
     );
   }
 
-  renderForm() {
+  renderScheduleAppointment() {
     if (this.state.noOptions == true) {
       return (
         <div>
           <h1>{strings.noAvailability}</h1>
           <p>{strings.noAvailabilityText}</p>
+          <button className="default" type="submit">
+            {strings.addToWaitList}
+          </button>
         </div>
       );
     }
 
+    return (
+      <div>
+        <h1>{strings.scheduleAppointment}</h1>
+        <table className="header">
+          <tbody>
+            <tr>
+              <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
+              <td style={{ width: "100%" }}>
+                <Select
+                  options={this.state.timeslots}
+                  onChange={this.slotChange}
+                  value={{
+                    label: this.state.event?.label,
+                    value: this.state.event?.datetimeValue
+                  }}
+                />
+                &nbsp;&nbsp; &nbsp;&nbsp;
+              </td>
+              <td>&nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;</td>
+              <td>
+                <Switch
+                  className="react-switch"
+                  checked={this.state.showCalender}
+                  onChange={() =>
+                    this.setState({
+                      showCalender: !this.state.showCalender
+                    })
+                  }
+                />
+              </td>
+              <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button className="default" type="submit">
+                  {strings.scheduleAppointment}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  renderForm() {
     return (
       <form onSubmit={this.submit}>
         <h3>{strings.appointmentParentInfo}</h3>
@@ -344,43 +376,7 @@ class Home extends Component {
 
         <br />
         <br />
-        <h3>{strings.scheduleAppointment}</h3>
-        <table className="header">
-          <tbody>
-            <tr>
-              <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
-              <td style={{ width: "100%" }}>
-                <Select
-                  options={this.state.timeslots}
-                  onChange={this.slotChange}
-                  value={{
-                    label: this.state.event?.label,
-                    value: this.state.event?.datetimeValue
-                  }}
-                />
-                &nbsp;&nbsp; &nbsp;&nbsp;
-              </td>
-              <td>&nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;</td>
-              <td>
-                <Switch
-                  className="react-switch"
-                  checked={this.state.showCalender}
-                  onChange={() =>
-                    this.setState({
-                      showCalender: !this.state.showCalender
-                    })
-                  }
-                />
-              </td>
-              <td>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button className="default" type="submit">
-                  {strings.scheduleAppointment}
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {this.renderScheduleAppointment()}
         <br />
         {this.renderCalendar()}
       </form>

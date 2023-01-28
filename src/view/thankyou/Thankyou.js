@@ -14,6 +14,24 @@ class Thankyou extends Component {
 
   async componentDidMount() {}
 
+  getHeaderText(body) {
+    if (body.datetime != null) {
+      return strings.formatString(strings.thankYou, {
+        datetime: inputUtil.prettyDateTimeFromIso(body.datetime)
+      });
+    }
+
+    return strings.thankYouWaitList;
+  }
+
+  getBodyText(body) {
+    if (body.datetime != null) {
+      return strings.thankYouText;
+    }
+
+    return strings.thankYouWaitListText;
+  }
+
   render() {
     const body = this.state.body;
 
@@ -24,12 +42,8 @@ class Thankyou extends Component {
           className="standard-view"
           style={{ textAlign: AppState.getTextAlign() }}
         >
-          <h1>
-            {strings.formatString(strings.thankYou, {
-              datetime: inputUtil.prettyDateTimeFromIso(body.datetime)
-            })}
-          </h1>
-          <p>{strings.thankYouText}</p>
+          <h1>{this.getHeaderText(body)}</h1>
+          <p>{this.getBodyText(body)}</p>
           <h3>{strings.appointmentParentInfo}</h3>
           <table className="standard-form">
             <tbody>
