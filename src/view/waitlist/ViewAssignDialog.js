@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import AppState from "../../AppState";
 
 import * as controller from "./waitlist-controller";
-import * as inputUtil from "../../util/input-util";
+import * as error from "../errorModal/error-modal";
 
 let onCloseReference = null;
 
@@ -33,17 +33,26 @@ class Content extends Component {
     const date = elements["date-field"].value;
     const time = elements["time-field"].value;
 
-    console.log(`${date} ${time}`);
-    const isoPart1 = inputUtil.monthDayYearToYearMonthDate(date);
-    console.log(isoPart1);
-
-    const timezoneOffset = new Date().getTimezoneOffset() / 60;
-
-    console.log(timezoneOffset);
-
     onCloseReference();
 
-    //window.location = "./settings";
+    const messages = controller.validate(date, time);
+
+    if (messages.length != 0) {
+      error.display(messages);
+      return;
+    }
+
+    const appointmentId = this.props.appointment.appointmentId;
+    await controller.moveFromWaitList(
+      appointmentId,
+      date,
+      time,
+      AppState.getSessionId(),
+      AppState.getUrl(),
+      AppState.getTimeZoneOffsetInHours()
+    );
+
+    window.location = "./waitlist";
   }
 
   renderVisit(visit) {

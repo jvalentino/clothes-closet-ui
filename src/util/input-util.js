@@ -32,9 +32,44 @@ function dateToIso8601(date) {
   return date.toISOString()?.replace("Z", "+0000");
 }
 
+function amPmTimeToIso(time, timezoneOffsetHours) {
+  const split = time.split(" ");
+  const timeString = split[0];
+  const amPm = split[1];
+
+  const timeStringSplit = timeString.split(":");
+  const hour = +`${timeStringSplit[0]}`;
+  let newHour = hour;
+
+  if (amPm == "PM" && hour != 12) {
+    newHour = hour + 12;
+  } else if (amPm == "AM" && hour == 12) {
+    newHour = 0;
+  }
+
+  let hourString = `${newHour}`;
+  if (hourString.length == 1) {
+    hourString = `0${hourString}`;
+  }
+
+  let symbol = "+";
+  if (timezoneOffsetHours < 0) {
+    symbol = "-";
+  }
+  timezoneOffsetHours = Math.abs(timezoneOffsetHours);
+  let timezoneOffsetString = `${timezoneOffsetHours}00`;
+
+  if (timezoneOffsetString.length == 3) {
+    timezoneOffsetString = "0" + timezoneOffsetString;
+  }
+
+  return `${hourString}:${timeStringSplit[1]}:${timeStringSplit[2]}.000${symbol}${timezoneOffsetString}`;
+}
+
 export {
   isBlank,
   prettyDateTimeFromIso,
   monthDayYearToYearMonthDate,
-  dateToIso8601
+  dateToIso8601,
+  amPmTimeToIso
 };

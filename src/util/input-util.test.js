@@ -31,4 +31,88 @@ describe("test input-util", function () {
     // then
     expect(result).toEqual("2023-1-2");
   });
+
+  test("amPmTimeToIso", function () {
+    // positive offset
+    expect(subject.amPmTimeToIso("01:00:00 AM", 1)).toEqual(
+      "01:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("01:30:00 AM", 1)).toEqual(
+      "01:30:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("02:00:00 AM", 1)).toEqual(
+      "02:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("03:00:00 AM", 1)).toEqual(
+      "03:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("04:00:00 AM", 1)).toEqual(
+      "04:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("05:00:00 AM", 1)).toEqual(
+      "05:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("06:00:00 AM", 1)).toEqual(
+      "06:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("07:00:00 AM", 1)).toEqual(
+      "07:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("08:00:00 AM", 1)).toEqual(
+      "08:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("09:00:00 AM", 1)).toEqual(
+      "09:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("10:00:00 AM", 1)).toEqual(
+      "10:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("11:00:00 AM", 1)).toEqual(
+      "11:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("12:00:00 PM", 1)).toEqual(
+      "12:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("01:00:00 PM", 1)).toEqual(
+      "13:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("02:00:00 PM", 1)).toEqual(
+      "14:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("03:00:00 PM", 1)).toEqual(
+      "15:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("04:00:00 PM", 1)).toEqual(
+      "16:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("05:00:00 PM", 1)).toEqual(
+      "17:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("06:00:00 PM", 1)).toEqual(
+      "18:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("07:00:00 PM", 1)).toEqual(
+      "19:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("08:00:00 PM", 1)).toEqual(
+      "20:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("09:00:00 PM", 1)).toEqual(
+      "21:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("10:00:00 PM", 1)).toEqual(
+      "22:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("11:00:00 PM", 1)).toEqual(
+      "23:00:00.000+0100"
+    );
+    expect(subject.amPmTimeToIso("12:00:00 AM", 1)).toEqual(
+      "00:00:00.000+0100"
+    );
+
+    // negative offset
+    expect(subject.amPmTimeToIso("01:30:00 AM", -1)).toEqual(
+      "01:30:00.000-0100"
+    );
+  });
 });
