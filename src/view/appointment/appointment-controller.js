@@ -81,6 +81,17 @@ async function cancel(appointmentId, sessionId, url) {
   return result;
 }
 
+async function noshow(appointmentId, sessionId, url) {
+  const endpoint = `${url}/appointment/noshow`;
+  const parameters = {
+    "x-auth-token": sessionId,
+    id: appointmentId
+  };
+  const result = await httpUtil.request(endpoint, "GET", parameters, null);
+  console.log(result);
+  return result;
+}
+
 async function printPdf(appointments, sessionId, url) {
   const ids = [];
   appointments.forEach((appointment) => {
@@ -105,4 +116,12 @@ async function printPdf(appointments, sessionId, url) {
   return blob;
 }
 
-export { search, getDetails, addPerson, updateAppointment, cancel, printPdf };
+export {
+  search,
+  getDetails,
+  addPerson,
+  updateAppointment,
+  cancel,
+  printPdf,
+  noshow
+};

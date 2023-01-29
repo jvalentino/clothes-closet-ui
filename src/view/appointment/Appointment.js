@@ -23,6 +23,7 @@ class Appointment extends Component {
     this.printAllSelected = this.printAllSelected.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.selectNone = this.selectNone.bind(this);
+    this.noshowAppointment = this.noshowAppointment.bind(this);
 
     this.state = {
       date: null,
@@ -80,6 +81,11 @@ class Appointment extends Component {
       {
         name: "Happened?",
         selector: (row) => (row.happened == true ? "Yes" : "No"),
+        sortable: true
+      },
+      {
+        name: "No-Show?",
+        selector: (row) => (row.noshow == true ? "Yes" : "No"),
         sortable: true
       },
       {
@@ -276,6 +282,41 @@ class Appointment extends Component {
   async confirmCancelAppointment() {
     console.log("Doing cancel");
     const result = await controller.cancel(
+      this.state.appointment.appointmentId,
+      AppState.getSessionId(),
+      AppState.getUrl()
+    );
+    console.log(result);
+
+    this.setState({
+      date: null,
+      searchResults: null,
+      appointment: null
+    });
+  }
+
+  async noshowAppointment(event) {
+    event.preventDefault();
+
+    confirmAlert({
+      title: "Are you sure?",
+      message: "Are you sure you want to mark this appointment as a no-show?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => this.confirmNoshow()
+        },
+        {
+          label: "No",
+          onClick: () => console.log("closed")
+        }
+      ]
+    });
+  }
+
+  async confirmNoshow() {
+    console.log("Doing No SHow");
+    const result = await controller.noshow(
       this.state.appointment.appointmentId,
       AppState.getSessionId(),
       AppState.getUrl()
@@ -522,6 +563,18 @@ class Appointment extends Component {
     );
   }
 
+  renderNoShow() {
+    if (this.state.appointment == null) {
+      return <div />;
+    }
+
+    return (
+      <button className="default" type="submit">
+        Appointment No-Show
+      </button>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -567,7 +620,22 @@ class Appointment extends Component {
           <br />
           <form onSubmit={this.updateVisit}>{this.renderDetails()}</form>
           <br />
-          <form onSubmit={this.cancelAppointment}>{this.renderCancel()}</form>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <form onSubmit={this.cancelAppointment}>
+                    {this.renderCancel()}
+                  </form>
+                </td>
+                <td>
+                  <form onSubmit={this.noshowAppointment}>
+                    {this.renderNoShow()}
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     );
