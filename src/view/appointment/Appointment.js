@@ -102,13 +102,37 @@ class Appointment extends Component {
     return columns;
   }
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    const queryParams = new URLSearchParams(window.location.search);
+    const name = queryParams.get("name");
+    const date = queryParams.get("date");
+
+    if (name != null) {
+      const nameField = document.getElementById("name-field");
+      nameField.value = name;
+    }
+
+    if (date != null) {
+      const dateField = document.getElementById("date-field");
+      dateField.value = date;
+      this.setState({
+        date: new Date(date)
+      });
+    }
+
+    if (date != null || name != null) {
+      const form = document.getElementById("search-form");
+      await this.search(form.elements);
+    }
+  }
 
   async onSearch(event) {
     event.preventDefault();
 
-    const elements = event.target.elements;
+    await this.search(event.target.elements);
+  }
 
+  async search(elements) {
     const searchResults = await controller.search(
       elements["date-field"].value,
       elements["name-field"].value,
@@ -581,13 +605,14 @@ class Appointment extends Component {
         <Banner />
         <div className="standard-view">
           <h3>Appointment Selection</h3>
-          <form onSubmit={this.onSearch}>
+          <form id="search-form" onSubmit={this.onSearch}>
             <table>
               <tbody>
                 <tr>
                   <td>Date</td>
                   <td>
                     <DatePicker
+                      id="date-field"
                       name="date-field"
                       selected={this.state.date}
                       onChange={(date) => this.setState({ date: date })}
@@ -596,7 +621,7 @@ class Appointment extends Component {
                   <td>and/or</td>
                   <td>First or Last Name</td>
                   <td>
-                    <input name="name-field" type="text" />
+                    <input id="name-field" name="name-field" type="text" />
                   </td>
                   <td>
                     <button

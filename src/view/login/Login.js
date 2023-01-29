@@ -37,7 +37,7 @@ class Login extends Component {
 
   render() {
     if (this.state.success == true) {
-      return <Navigate to="/appointment" push={true} />;
+      return <Navigate to="/dashboard" push={true} />;
     }
 
     return (

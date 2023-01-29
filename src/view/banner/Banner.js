@@ -38,6 +38,7 @@ class Banner extends Component {
       <tr>
         <td colSpan="5" style={{ textAlign: "center" }}>
           <a href="./">Schedule Appointment</a> | &nbsp;
+          <a href="./dashboard">Dashboard</a> | &nbsp;
           <a href="./appointment">Search Appointments</a> | &nbsp;
           <a href="./waitlist">Wait List</a> | &nbsp;
           <a href="./reporting">Reporting</a> | &nbsp;

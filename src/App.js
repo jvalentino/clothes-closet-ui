@@ -18,6 +18,7 @@ import Settings from "./view/settings/Settings";
 import Locale from "./view/locale/Locale";
 import StudentUpload from "./view/upload/StudentUpload";
 import Waitlist from "./view/waitlist/Waitlist";
+import Dashboard from "./view/dashboard/Dashboard";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/locales" element={<Locale />} />
             <Route path="/upload" element={<StudentUpload />} />
             <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </div>
       </Router>
