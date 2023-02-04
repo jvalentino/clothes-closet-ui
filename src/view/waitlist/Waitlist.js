@@ -10,7 +10,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 import * as controller from "./waitlist-controller";
 import AppState from "../../AppState";
-import * as ViewAssignDialog from "./ViewAssignDialog";
+import * as ViewAssignDialog from "../rescheduleModal/RescheduleModal";
 
 class Waitlist extends Component {
   constructor() {
@@ -69,7 +69,7 @@ class Waitlist extends Component {
       AppState.getSessionId(),
       AppState.getUrl()
     );
-    ViewAssignDialog.display(appointment);
+    ViewAssignDialog.display(appointment, "./waitlist");
   }
 
   async deletedSelected(event) {

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 import AppState from "../../AppState";
 
-import * as controller from "./waitlist-controller";
+import * as controller from "./reschedule-modal-controller";
 import * as error from "../errorModal/error-modal";
 
 let onCloseReference = null;
@@ -43,7 +43,7 @@ class Content extends Component {
     }
 
     const appointmentId = this.props.appointment.appointmentId;
-    await controller.moveFromWaitList(
+    await controller.reschedule(
       appointmentId,
       date,
       time,
@@ -52,10 +52,30 @@ class Content extends Component {
       AppState.getTimeZoneOffsetInHours()
     );
 
-    window.location = "./waitlist";
+    window.location = this.props.location;
   }
 
   renderVisit(visit) {
+    if (visit.person != null) {
+      return (
+        <table key={visit.visitId} className="standard-form">
+          <tbody>
+            <tr>
+              <td>
+                <b>Relation:</b>
+              </td>
+              <td>{visit.person.relation}</td>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <hr />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      );
+    }
+
     return (
       <table key={visit.visitId} className="standard-form">
         <tbody>
@@ -111,8 +131,12 @@ class Content extends Component {
                 </tr>
               </tbody>
             </table>
+            <br />
+            <br />
             <h2>Students</h2>
             {appointment.visits.map((visit) => this.renderVisit(visit))}
+            <br />
+            <br />
             <h2>Pick Date/Time ({timeZone})</h2>
             <table className="standard-form">
               <tbody>
@@ -152,16 +176,17 @@ class Content extends Component {
 }
 
 Content.propTypes = {
-  appointment: PropTypes.object.isRequired
+  appointment: PropTypes.object.isRequired,
+  location: PropTypes.string.isRequired
 };
 
-function display(appointment) {
+function display(appointment, location) {
   console.log(`Displaying appointment ${appointment.appointmentId}`);
   //const guardian = appointment.guardian;
   confirmAlert({
     customUI: ({ onClose }) => {
       onCloseReference = onClose;
-      return <Content appointment={appointment} />;
+      return <Content appointment={appointment} location={location} />;
     }
   });
 }

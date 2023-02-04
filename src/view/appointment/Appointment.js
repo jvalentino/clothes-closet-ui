@@ -9,6 +9,7 @@ import DataTable from "react-data-table-component";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Banner from "../banner/Banner";
+import * as RescheduleModal from "../rescheduleModal/RescheduleModal";
 
 class Appointment extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class Appointment extends Component {
     this.selectAll = this.selectAll.bind(this);
     this.selectNone = this.selectNone.bind(this);
     this.noshowAppointment = this.noshowAppointment.bind(this);
+    this.reschedule = this.reschedule.bind(this);
 
     this.state = {
       date: null,
@@ -354,6 +356,13 @@ class Appointment extends Component {
     });
   }
 
+  async reschedule(event) {
+    event.preventDefault();
+
+    console.log(this.state.appointment);
+    RescheduleModal.display(this.state.appointment, "./appointment");
+  }
+
   renderNumberRows(visit) {
     return (
       <table>
@@ -599,6 +608,18 @@ class Appointment extends Component {
     );
   }
 
+  renderReschedule() {
+    if (this.state.appointment == null) {
+      return <div />;
+    }
+
+    return (
+      <button className="default" type="submit">
+        Reschedule
+      </button>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -656,6 +677,11 @@ class Appointment extends Component {
                 <td>
                   <form onSubmit={this.noshowAppointment}>
                     {this.renderNoShow()}
+                  </form>
+                </td>
+                <td>
+                  <form onSubmit={this.reschedule}>
+                    {this.renderReschedule()}
                   </form>
                 </td>
               </tr>
