@@ -16,36 +16,47 @@ import Select from "react-select";
 import Switch from "react-switch";
 import * as error from "../../component/errorModal/error-modal";
 
-import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
-
 import AppState from "../../AppState";
 import * as inputUtil from "../../util/input-util";
+import ApptEntry from "../../component/apptEntry/ApptEntry";
 
 class Home extends Component {
   calendarRef = React.createRef();
 
   constructor() {
     super();
-    this.clickAddStudent = this.clickAddStudent.bind(this);
+
     this.dateClick = this.dateClick.bind(this);
     this.submit = this.submit.bind(this);
     this.onLanguageChange = this.onLanguageChange.bind(this);
     this.slotChange = this.slotChange.bind(this);
-    this.onPhoneChange = this.onPhoneChange.bind(this);
+    this.onPhoneNumberChange = this.onPhoneNumberChange.bind(this);
+    this.onStudentsChanged = this.onStudentsChanged.bind(this);
 
     this.state = {
       data: null,
-      students: [1],
       event: null,
       body: null,
       textAlign: "left",
       language: "en",
       showCalender: false,
       timeslots: null,
+      noOptions: false,
       currentPhoneNumber: null,
-      noOptions: false
+      students: null
     };
+  }
+
+  onPhoneNumberChange(newPhoneNumber) {
+    this.setState({
+      currentPhoneNumber: newPhoneNumber
+    });
+  }
+
+  onStudentsChanged(students) {
+    this.setState({
+      students: students
+    });
   }
 
   async componentDidMount() {
@@ -69,22 +80,13 @@ class Home extends Component {
       noOptions = true;
     }
 
-    console.log(timeslots);
+    console.log(data);
 
     this.setState({
       data: data,
       timeslots: timeslots,
       event: newEvent,
       noOptions: noOptions
-    });
-  }
-
-  clickAddStudent(event) {
-    event.preventDefault();
-    const list = this.state.students;
-    list.push(list.length + 1);
-    this.setState({
-      students: list
     });
   }
 
@@ -179,12 +181,6 @@ class Home extends Component {
     return "language";
   }
 
-  onPhoneChange(event) {
-    this.setState({
-      currentPhoneNumber: event
-    });
-  }
-
   slotChange(event) {
     const startDate = new Date(event.value);
     const endDate = new Date(startDate.getTime() + 30 * 60000);
@@ -275,105 +271,14 @@ class Home extends Component {
   renderForm() {
     return (
       <form onSubmit={this.submit}>
-        <h3>{strings.appointmentParentInfo}</h3>
-        <table className="standard-form">
-          <tbody>
-            <tr>
-              <td>{strings.firstName}</td>
-              <td>
-                <input style={{ width: 192 }} name="firstName" type="text" />
-              </td>
-
-              <td>{strings.lastName}</td>
-              <td>
-                <input name="lastName" type="text" />
-              </td>
-
-              <td>{strings.emailAddress}</td>
-              <td>
-                <input name="email" type="text" style={{ width: "300px" }} />
-              </td>
-            </tr>
-
-            <tr>
-              <td>{strings.phoneNumber}</td>
-              <td>
-                <PhoneInput
-                  style={{ width: 200 }}
-                  name="phoneNumber"
-                  value={this.state.currentPhoneNumber}
-                  onChange={this.onPhoneChange}
-                  defaultCountry="US"
-                />
-              </td>
-
-              <td>{strings.phoneType}</td>
-              <td>
-                <select name="phoneTypeLabel">
-                  {this.state.data.phoneTypes.map((phoneType) => (
-                    <option value={phoneType.label} key={phoneType.label}>
-                      {phoneType.label}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br />
-        <h3>{strings.students}</h3>
-        {this.state.students.map((student) => (
-          <div key={"student" + student}>
-            <table className="standard-form">
-              <tbody>
-                <tr>
-                  <td>{strings.studentId}</td>
-                  <td>
-                    <input name={`student-id-${student}`} type="text" />
-                  </td>
-
-                  <td>{strings.gender}</td>
-                  <td>
-                    <select name={`student-gender-${student}`}>
-                      {this.state.data.genders.map((gender) => (
-                        <option value={gender.label} key={gender.label}>
-                          {gender.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-
-                  <td>{strings.grade}</td>
-                  <td>
-                    <select name={`student-grade-${student}`}>
-                      {this.state.data.grades.map((grade) => (
-                        <option value={grade.label} key={grade.label}>
-                          {grade.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-
-                  <td>{strings.school}</td>
-                  <td>
-                    <select name={`student-school-${student}`}>
-                      {this.state.data.schools.map((school) => (
-                        <option value={school.label} key={school.label}>
-                          {school.label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-          </div>
-        ))}
-        <button className="default" onClick={this.clickAddStudent}>
-          {strings.addAnotherStudent}
-        </button>
-
+        <ApptEntry
+          phoneTypes={this.state.data.phoneTypes}
+          genders={this.state.data.genders}
+          grades={this.state.data.grades}
+          schools={this.state.data.schools}
+          onPhoneNumberChange={this.onPhoneNumberChange}
+          onStudentsChanged={this.onStudentsChanged}
+        />
         <br />
         <br />
         {this.renderScheduleAppointment()}

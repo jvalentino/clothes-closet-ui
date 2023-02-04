@@ -71,7 +71,7 @@ class Thankyou extends Component {
           <br />
           <h3>{strings.students}</h3>
           {body.students.map((student) => (
-            <div key={"student" + student}>
+            <div key={"student" + student.studentId}>
               <table className="standard-form">
                 <tbody>
                   <tr>
