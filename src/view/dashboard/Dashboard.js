@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import AppState from "../../AppState";
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import * as controller from "./dashboard-controller";
-import ProgressView from "../progressView/ProgressView";
+import ProgressView from "../../component/progressView/ProgressView";
 import DataTable from "react-data-table-component";
-//import * as inputUtil from "../../util/input-util";
 
 class Dashboard extends Component {
   constructor() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AppState from "../../AppState";
 import * as controller from "./print-controller";
-import ProgressView from "../progressView/ProgressView";
+import ProgressView from "../../component/progressView/ProgressView";
 
 class Print extends Component {
   constructor() {

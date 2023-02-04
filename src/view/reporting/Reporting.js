@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 

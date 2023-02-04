@@ -1,6 +1,6 @@
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import * as error from "../errorModal/error-modal";
+import * as error from "../../component/errorModal/error-modal";
 import * as controller from "./settings-controller";
 import AppState from "../../AppState";
 

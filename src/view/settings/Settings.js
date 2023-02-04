@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import * as controller from "./settings-controller";
 import AppState from "../../AppState";
-import ProgressView from "../progressView/ProgressView";
+import ProgressView from "../../component/progressView/ProgressView";
 import * as AddSettingsModal from "./AddSettingsModal";
-import * as error from "../errorModal/error-modal";
+import * as error from "../../component/errorModal/error-modal";
 
 import DataTable from "react-data-table-component";
 

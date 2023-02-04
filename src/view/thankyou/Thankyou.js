@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import AppState from "../../AppState";
 import strings from "../../locale";
 import * as inputUtil from "../../util/input-util";

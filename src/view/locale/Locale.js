@@ -1,4 +1,4 @@
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import React, { Component } from "react";
 import * as controller from "./locale-controller";
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import Banner from "../banner/Banner";
-import ProgressView from "../progressView/ProgressView";
+import Banner from "../../component/banner/Banner";
+import ProgressView from "../../component/progressView/ProgressView";
 //import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DataTable from "react-data-table-component";
@@ -10,7 +10,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 import * as controller from "./waitlist-controller";
 import AppState from "../../AppState";
-import * as ViewAssignDialog from "../rescheduleModal/RescheduleModal";
+import * as ViewAssignDialog from "../../component/rescheduleModal/RescheduleModal";
 
 class Waitlist extends Component {
   constructor() {

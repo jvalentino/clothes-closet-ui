@@ -1,8 +1,8 @@
-import Banner from "../banner/Banner";
+import Banner from "../../component/banner/Banner";
 import React, { Component } from "react";
 import * as controller from "./upload-controller";
 import AppState from "../../AppState";
-import * as error from "../errorModal/error-modal";
+import * as error from "../../component/errorModal/error-modal";
 
 class StudentUpload extends Component {
   constructor() {

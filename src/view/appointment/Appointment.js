@@ -6,10 +6,10 @@ import AppState from "../../AppState";
 
 import DataTable from "react-data-table-component";
 
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import Banner from "../banner/Banner";
-import * as RescheduleModal from "../rescheduleModal/RescheduleModal";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import Banner from "../../component/banner/Banner";
+import * as RescheduleModal from "../../component/rescheduleModal/RescheduleModal";
 
 class Appointment extends Component {
   constructor() {

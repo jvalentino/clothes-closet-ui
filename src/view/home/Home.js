@@ -6,15 +6,15 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timegridPlugin from "@fullcalendar/timegrid"; // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 
-import Banner from "../banner/Banner";
-import ProgressView from "../progressView/ProgressView";
+import Banner from "../../component/banner/Banner";
+import ProgressView from "../../component/progressView/ProgressView";
 
 import strings from "../../locale";
 import "./home.css";
 import Select from "react-select";
 
 import Switch from "react-switch";
-import * as error from "../errorModal/error-modal";
+import * as error from "../../component/errorModal/error-modal";
 
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
