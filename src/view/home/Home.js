@@ -19,6 +19,7 @@ import * as error from "../../component/errorModal/error-modal";
 import AppState from "../../AppState";
 import * as inputUtil from "../../util/input-util";
 import ApptEntry from "../../component/apptEntry/ApptEntry";
+import * as commonSerivce from "../../util/common-service";
 
 class Home extends Component {
   calendarRef = React.createRef();
@@ -60,7 +61,7 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const data = await controller.getSettings(AppState.getUrl());
+    const data = await commonSerivce.getSettings(AppState.getUrl());
 
     const timeslots = [];
     data.availability.availabilities.forEach((available) => {
@@ -133,7 +134,7 @@ class Home extends Component {
     event.preventDefault();
     const elements = event.target.elements;
 
-    const body = controller.assemblePayload(
+    const body = commonSerivce.assembleAppointmentPayload(
       this.state.event?.start,
       this.state.language,
       this.state.currentPhoneNumber,
@@ -142,7 +143,7 @@ class Home extends Component {
     );
 
     console.log(body);
-    const errors = controller.validate(body);
+    const errors = commonSerivce.validateAppointmentPayload(body);
 
     if (errors.length != 0) {
       error.display(errors);

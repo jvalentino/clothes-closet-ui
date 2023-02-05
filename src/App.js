@@ -19,6 +19,7 @@ import Locale from "./view/locale/Locale";
 import StudentUpload from "./view/upload/StudentUpload";
 import Waitlist from "./view/waitlist/Waitlist";
 import Dashboard from "./view/dashboard/Dashboard";
+import ManualEntry from "./view/manual/ManualEntry";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/upload" element={<StudentUpload />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/manual" element={<ManualEntry />} />
           </Routes>
         </div>
       </Router>

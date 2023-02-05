@@ -1,14 +1,5 @@
-import { isPossiblePhoneNumber } from "react-phone-number-input";
 import * as inputUtil from "../../util/input-util";
 import strings from "../../locale";
-
-import validator from "validator";
-
-async function getSettings(url) {
-  const response = await fetch(`${url}/appointment/settings`);
-  const text = await response.text();
-  return JSON.parse(text);
-}
 
 async function makeAppointment(body, url) {
   const requestOptions = {
@@ -68,42 +59,6 @@ async function makeAppointment(body, url) {
   return result;
 }
 
-function validate(body) {
-  const messages = [];
-
-  if (
-    inputUtil.isBlank(body.guardian.email) ||
-    !validator.isEmail(body.guardian.email)
-  ) {
-    messages.push(strings.errorEmail);
-  }
-
-  if (inputUtil.isBlank(body.guardian.firstName)) {
-    messages.push(strings.errorFirstName);
-  }
-
-  if (inputUtil.isBlank(body.guardian.lastName)) {
-    messages.push(strings.errorLastName);
-  }
-
-  if (!isPossiblePhoneNumber(`${body.guardian.phoneNumber}`)) {
-    messages.push(strings.errorPhoneNumber);
-  }
-
-  for (let i = 0; i < body.students.length; i++) {
-    const student = body.students[i];
-    const number = i + 1;
-
-    if (inputUtil.isBlank(student.studentId)) {
-      messages.push(
-        strings.formatString(strings.errorStudentId, { number: number })
-      );
-    }
-  }
-
-  return messages;
-}
-
 function makeNewEvent(startDate, endDate) {
   const newEvent = {
     id: "new-appointment",
@@ -118,42 +73,4 @@ function makeNewEvent(startDate, endDate) {
   return newEvent;
 }
 
-function assemblePayload(datetime, language, phoneNumber, students, elements) {
-  const body = {
-    datetime: datetime,
-    locale: language,
-    waitlist: false,
-    guardian: {
-      email: elements.email.value,
-      firstName: elements.firstName.value,
-      lastName: elements.lastName.value,
-      phoneNumber: phoneNumber,
-      phoneTypeLabel: elements.phoneTypeLabel.value
-    },
-    students: []
-  };
-
-  if (inputUtil.isBlank(body.datetime)) {
-    body.waitlist = true;
-  }
-
-  for (let i = 1; i <= students.length; i++) {
-    const student = {
-      studentId: elements[`student-id-${i}`].value,
-      school: elements[`student-school-${i}`].value,
-      gender: elements[`student-gender-${i}`].value,
-      grade: elements[`student-grade-${i}`].value
-    };
-    body.students.push(student);
-  }
-
-  return body;
-}
-
-export {
-  getSettings,
-  makeAppointment,
-  validate,
-  makeNewEvent,
-  assemblePayload
-};
+export { makeAppointment, makeNewEvent };

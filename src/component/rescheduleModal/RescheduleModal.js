@@ -1,8 +1,7 @@
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DateTime from "../dateTime/DateTime";
 
 import React, { Component } from "react";
 
@@ -138,32 +137,7 @@ class Content extends Component {
             <br />
             <br />
             <h2>Pick Date/Time ({timeZone})</h2>
-            <table className="standard-form">
-              <tbody>
-                <tr>
-                  <td>
-                    <b>Date:</b>
-                  </td>
-                  <td>
-                    <DatePicker
-                      name="date-field"
-                      selected={this.state.date}
-                      onChange={(date) => this.setState({ date: date })}
-                    />
-                  </td>
-                  <td>
-                    <b>Time:</b>
-                  </td>
-                  <td>
-                    <select name="time-field">
-                      {controller.generateTimeStrings().map((value) => (
-                        <option key={value}>{value}</option>
-                      ))}
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <DateTime />
             <div className="react-confirm-alert-button-group">
               <button type="submit">Schedule</button>
               <button onClick={onCloseReference}>Cancel</button>

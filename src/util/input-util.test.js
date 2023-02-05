@@ -115,4 +115,10 @@ describe("test input-util", function () {
       "01:30:00.000-0100"
     );
   });
+
+  test("dateAndTimeToIso", function () {
+    expect(subject.dateAndTimeToIso("01/02/2023", "06:00:00 AM", -6)).toBe(
+      "2023-01-02T06:00:00.000-0600"
+    );
+  });
 });

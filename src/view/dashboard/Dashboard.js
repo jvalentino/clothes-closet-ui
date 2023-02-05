@@ -172,7 +172,7 @@ class Dashboard extends Component {
         <tbody>
           <tr>
             <td>
-              <b>Appointments</b>
+              <b>Completed Appointments</b>
             </td>
             <td>{data.report.appointments}</td>
             <td>

@@ -66,10 +66,24 @@ function amPmTimeToIso(time, timezoneOffsetHours) {
   return `${hourString}:${timeStringSplit[1]}:${timeStringSplit[2]}.000${symbol}${timezoneOffsetString}`;
 }
 
+function dateAndTimeToIso(date, time, timezoneOffsetHours) {
+  if (this.isBlank(date)) {
+    return null;
+  }
+
+  const isoPart1 = this.monthDayYearToYearMonthDate(date);
+
+  const isoPart2 = this.amPmTimeToIso(time, timezoneOffsetHours);
+
+  const isoDateTime = `${isoPart1}T${isoPart2}`;
+  return isoDateTime;
+}
+
 export {
   isBlank,
   prettyDateTimeFromIso,
   monthDayYearToYearMonthDate,
   dateToIso8601,
-  amPmTimeToIso
+  amPmTimeToIso,
+  dateAndTimeToIso
 };

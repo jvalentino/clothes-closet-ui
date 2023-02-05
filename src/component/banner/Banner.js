@@ -41,6 +41,8 @@ class Banner extends Component {
           <a href="./dashboard">Dashboard</a> | &nbsp;
           <a href="./appointment">Search Appointments</a> | &nbsp;
           <a href="./waitlist">Wait List</a> | &nbsp;
+          <a href="./manual">Manual Entry</a> | &nbsp;
+          <br />
           <a href="./reporting">Reporting</a> | &nbsp;
           <a href="./settings">Settings</a> | &nbsp;
           <a href="./locales">Locales</a> | &nbsp;
