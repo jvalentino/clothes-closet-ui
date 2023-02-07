@@ -238,6 +238,7 @@ class Dashboard extends Component {
           <li>The appointment needs to have its data entered.</li>
           <li>The appointment needs to be marked as a no-show.</li>
           <li>The appointment needs to be cancelled.</li>
+          <li>The appointment needs to be rescheduled.</li>
         </ol>
 
         <DataTable
