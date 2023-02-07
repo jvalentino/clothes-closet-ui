@@ -3,9 +3,14 @@ table.header {
     width: 100%;
 }
 
-table.header td {
-    white-space: nowrap;
+.headerMenuNoWrap {
+   white-space: nowrap;
 }
+
+.headerMenu {
+    white-space: wrap;
+    text-align: center;
+ }
 
 td.header-right {
     width: 100%;

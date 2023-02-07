@@ -5,6 +5,7 @@ import strings from "../../locale";
 function display(messages) {
   confirmAlert({
     customUI: ({ onClose }) => {
+      let counter = 0;
       return (
         <div className="react-confirm-alert">
           <div className="react-confirm-alert-body">
@@ -12,7 +13,7 @@ function display(messages) {
             <p className="alert__body">{strings.errorsToBeCorrected}</p>
             <ul>
               {messages.map((message) => (
-                <li key={message}>{message}</li>
+                <li key={counter++}>{message}</li>
               ))}
             </ul>
             <div className="react-confirm-alert-button-group">

@@ -232,7 +232,9 @@ class Home extends Component {
         <table className="header">
           <tbody>
             <tr>
-              <td>{strings.pickAvailable}&nbsp;&nbsp;</td>
+              <td>{strings.pickAvailable}</td>
+            </tr>
+            <tr>
               <td style={{ width: "100%" }}>
                 <Select
                   options={this.state.timeslots}
@@ -242,9 +244,9 @@ class Home extends Component {
                     value: this.state.event?.datetimeValue
                   }}
                 />
-                &nbsp;&nbsp; &nbsp;&nbsp;
               </td>
-              <td>&nbsp;&nbsp;{strings.showCalendar}&nbsp;&nbsp;</td>
+
+              <td>&nbsp;&nbsp;{strings.showCalendar}</td>
               <td>
                 <Switch
                   className="react-switch"
@@ -256,8 +258,9 @@ class Home extends Component {
                   }
                 />
               </td>
+            </tr>
+            <tr>
               <td>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button className="default" type="submit">
                   {strings.scheduleAppointment}
                 </button>

@@ -92,6 +92,13 @@ class AppState {
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
     return timeZone;
   }
+
+  isMobile() {
+    if (window.innerWidth <= 768) {
+      return true;
+    }
+    return false;
+  }
 }
 
 const singletonCounter = Object.freeze(new AppState());
