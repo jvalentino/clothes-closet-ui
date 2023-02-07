@@ -1,3 +1,5 @@
+import * as timeZoneUtil from "./time-zone-util";
+
 function isBlank(value) {
   if (value == undefined) {
     return true;
@@ -66,10 +68,14 @@ function amPmTimeToIso(time, timezoneOffsetHours) {
   return `${hourString}:${timeStringSplit[1]}:${timeStringSplit[2]}.000${symbol}${timezoneOffsetString}`;
 }
 
-function dateAndTimeToIso(date, time, timezoneOffsetHours) {
+function dateAndTimeToIso(date, time) {
   if (this.isBlank(date)) {
     return null;
   }
+
+  const timezoneOffsetHours = timeZoneUtil.getTimeZoneOffsetInHours(
+    new Date(date)
+  );
 
   const isoPart1 = this.monthDayYearToYearMonthDate(date);
 

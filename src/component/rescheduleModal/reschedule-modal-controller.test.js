@@ -10,11 +10,9 @@ describe("test reschedule-modal-controller", function () {
   test("test reschedule", async function () {
     // given
     const appointmentId = 1;
-    const date = "10/31/2022";
-    const time = "1:00:00 PM";
+    const datetime = "2022-10-31T13:00:00.000-0600";
     const sessionId = "alpha";
     const url = "https://bravo";
-    const timezoneOffsetHours = -6;
 
     // and
     httpUtil.request.mockReturnValueOnce({ success: true });
@@ -22,11 +20,9 @@ describe("test reschedule-modal-controller", function () {
     // when
     const result = await subject.reschedule(
       appointmentId,
-      date,
-      time,
+      datetime,
       sessionId,
-      url,
-      timezoneOffsetHours
+      url
     );
 
     // then

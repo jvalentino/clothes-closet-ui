@@ -38,11 +38,7 @@ class ManualEntry extends Component {
 
     const date = elements["date-field"].value;
     const time = elements["time-field"].value;
-    const datetime = inputUtil.dateAndTimeToIso(
-      date,
-      time,
-      AppState.getTimeZoneOffsetInHours()
-    );
+    const datetime = inputUtil.dateAndTimeToIso(date, time);
 
     const body = commonSerivce.assembleAppointmentPayload(
       datetime,

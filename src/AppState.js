@@ -92,10 +92,6 @@ class AppState {
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
     return timeZone;
   }
-
-  getTimeZoneOffsetInHours() {
-    return (new Date().getTimezoneOffset() / 60) * -1;
-  }
 }
 
 const singletonCounter = Object.freeze(new AppState());

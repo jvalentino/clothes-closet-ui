@@ -271,10 +271,10 @@ class Dashboard extends Component {
           {this.renderStats(data)}
           <hr />
           <br />
-          {this.renderUpcoming(data)}
+          {this.renderAttention(data)}
           <hr />
           <br />
-          {this.renderAttention(data)}
+          {this.renderUpcoming(data)}
         </div>
       </div>
     );

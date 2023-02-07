@@ -15,24 +15,12 @@ function validate(date, time) {
   return messages;
 }
 
-async function reschedule(
-  appointmentId,
-  date,
-  time,
-  sessionId,
-  url,
-  timezoneOffsetHours
-) {
-  console.log(`${appointmentId} ${date} ${time}`);
-  const isoPart1 = inputUtil.monthDayYearToYearMonthDate(date);
-
-  const isoPart2 = inputUtil.amPmTimeToIso(time, timezoneOffsetHours);
-
-  const isoDateTime = `${isoPart1}T${isoPart2}`;
+async function reschedule(appointmentId, datetime, sessionId, url) {
+  console.log(`${appointmentId} ${datetime}`);
 
   const payload = {
     appointmentId: appointmentId,
-    datetime: isoDateTime
+    datetime: datetime
   };
   console.log(payload);
 

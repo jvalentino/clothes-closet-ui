@@ -11,6 +11,7 @@ import AppState from "../../AppState";
 
 import * as controller from "./reschedule-modal-controller";
 import * as error from "../errorModal/error-modal";
+import * as inputUtil from "../../util/input-util";
 
 let onCloseReference = null;
 
@@ -32,6 +33,8 @@ class Content extends Component {
     const date = elements["date-field"].value;
     const time = elements["time-field"].value;
 
+    const datetime = inputUtil.dateAndTimeToIso(date, time);
+
     onCloseReference();
 
     const messages = controller.validate(date, time);
@@ -44,11 +47,9 @@ class Content extends Component {
     const appointmentId = this.props.appointment.appointmentId;
     await controller.reschedule(
       appointmentId,
-      date,
-      time,
+      datetime,
       AppState.getSessionId(),
-      AppState.getUrl(),
-      AppState.getTimeZoneOffsetInHours()
+      AppState.getUrl()
     );
 
     window.location = this.props.location;
