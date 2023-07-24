@@ -75,7 +75,9 @@ class Home extends Component {
     let noOptions = false;
     if (timeslots.length != 0) {
       const startDate = new Date(timeslots[0].value);
-      const endDate = new Date(startDate.getTime() + 30 * 60000);
+      const endDate = new Date(
+        startDate.getTime() + AppState.getTimeSlotLengthInMinutes() * 60000
+      );
       newEvent = controller.makeNewEvent(startDate, endDate);
     } else {
       noOptions = true;
@@ -93,7 +95,9 @@ class Home extends Component {
 
   dateClick(event) {
     const startDate = new Date(event.dateStr);
-    const endDate = new Date(startDate.getTime() + 30 * 60000);
+    const endDate = new Date(
+      startDate.getTime() + AppState.getTimeSlotLengthInMinutes() * 60000
+    );
 
     const newEvent = controller.makeNewEvent(startDate, endDate);
 
@@ -184,7 +188,9 @@ class Home extends Component {
 
   slotChange(event) {
     const startDate = new Date(event.value);
-    const endDate = new Date(startDate.getTime() + 30 * 60000);
+    const endDate = new Date(
+      startDate.getTime() + AppState.getTimeSlotLengthInMinutes() * 60000
+    );
 
     const newEvent = controller.makeNewEvent(startDate, endDate);
 
@@ -200,6 +206,8 @@ class Home extends Component {
       return <br />;
     }
 
+    const slotDuration = "00:" + AppState.getTimeSlotLengthInMinutes() + ":00";
+
     return (
       <FullCalendar
         ref={this.calendarRef}
@@ -209,6 +217,7 @@ class Home extends Component {
         events={this.state.data.events}
         datesSet={this.datesSet}
         height={600}
+        slotDuration={slotDuration}
       />
     );
   }

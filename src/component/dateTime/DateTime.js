@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PropTypes from "prop-types";
 import * as controller from "./date-time-controller";
+import AppState from "../../AppState";
 
 class DateTime extends Component {
   constructor() {
@@ -47,9 +48,11 @@ class DateTime extends Component {
             </td>
             <td>
               <select name="time-field">
-                {controller.generateTimeStrings().map((value) => (
-                  <option key={value}>{value}</option>
-                ))}
+                {controller
+                  .generateTimeStrings(AppState.getTimeSlotLengthInMinutes())
+                  .map((value) => (
+                    <option key={value}>{value}</option>
+                  ))}
               </select>
             </td>
           </tr>

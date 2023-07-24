@@ -1,17 +1,30 @@
-function generateTimeStrings() {
+function generateTimeStrings(slotsInMinutes = 30) {
   const results = [];
+  const slotsPerHour = 60 / slotsInMinutes;
+  const startHour = 6;
 
-  for (let i = 6; i < 12; i++) {
-    results.push(`${i}:00:00 AM`);
-    results.push(`${i}:30:00 AM`);
+  // morning
+  for (let i = startHour; i < 12; i++) {
+    for (let j = 0; j < slotsPerHour; j++) {
+      const minutes = j * slotsInMinutes;
+      const minutesString = `${minutes}`.padStart(2, "0");
+      results.push(`${i}:${minutesString}:00 AM`);
+    }
   }
 
-  results.push(`12:00:00 PM`);
-  results.push(`12:30:00 PM`);
+  for (let j = 0; j < slotsPerHour; j++) {
+    const minutes = j * slotsInMinutes;
+    const minutesString = `${minutes}`.padStart(2, "0");
+    results.push(`12:${minutesString}:00 PM`);
+  }
 
+  // afternoon
   for (let i = 1; i < 12; i++) {
-    results.push(`${i}:00:00 PM`);
-    results.push(`${i}:30:00 PM`);
+    for (let j = 0; j < slotsPerHour; j++) {
+      const minutes = j * slotsInMinutes;
+      const minutesString = `${minutes}`.padStart(2, "0");
+      results.push(`${i}:${minutesString}:00 PM`);
+    }
   }
 
   return results;

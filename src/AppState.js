@@ -99,6 +99,10 @@ class AppState {
     }
     return false;
   }
+
+  getTimeSlotLengthInMinutes() {
+    return 20;
+  }
 }
 
 const singletonCounter = Object.freeze(new AppState());
