@@ -147,6 +147,17 @@ class Waitlist extends Component {
       {
         name: "Locale",
         selector: (row) => row.locale,
+        sortable: true,
+        width: "90px"
+      },
+      {
+        name: "Phone #",
+        selector: (row) => controller.formatPhoneNumber(row.guardian.phoneNumber),
+        sortable: true
+      },
+      {
+        name: "Phone Type",
+        selector: (row) => row.guardian.phoneTypeLabel,
         sortable: true
       }
     ];

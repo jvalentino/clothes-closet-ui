@@ -143,4 +143,15 @@ describe("test waitlist-controller", function () {
     });
     expect(httpUtil.request.mock.calls[0][3]).toBe(null);
   });
+
+  test("test formatPhoneNumber", function () {
+    //given 
+    const input = '+12133734253';
+
+    // when
+    const result = subject.formatPhoneNumber(input);
+
+    // then
+    expect(result).toBe('(213) 373-4253');
+  });
 });

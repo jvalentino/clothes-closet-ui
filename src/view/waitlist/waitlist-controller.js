@@ -1,6 +1,10 @@
 import * as httpUtil from "../../util/http-util";
 import * as inputUtil from "../../util/input-util";
 
+import {
+  parsePhoneNumber,
+} from 'libphonenumber-js';
+
 async function search(date, name, sessionId, url) {
   const parameters = {
     "x-auth-token": sessionId,
@@ -54,4 +58,9 @@ async function getDetails(appointmentId, sessionId, url) {
   return result;
 }
 
-export { search, deleteAppointment, getDetails };
+function formatPhoneNumber(input) {
+  const phoneNumber = parsePhoneNumber(input);
+  return phoneNumber.formatNational();
+}
+
+export { search, deleteAppointment, getDetails, formatPhoneNumber };
