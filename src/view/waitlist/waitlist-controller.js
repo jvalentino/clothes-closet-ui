@@ -61,4 +61,25 @@ function formatPhoneNumber(input) {
   return phoneNumber.formatNational();
 }
 
-export { search, deleteAppointment, getDetails, formatPhoneNumber };
+async function markContacted(appointmentId, contacted, sessionId, url) {
+  const parameters = {
+    "x-auth-token": sessionId,
+    id: appointmentId
+  };
+  const result = await httpUtil.request(
+    `${url}/appointment/${appointmentId}/contacted/${contacted}`,
+    "POST",
+    parameters,
+    null
+  );
+  console.log(result);
+  return result;
+}
+
+export {
+  search,
+  deleteAppointment,
+  getDetails,
+  formatPhoneNumber,
+  markContacted
+};

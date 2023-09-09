@@ -103,6 +103,19 @@ class Waitlist extends Component {
     await this.componentDidMount();
   }
 
+  async checkboxChanged(event) {
+    const appointmentId = event.target.id;
+    const contacted = event.target.checked;
+    console.log(appointmentId);
+    console.log(contacted);
+    await controller.markContacted(
+      appointmentId,
+      contacted,
+      AppState.getSessionId(),
+      AppState.getUrl()
+    );
+  }
+
   generateColumns() {
     const columns = [
       {
@@ -160,6 +173,17 @@ class Waitlist extends Component {
         name: "Phone Type",
         selector: (row) => row.guardian.phoneTypeLabel,
         sortable: true
+      },
+      {
+        name: "Contacted?",
+        cell: (row) => (
+          <input
+            type="checkbox"
+            id={row.appointmentId}
+            defaultChecked={row.contacted}
+            onChange={this.checkboxChanged}
+          ></input>
+        )
       }
     ];
     return columns;
