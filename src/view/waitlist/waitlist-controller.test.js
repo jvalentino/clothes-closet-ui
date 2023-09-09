@@ -145,13 +145,13 @@ describe("test waitlist-controller", function () {
   });
 
   test("test formatPhoneNumber", function () {
-    //given 
-    const input = '+12133734253';
+    //given
+    const input = "+12133734253";
 
     // when
     const result = subject.formatPhoneNumber(input);
 
     // then
-    expect(result).toBe('(213) 373-4253');
+    expect(result).toBe("(213) 373-4253");
   });
 });

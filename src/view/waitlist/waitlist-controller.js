@@ -1,9 +1,7 @@
 import * as httpUtil from "../../util/http-util";
 import * as inputUtil from "../../util/input-util";
 
-import {
-  parsePhoneNumber,
-} from 'libphonenumber-js';
+import { parsePhoneNumber } from "libphonenumber-js";
 
 async function search(date, name, sessionId, url) {
   const parameters = {

@@ -152,7 +152,8 @@ class Waitlist extends Component {
       },
       {
         name: "Phone #",
-        selector: (row) => controller.formatPhoneNumber(row.guardian.phoneNumber),
+        selector: (row) =>
+          controller.formatPhoneNumber(row.guardian.phoneNumber),
         sortable: true
       },
       {
