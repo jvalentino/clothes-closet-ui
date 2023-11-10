@@ -86,7 +86,7 @@ let strings = new LocalizedStrings({
       "La identificación de estudiante de {id} no es elegible",
     alreadyBooked:
       "La fecha y hora seleccionadas ya no están disponibles, elija otra",
-      alreadyBeen:
+    alreadyBeen:
       "El estudiante {id} ya no es elegible porque este semestre ya estuvo o fue puesto en la lista de espera el {datetime}",
     noAvailability: "No disponible",
     noAvailabilityText: `All of the available appointment times for the rest of the semester have 
@@ -182,7 +182,7 @@ let strings = new LocalizedStrings({
     errorStudentNotEligible: "La carte d'étudiant de {id} n'est pas éligible",
     alreadyBooked:
       "La date et l'heure sélectionnées ne sont plus disponibles, veuillez en choisir une autre",
-      alreadyBeen:
+    alreadyBeen:
       "L'étudiant {id} n'est plus éligible car ce semestre, il a déjà été ou a été mis sur la liste d'attente à {datetime}",
     noAvailability: "Pas de disponibilité",
     noAvailabilityText: `All of the available appointment times for the rest of the semester have 
