@@ -72,7 +72,6 @@ describe("test common-service", function () {
             school: "foxtrot",
             studentId: "echo",
             shoeSize: "10",
-            sizeType: "Adult",
             underwearSize: "L"
           }
         ],
@@ -149,7 +148,6 @@ describe("test common-service", function () {
             school: "foxtrot",
             studentId: "echo",
             shoeSize: "10",
-            sizeType: "Adult",
             underwearSize: "L"
           }
         ],

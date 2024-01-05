@@ -79,10 +79,8 @@ class Print extends Component {
           <tr>
             <td></td>
             <td></td>
-            <td>
-              <b>Size:</b>
-            </td>
-            <td>{visit.student?.sizeType}</td>
+            <td></td>
+            <td></td>
             <td>
               <b>Shoe:</b>
             </td>
