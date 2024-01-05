@@ -466,8 +466,21 @@ class Appointment extends Component {
                 <b>Student:</b>
               </td>
               <td>{visit.student.studentId}</td>
-              <td></td>
-              <td></td>
+              <td>&nbsp;</td>
+              <td>
+                <b>Size:</b>
+              </td>
+              <td>{visit.student.sizeType}</td>
+              <td>&nbsp;</td>
+              <td>
+                <b>Shoe Size:</b>
+              </td>
+              <td>{visit.student.shoeSize}</td>
+              <td>&nbsp;</td>
+              <td>
+                <b>Underwear Size:</b>
+              </td>
+              <td>{visit.student.underwearSize}</td>
             </tr>
           </tbody>
         </table>

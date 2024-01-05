@@ -57,24 +57,42 @@ class Print extends Component {
   renderVisit(visit) {
     if (visit.student != null) {
       return (
-        <tr key={visit.visitId}>
-          <td>
-            <b>Student ID:</b>
-          </td>
-          <td>{visit.student?.studentId}</td>
-          <td>
-            <b>Gender:</b>
-          </td>
-          <td>{visit.student?.gender}</td>
-          <td>
-            <b>Grade:</b>
-          </td>
-          <td>{visit.student?.grade}</td>
-          <td>
-            <b>School:</b>
-          </td>
-          <td>{visit.student?.school}</td>
-        </tr>
+        <tbody>
+          <tr key={visit.visitId}>
+            <td>
+              <b>Student ID:</b>
+            </td>
+            <td>{visit.student?.studentId}</td>
+            <td>
+              <b>Gender:</b>
+            </td>
+            <td>{visit.student?.gender}</td>
+            <td>
+              <b>Grade:</b>
+            </td>
+            <td>{visit.student?.grade}</td>
+            <td>
+              <b>School:</b>
+            </td>
+            <td>{visit.student?.school}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>
+              <b>Size:</b>
+            </td>
+            <td>{visit.student?.sizeType}</td>
+            <td>
+              <b>Shoe:</b>
+            </td>
+            <td>{visit.student?.shoeSize}</td>
+            <td>
+              <b>Underwear:</b>
+            </td>
+            <td>{visit.student?.underwearSize}</td>
+          </tr>
+        </tbody>
       );
     }
 
@@ -130,9 +148,7 @@ class Print extends Component {
         </table>
         <br />
         <table className="standard-form">
-          <tbody>
-            {appointment.visits.map((visit) => this.renderVisit(visit))}
-          </tbody>
+          {appointment.visits.map((visit) => this.renderVisit(visit))}
         </table>
         <br />
         <table className="standard-form">
