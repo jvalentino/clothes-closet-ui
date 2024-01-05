@@ -13,6 +13,7 @@ class ApptEntry extends Component {
     this.onPhoneChange = this.onPhoneChange.bind(this);
     this.clickAddStudent = this.clickAddStudent.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.onSizeChange = this.onSizeChange.bind(this);
 
     this.state = {
       currentPhoneNumber: null,
@@ -22,7 +23,47 @@ class ApptEntry extends Component {
       genders: null,
       grades: null,
       schools: null,
-      mobile: AppState.isMobile()
+      mobile: AppState.isMobile(),
+      sizes: ["", "Youth", "Adult"],
+      currentShoeSizes: {
+        ["1"]: []
+      },
+      youthShoes: ["", "10", "11", "12", "13", "1", "2", "3", "4", "5"],
+      adultShoes: [
+        "",
+        "6",
+        "6.5",
+        "7",
+        "7.5",
+        "8",
+        "8.5",
+        "9",
+        "9.5",
+        "10",
+        "10.5",
+        "11",
+        "11.5",
+        "12",
+        "13",
+        "14",
+        "15"
+      ],
+      currentUnderwearSizes: {
+        ["1"]: []
+      },
+      youthUnderwear: [
+        "",
+        "4t/5t",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "18",
+        "20"
+      ],
+      adultUnderwear: ["", "S", "M", "L", "XL", "XXL", "XXXL", "4X"]
     };
   }
 
@@ -38,14 +79,58 @@ class ApptEntry extends Component {
     });
   }
 
+  onSizeChange(event) {
+    const size = event.target.value;
+
+    // we have to figure out which student this is for by index
+    const name = event.target.name;
+    const nameSplit = name.split("-");
+    const index = nameSplit[nameSplit.length - 1];
+
+    if (size == "Youth") {
+      this.setState((prevState) => ({
+        currentShoeSizes: {
+          ...prevState.currentShoeSizes,
+          [index]: this.state.youthShoes
+        },
+        currentUnderwearSizes: {
+          ...prevState.currentUnderwearSizes,
+          [index]: this.state.youthUnderwear
+        }
+      }));
+    } else {
+      this.setState((prevState) => ({
+        currentShoeSizes: {
+          ...prevState.currentShoeSizes,
+          [index]: this.state.adultShoes
+        },
+        currentUnderwearSizes: {
+          ...prevState.currentUnderwearSizes,
+          [index]: this.state.adultUnderwear
+        }
+      }));
+    }
+  }
+
   clickAddStudent(event) {
     event.preventDefault();
+
     const list = this.state.students;
-    list.push(list.length + 1);
+    const index = list.length + 1;
+    list.push(index);
     this.props.onStudentsChanged(list);
-    this.setState({
-      students: list
-    });
+
+    this.setState((prevState) => ({
+      students: list,
+      currentShoeSizes: {
+        ...prevState.currentShoeSizes,
+        [index]: this.state.youthShoes
+      },
+      currentUnderwearSizes: {
+        ...prevState.currentUnderwearSizes,
+        [index]: this.state.youthUnderwear
+      }
+    }));
   }
 
   async componentDidMount() {
@@ -104,6 +189,7 @@ class ApptEntry extends Component {
   studentGender(student) {
     return (
       <select name={`student-gender-${student}`}>
+        <option value=""></option>
         {this.state.genders.map((gender) => (
           <option value={gender.label} key={gender.label}>
             {gender.label}
@@ -116,6 +202,7 @@ class ApptEntry extends Component {
   studentGrade(student) {
     return (
       <select name={`student-grade-${student}`}>
+        <option value=""></option>
         {this.state.grades.map((grade) => (
           <option value={grade.label} key={grade.label}>
             {grade.label}
@@ -128,9 +215,46 @@ class ApptEntry extends Component {
   studentSchool(student) {
     return (
       <select name={`student-school-${student}`}>
+        <option value=""></option>
         {this.state.schools.map((school) => (
           <option value={school.label} key={school.label}>
             {school.label}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  studentSize(student) {
+    return (
+      <select name={`student-size-${student}`} onChange={this.onSizeChange}>
+        {this.state.sizes.map((size) => (
+          <option value={size} key={size}>
+            {size}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  studentShoes(student) {
+    return (
+      <select name={`student-shoe-size-${student}`}>
+        {this.state.currentShoeSizes[student].map((size) => (
+          <option value={size} key={size}>
+            {size}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  studentUnderwear(student) {
+    return (
+      <select name={`student-underwear-size-${student}`}>
+        {this.state.currentUnderwearSizes[student].map((size) => (
+          <option value={size} key={size}>
+            {size}
           </option>
         ))}
       </select>
@@ -251,6 +375,17 @@ class ApptEntry extends Component {
 
                   <td>{strings.school}</td>
                   <td>{this.studentSchool(student)}</td>
+                </tr>
+
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>{strings.size}</td>
+                  <td>{this.studentSize(student)}</td>
+                  <td>{strings.shoeSize}</td>
+                  <td>{this.studentShoes(student)}</td>
+                  <td>{strings.underwearSize}</td>
+                  <td>{this.studentUnderwear(student)}</td>
                 </tr>
               </tbody>
             </table>

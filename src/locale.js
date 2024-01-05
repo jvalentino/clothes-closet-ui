@@ -46,7 +46,10 @@ let strings = new LocalizedStrings({
     addToWaitList: "Add to Wait List",
     thankYouWaitList: "Thank you, you have been added to the wait list",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up"
+      "If something becomes available, people on the wait list will be contacted in the order they signed up",
+    size: "Size",
+    shoeSize: "Shoe Size",
+    underwearSize: "Underwear Size"
   },
   es: {
     bannerFollowUs: "Síguenos en Facebook",
@@ -95,7 +98,10 @@ let strings = new LocalizedStrings({
     addToWaitList: "Add to Wait List",
     thankYouWaitList: "Thank you, you have been added to the wait list",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up"
+      "If something becomes available, people on the wait list will be contacted in the order they signed up",
+    size: "Size",
+    shoeSize: "Shoe Size",
+    underwearSize: "Underwear Size"
   },
   ar: {
     bannerFollowUs: "تابعنا على الفيسبوك",
@@ -141,7 +147,10 @@ let strings = new LocalizedStrings({
     addToWaitList: "Add to Wait List",
     thankYouWaitList: "Thank you, you have been added to the wait list",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up"
+      "If something becomes available, people on the wait list will be contacted in the order they signed up",
+    size: "Size",
+    shoeSize: "Shoe Size",
+    underwearSize: "Underwear Size"
   },
   fr: {
     bannerFollowUs: "Suis nous sur Facebook",
@@ -191,7 +200,10 @@ let strings = new LocalizedStrings({
     addToWaitList: "Add to Wait List",
     thankYouWaitList: "Thank you, you have been added to the wait list",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up"
+      "If something becomes available, people on the wait list will be contacted in the order they signed up",
+    size: "Size",
+    shoeSize: "Shoe Size",
+    underwearSize: "Underwear Size"
   }
 });
 

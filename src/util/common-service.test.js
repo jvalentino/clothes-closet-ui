@@ -33,6 +33,15 @@ describe("test common-service", function () {
         },
         "student-grade-1": {
           value: "1"
+        },
+        "student-size-1": {
+          value: "Adult"
+        },
+        "student-shoe-size-1": {
+          value: "10"
+        },
+        "student-underwear-size-1": {
+          value: "L"
         }
       };
 
@@ -61,7 +70,10 @@ describe("test common-service", function () {
             gender: "Male",
             grade: "1",
             school: "foxtrot",
-            studentId: "echo"
+            studentId: "echo",
+            shoeSize: "10",
+            sizeType: "Adult",
+            underwearSize: "L"
           }
         ],
         waitlist: false
@@ -98,6 +110,15 @@ describe("test common-service", function () {
         },
         "student-grade-1": {
           value: "1"
+        },
+        "student-size-1": {
+          value: "Adult"
+        },
+        "student-shoe-size-1": {
+          value: "10"
+        },
+        "student-underwear-size-1": {
+          value: "L"
         }
       };
 
@@ -126,7 +147,10 @@ describe("test common-service", function () {
             gender: "Male",
             grade: "1",
             school: "foxtrot",
-            studentId: "echo"
+            studentId: "echo",
+            shoeSize: "10",
+            sizeType: "Adult",
+            underwearSize: "L"
           }
         ],
         waitlist: true

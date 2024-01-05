@@ -38,7 +38,10 @@ function assembleAppointmentPayload(
       studentId: elements[`student-id-${i}`].value,
       school: elements[`student-school-${i}`].value,
       gender: elements[`student-gender-${i}`].value,
-      grade: elements[`student-grade-${i}`].value
+      grade: elements[`student-grade-${i}`].value,
+      sizeType: elements[`student-size-${i}`].value,
+      shoeSize: elements[`student-shoe-size-${i}`].value,
+      underwearSize: elements[`student-underwear-size-${i}`].value
     };
     body.students.push(student);
   }
