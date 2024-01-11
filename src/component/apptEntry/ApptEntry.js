@@ -302,6 +302,12 @@ class ApptEntry extends Component {
                     <td>{strings.school}</td>
                     <td>{this.studentSchool(student)}</td>
                   </tr>
+                  <tr>
+                    <td>{strings.shoeSize}</td>
+                    <td>{this.studentShoes(student)}</td>
+                    <td>{strings.underwearSize}</td>
+                    <td>{this.studentUnderwear(student)}</td>
+                  </tr>
                 </tbody>
               </table>
               <br />
