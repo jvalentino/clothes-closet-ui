@@ -15,7 +15,8 @@ class Reporting extends Component {
     this.state = {
       startDate: new Date(),
       endDate: new Date().setFullYear(new Date().getFullYear() + 1),
-      report: null
+      report: null,
+      reportType: null
     };
   }
 
@@ -26,28 +27,46 @@ class Reporting extends Component {
     const elements = event.target.elements;
     const startDate = elements["start-date-field"].value;
     const endDate = elements["end-date-field"].value;
+    const reportType = elements["report-type-field"].value;
 
-    const result = await controller.report(
-      startDate,
-      endDate,
-      AppState.getSessionId(),
-      AppState.getUrl()
-    );
+    let result = null;
 
-    this.setState({
-      report: result
-    });
-
-    console.log(result);
-  }
-
-  renderReport() {
-    if (this.state.report == null) {
-      return <br />;
+    switch (reportType) {
+      case "People Served":
+        result = await controller.report(
+          startDate,
+          endDate,
+          AppState.getSessionId(),
+          AppState.getUrl()
+        );
+        break;
+      case "Shoes":
+        result = await controller.reportShoes(
+          startDate,
+          endDate,
+          AppState.getSessionId(),
+          AppState.getUrl()
+        );
+        break;
+      case "Underwear":
+        result = await controller.reportUnderwear(
+          startDate,
+          endDate,
+          AppState.getSessionId(),
+          AppState.getUrl()
+        );
+        break;
     }
 
-    const report = this.state.report;
+    this.setState({
+      report: result,
+      reportType: reportType
+    });
 
+  }
+
+  renderPeopleServed(report) {
+    console.log(report);
     return (
       <div>
         <table style={{ width: "300px" }}>
@@ -116,6 +135,58 @@ class Reporting extends Component {
     );
   }
 
+  renderNVP(report, title) {
+    console.log(report);
+    return (
+      <div>
+         <table style={{ width: "300px" }}>
+          <thead>
+            <tr>
+              <th>{title}</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+          {report.map((record) => (
+            <tr key={record.name}>
+              <td>{record.name}</td>
+              <td>{record.value}</td>
+            </tr>
+          ))}
+          </tbody>
+         </table>
+      </div>
+    );
+  }
+
+  renderUnderwear(report) {
+    console.log(report);
+    return (
+      <div>
+
+      </div>
+    );
+  }
+
+  renderReport() {
+    if (this.state.report == null) {
+      return <br />;
+    }
+
+    const report = this.state.report;
+    const reportType = this.state.reportType;
+
+    switch (reportType) {
+      case "People Served":
+        return this.renderPeopleServed(report);
+      case "Shoes":
+        return this.renderNVP(report, "Shoe Size");
+      case "Underwear":
+        return this.renderNVP(report, "Underwear Size");
+    }
+    
+  }
+
   render() {
     return (
       <div>
@@ -140,6 +211,16 @@ class Reporting extends Component {
                       selected={this.state.endDate}
                       onChange={(date) => this.setState({ endDate: date })}
                     />
+                  </td>
+                  <td>
+                    Report Type
+                  </td>
+                  <td>
+                  <select name="report-type-field">
+                    <option>People Served</option>
+                    <option>Shoes</option>
+                    <option>Underwear</option>
+                  </select>
                   </td>
                   <td>
                     <button className="default" type="submit">
