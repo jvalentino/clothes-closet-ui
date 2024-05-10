@@ -49,7 +49,9 @@ let strings = new LocalizedStrings({
       "If something becomes available, people on the wait list will be contacted in the order they signed up",
     size: "Size",
     shoeSize: "Shoe Size",
-    underwearSize: "Underwear Size"
+    underwearSize: "Underwear Size",
+    appointmentsClosed:
+      "We no longer have appointments available for the current semester, please visit again after the break, or watch your email for the link when registration opens."
   },
   es: {
     bannerFollowUs: "Síguenos en Facebook",
@@ -92,16 +94,16 @@ let strings = new LocalizedStrings({
     alreadyBeen:
       "El estudiante {id} ya no es elegible porque este semestre ya estuvo o fue puesto en la lista de espera el {datetime}",
     noAvailability: "No disponible",
-    noAvailabilityText: `All of the available appointment times for the rest of the semester have 
-      already been taken. Please check back again to see if anytmore times become available, or you 
-      can add yourself and your students to the wait list in case something does come available.`,
-    addToWaitList: "Add to Wait List",
-    thankYouWaitList: "Thank you, you have been added to the wait list",
+    noAvailabilityText: `Ya se han tomado todos los horarios de citas disponibles para el resto del semestre. Vuelva a consultar para ver si hay más horarios disponibles, o puede agregarse a usted y a sus estudiantes a la lista de espera en caso de que haya algo disponible.`,
+    addToWaitList: "Agregar a la lista de espera",
+    thankYouWaitList: "Gracias, has sido agregado a la lista de espera.",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up",
-    size: "Size",
-    shoeSize: "Shoe Size",
-    underwearSize: "Underwear Size"
+      "Si hay algo disponible, las personas en la lista de espera serán contactadas en el orden en que se inscribieron.",
+    size: "Tamaño",
+    shoeSize: "Tamaño del zapato",
+    underwearSize: "Talla de ropa interior",
+    appointmentsClosed:
+      "Ya no tenemos citas disponibles para el semestre actual, visítenos nuevamente después del receso o revise su correo electrónico para ver el enlace cuando se abra la inscripción."
   },
   ar: {
     bannerFollowUs: "تابعنا على الفيسبوك",
@@ -141,16 +143,16 @@ let strings = new LocalizedStrings({
     alreadyBeen:
       "لم يعد الطالب {id} مؤهلاً لأنه تم إدراجه بالفعل في قائمة الانتظار هذا الفصل الدراسي أو تم إدراجه في قائمة الانتظار في {datetime}",
     noAvailability: "غير متوفر",
-    noAvailabilityText: `All of the available appointment times for the rest of the semester have 
-      already been taken. Please check back again to see if anytmore times become available, or you 
-      can add yourself and your students to the wait list in case something does come available.`,
-    addToWaitList: "Add to Wait List",
-    thankYouWaitList: "Thank you, you have been added to the wait list",
+    noAvailabilityText: `لقد تم بالفعل حجز جميع المواعيد المتاحة لبقية الفصل الدراسي. يرجى التحقق مرة أخرى لمعرفة ما إذا كانت هناك أوقات متاحة في أي وقت، أو يمكنك إضافة نفسك وطلابك إلى قائمة الانتظار في حالة توفر شيء ما.`,
+    addToWaitList: "أضف إلى قائمة الانتظار",
+    thankYouWaitList: "شكرا لك، لقد تمت إضافتك إلى قائمة الانتظار",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up",
-    size: "Size",
-    shoeSize: "Shoe Size",
-    underwearSize: "Underwear Size"
+      "إذا أصبح هناك شيء متاح، فسيتم الاتصال بالأشخاص الموجودين في قائمة الانتظار بالترتيب الذي قاموا بالتسجيل فيه",
+    size: "مقاس",
+    shoeSize: "مقاس الحذاء",
+    underwearSize: "حجم الملابس الداخلية",
+    appointmentsClosed:
+      "لم تعد لدينا مواعيد متاحة للفصل الدراسي الحالي، يرجى الزيارة مرة أخرى بعد الاستراحة، أو مشاهدة بريدك الإلكتروني للحصول على الرابط عند فتح التسجيل."
   },
   fr: {
     bannerFollowUs: "Suis nous sur Facebook",
@@ -194,16 +196,16 @@ let strings = new LocalizedStrings({
     alreadyBeen:
       "L'étudiant {id} n'est plus éligible car ce semestre, il a déjà été ou a été mis sur la liste d'attente à {datetime}",
     noAvailability: "Pas de disponibilité",
-    noAvailabilityText: `All of the available appointment times for the rest of the semester have 
-      already been taken. Please check back again to see if anytmore times become available, or you 
-      can add yourself and your students to the wait list in case something does come available.`,
-    addToWaitList: "Add to Wait List",
-    thankYouWaitList: "Thank you, you have been added to the wait list",
+    noAvailabilityText: `Toutes les plages de rendez-vous disponibles pour le reste du semestre ont déjà été prises. Veuillez vérifier à nouveau si d'autres horaires deviennent disponibles, ou vous pouvez vous ajouter, vous et vos étudiants, à la liste d'attente au cas où quelque chose serait disponible.`,
+    addToWaitList: "Ajouter à la liste d'attente",
+    thankYouWaitList: "Merci, vous avez été ajouté à la liste d'attente",
     thankYouWaitListText:
-      "If something becomes available, people on the wait list will be contacted in the order they signed up",
-    size: "Size",
-    shoeSize: "Shoe Size",
-    underwearSize: "Underwear Size"
+      "Si quelque chose devient disponible, les personnes sur la liste d'attente seront contactées dans l'ordre dans lequel elles se sont inscrites.",
+    size: "Taille",
+    shoeSize: "Pointure",
+    underwearSize: "Taille des sous-vêtements",
+    appointmentsClosed:
+      "Nous n'avons plus de rendez-vous disponibles pour le semestre en cours, veuillez revenir après la pause ou surveillez votre courrier électronique pour le lien lors de l'ouverture des inscriptions."
   }
 });
 

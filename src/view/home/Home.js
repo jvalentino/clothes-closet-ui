@@ -282,6 +282,14 @@ class Home extends Component {
   }
 
   renderForm() {
+    if (!AppState.areAppointmentsEnabled()) {
+      return (
+        <div>
+          <h3>{strings.appointmentsClosed}</h3>
+        </div>
+      );
+    }
+
     return (
       <form onSubmit={this.submit}>
         <ApptEntry

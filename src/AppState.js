@@ -24,6 +24,10 @@ class AppState {
     return process.env.REACT_APP_HTTP_API;
   }
 
+  areAppointmentsEnabled() {
+    return process.env.REACT_APP_ENABLE_APPOINTMENTS == "true";
+  }
+
   getInstance() {
     return this;
   }

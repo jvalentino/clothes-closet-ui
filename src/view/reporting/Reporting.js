@@ -62,7 +62,6 @@ class Reporting extends Component {
       report: result,
       reportType: reportType
     });
-
   }
 
   renderPeopleServed(report) {
@@ -139,7 +138,7 @@ class Reporting extends Component {
     console.log(report);
     return (
       <div>
-         <table style={{ width: "300px" }}>
+        <table style={{ width: "300px" }}>
           <thead>
             <tr>
               <th>{title}</th>
@@ -147,25 +146,21 @@ class Reporting extends Component {
             </tr>
           </thead>
           <tbody>
-          {report.map((record) => (
-            <tr key={record.name}>
-              <td>{record.name}</td>
-              <td>{record.value}</td>
-            </tr>
-          ))}
+            {report.map((record) => (
+              <tr key={record.name}>
+                <td>{record.name}</td>
+                <td>{record.value}</td>
+              </tr>
+            ))}
           </tbody>
-         </table>
+        </table>
       </div>
     );
   }
 
   renderUnderwear(report) {
     console.log(report);
-    return (
-      <div>
-
-      </div>
-    );
+    return <div></div>;
   }
 
   renderReport() {
@@ -184,7 +179,6 @@ class Reporting extends Component {
       case "Underwear":
         return this.renderNVP(report, "Underwear Size");
     }
-    
   }
 
   render() {
@@ -212,15 +206,13 @@ class Reporting extends Component {
                       onChange={(date) => this.setState({ endDate: date })}
                     />
                   </td>
+                  <td>Report Type</td>
                   <td>
-                    Report Type
-                  </td>
-                  <td>
-                  <select name="report-type-field">
-                    <option>People Served</option>
-                    <option>Shoes</option>
-                    <option>Underwear</option>
-                  </select>
+                    <select name="report-type-field">
+                      <option>People Served</option>
+                      <option>Shoes</option>
+                      <option>Underwear</option>
+                    </select>
                   </td>
                   <td>
                     <button className="default" type="submit">
