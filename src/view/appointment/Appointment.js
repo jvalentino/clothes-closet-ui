@@ -138,6 +138,7 @@ class Appointment extends Component {
     const searchResults = await controller.search(
       elements["date-field"].value,
       elements["name-field"].value,
+      elements["student-id-field"].value,
       AppState.getSessionId(),
       AppState.getUrl()
     );
@@ -639,6 +640,15 @@ class Appointment extends Component {
             <table>
               <tbody>
                 <tr>
+                  <td>Student ID</td>
+                  <td>
+                    <input
+                      id="student-id-field"
+                      name="student-id-field"
+                      type="text"
+                    />
+                  </td>
+                  <td>or</td>
                   <td>Date</td>
                   <td>
                     <DatePicker

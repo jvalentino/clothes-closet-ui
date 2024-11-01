@@ -14,6 +14,7 @@ describe("test appointment-controller", function () {
       // given
       const date = null;
       const name = null;
+      const studentId = null;
       const sessionId = "alpha";
       const url = "https://bravo";
 
@@ -21,7 +22,13 @@ describe("test appointment-controller", function () {
       httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
-      const result = await subject.search(date, name, sessionId, url);
+      const result = await subject.search(
+        date,
+        name,
+        studentId,
+        sessionId,
+        url
+      );
 
       // then
       expect(result.success).toEqual(true);
@@ -39,6 +46,7 @@ describe("test appointment-controller", function () {
       // given
       const date = null;
       const name = "charlie";
+      const studentId = null;
       const sessionId = "alpha";
       const url = "https://bravo";
 
@@ -46,7 +54,13 @@ describe("test appointment-controller", function () {
       httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
-      const result = await subject.search(date, name, sessionId, url);
+      const result = await subject.search(
+        date,
+        name,
+        studentId,
+        sessionId,
+        url
+      );
 
       // then
       expect(result.success).toEqual(true);
@@ -65,6 +79,7 @@ describe("test appointment-controller", function () {
       // given
       const date = "01/02/2023";
       const name = "charlie";
+      const studentId = null;
       const sessionId = "alpha";
       const url = "https://bravo";
 
@@ -72,7 +87,13 @@ describe("test appointment-controller", function () {
       httpUtil.request.mockReturnValueOnce({ success: true });
 
       // when
-      const result = await subject.search(date, name, sessionId, url);
+      const result = await subject.search(
+        date,
+        name,
+        studentId,
+        sessionId,
+        url
+      );
 
       // then
       expect(result.success).toEqual(true);

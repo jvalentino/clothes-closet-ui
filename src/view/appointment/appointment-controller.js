@@ -1,7 +1,7 @@
 import * as inputUtil from "../../util/input-util";
 import * as httpUtil from "../../util/http-util";
 
-async function search(date, name, sessionId, url) {
+async function search(date, name, studentId, sessionId, url) {
   const parameters = {
     "x-auth-token": sessionId
   };
@@ -14,6 +14,10 @@ async function search(date, name, sessionId, url) {
 
   if (name != null && name != "" && name != undefined) {
     parameters["name"] = name;
+  }
+
+  if (studentId != null && studentId != "" && studentId != undefined) {
+    parameters["studentId"] = studentId;
   }
 
   const result = await httpUtil.request(endpoint, "GET", parameters, null);
