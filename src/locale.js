@@ -38,7 +38,7 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "The selected date and time is no longer available, please pick another",
     alreadyBeen:
-      "Student {id} is not longer eligible because this semester they have either already been or were put on the waitlist at {datetime}",
+      "Student {id} had an appointment on {datetime}. Students may only received one appointment this school year.",
     noAvailability: "No Availability",
     noAvailabilityText: `All of the available appointment times for the rest of the semester have 
       already been taken. Please check back again to see if anytmore times become available, or you 
@@ -92,7 +92,7 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "La fecha y hora seleccionadas ya no están disponibles, elija otra",
     alreadyBeen:
-      "El estudiante {id} ya no es elegible porque este semestre ya estuvo o fue puesto en la lista de espera el {datetime}",
+      "El estudiante {id} tenía una cita el {datetime}. Los estudiantes solo pueden recibir una cita este año escolar.",
     noAvailability: "No disponible",
     noAvailabilityText: `Ya se han tomado todos los horarios de citas disponibles para el resto del semestre. Vuelva a consultar para ver si hay más horarios disponibles, o puede agregarse a usted y a sus estudiantes a la lista de espera en caso de que haya algo disponible.`,
     addToWaitList: "Agregar a la lista de espera",
@@ -141,7 +141,7 @@ let strings = new LocalizedStrings({
     errorStudentNotEligible: "معرف الطالب لـ {id} غير مؤهل",
     alreadyBooked: "التاريخ والوقت المحدد لم يعد متاحًا ، يرجى اختيار آخر",
     alreadyBeen:
-      "لم يعد الطالب {id} مؤهلاً لأنه تم إدراجه بالفعل في قائمة الانتظار هذا الفصل الدراسي أو تم إدراجه في قائمة الانتظار في {datetime}",
+      "الطالب {id} لديه موعد في {datetime}. يمكن للطلاب الحصول على موعد واحد فقط هذا العام الدراسي.",
     noAvailability: "غير متوفر",
     noAvailabilityText: `لقد تم بالفعل حجز جميع المواعيد المتاحة لبقية الفصل الدراسي. يرجى التحقق مرة أخرى لمعرفة ما إذا كانت هناك أوقات متاحة في أي وقت، أو يمكنك إضافة نفسك وطلابك إلى قائمة الانتظار في حالة توفر شيء ما.`,
     addToWaitList: "أضف إلى قائمة الانتظار",
@@ -194,7 +194,7 @@ let strings = new LocalizedStrings({
     alreadyBooked:
       "La date et l'heure sélectionnées ne sont plus disponibles, veuillez en choisir une autre",
     alreadyBeen:
-      "L'étudiant {id} n'est plus éligible car ce semestre, il a déjà été ou a été mis sur la liste d'attente à {datetime}",
+      "L'étudiant {id} avait un rendez-vous le {datetime}. Les étudiants ne peuvent recevoir qu’un seul rendez-vous cette année scolaire.",
     noAvailability: "Pas de disponibilité",
     noAvailabilityText: `Toutes les plages de rendez-vous disponibles pour le reste du semestre ont déjà été prises. Veuillez vérifier à nouveau si d'autres horaires deviennent disponibles, ou vous pouvez vous ajouter, vous et vos étudiants, à la liste d'attente au cas où quelque chose serait disponible.`,
     addToWaitList: "Ajouter à la liste d'attente",
