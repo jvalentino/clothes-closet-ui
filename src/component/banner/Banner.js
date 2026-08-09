@@ -76,11 +76,11 @@ class Banner extends Component {
         <img src={require("./google-map.png")} />
         &nbsp;&nbsp;
         <a
-          href="https://www.google.com/maps/dir//32.8199886,-97.1358205/@32.8202211,-97.1357283,122m/data=!3m1!1e3"
+          href="https://www.google.com/maps/dir//1701+W+Euless+Blvd,+Euless,+TX+76040/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x864e7e36c5071fcf:0xd97122838fce14db?sa=X&ved=1t:707&ictx=111"
           rel="noreferrer"
           target="_blank"
         >
-          1100 Raider Dr, Euless, TX, United States, Texas
+          1701 W Euless Blvd, Euless, TX 76040
         </a>{" "}
         <br />
         <img src={require("./facebook.png")} />
@@ -111,7 +111,7 @@ class Banner extends Component {
                 <img src={require("./mail.png")} />
                 &nbsp; clothescloset@hebisd.edu <br />
                 <img src={require("./phone.png")} />
-                &nbsp;&nbsp; 817-399-2559
+                &nbsp;&nbsp; 817-399-2829
               </td>
               <td>&nbsp; &nbsp; &nbsp;</td>
               <td className="headerMenuNoWrap">{this.renderDirections()}</td>
